@@ -52,3 +52,6 @@ source/Gemfile.lock
 # Mercurial files
 .hg/
 .hgignore
+
+# Agent Ralph specific files
+GlobalVersionInfo.cs
