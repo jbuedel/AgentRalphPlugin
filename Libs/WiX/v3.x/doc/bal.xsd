@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xse="http://schemas.microsoft.com/wix/2005/XmlSchemaExtension"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+    targetNamespace="http://schemas.microsoft.com/wix/BalExtension"
+              xmlns="http://schemas.microsoft.com/wix/BalExtension">
+    <xs:annotation>
+        <xs:documentation>
+            Copyright (c) Microsoft Corporation.  All rights reserved.
+            
+            The use and distribution terms for this software are covered by the
+            Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)
+            which can be found in the file CPL.TXT at the root of this distribution.
+            By using this software in any fashion, you are agreeing to be bound by
+            the terms of this license.
+            
+            You must not remove this notice, or any other, from this software.
+
+            The source code schema for the Windows Installer XML Toolset Burn User Experience Extension.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://schemas.microsoft.com/wix/2006/wi" />
+
+    <xs:element name="Condition">
+        <xs:annotation>
+            <xs:documentation>
+                Conditions for a bundle. The condition is specified in the inner text of the element.
+            </xs:documentation>
+            <xs:appinfo>
+                <xse:parent namespace="http://schemas.microsoft.com/wix/2006/wi" ref="Bundle" />
+                <xse:parent namespace="http://schemas.microsoft.com/wix/2006/wi" ref="Fragment" />
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The condition that must evaluate to true for the installation to continue.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:attribute name="Message" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Set the value to the text to display when the condition fails and the installation must be terminated.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
