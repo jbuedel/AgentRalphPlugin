@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA40C4FF-A47A-43D9-A429-CB212808F232}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AgentRalph</RootNamespace>
+    <AssemblyName>Ralph.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalVersionInfo.cs">
+      <Link>Properties\GlobalVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="CloneCandidateDetection\LiteralToParameterExpansion.cs" />
+    <Compile Include="CloneCandidateDetection\OscillatingExtractMethodCounter.cs" />
+    <Compile Include="CloneCandidateDetection\OscillatingExtractMethodRefactoringExpansion.cs" />
+    <Compile Include="CloneCandidateDetection\CloneDesc.cs" />
+    <Compile Include="CloneCandidateDetection\RenameLocalVariableExpansion.cs" />
+    <Compile Include="CloneCandidateDetection\RenameLocalVariableRefactoring.cs" />
+    <Compile Include="CloneCandidateDetection\ShallowExpansion.cs" />
+    <Compile Include="ICloneFinder.cs" />
+    <Compile Include="IndexableMethodFinderVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AstMatchHelper.cs" />
+    <Compile Include="AstXmlOutputVisitor.cs" />
+    <Compile Include="InterceptorsExampleIdeas.cs" />
+    <Compile Include="CloneCandidateDetection\QuickFixInfo.cs" />
+    <Compile Include="CloneCandidateDetection\IRefactoringExpansion.cs" />
+    <Compile Include="CloneCandidateDetection\MethodsOnASingleClassCloneFinder.cs" />
+    <Compile Include="CloneCandidateDetection\ScanResult.cs" />
+    <Compile Include="Sets.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NRefactory\Project\NRefactory.csproj">
+      <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
+      <Name>NRefactory</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpRefactoring\SharpRefactoring.csproj">
+      <Project>{3CA90546-3B4C-4663-9445-C4E9371750A7}</Project>
+      <Name>SharpRefactoring</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

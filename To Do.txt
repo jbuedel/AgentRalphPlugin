@@ -1,0 +1,18 @@
+DeepCopy sucks.
+	* Memoize.
+	* Compute hash of all subtrees.  Requires? making ast immutable.
+	
+LiteralToParam Expansion powerset sucks.
+	* Need a better algorithm that does not require computing all entries for k<n just to get entries for n.
+
+LiteralToParam short circuit. - done!
+	* Compare AST sizes.  If they aren't same size, then don't compare b/c the refactoring does not change the ast size.
+	
+Redundant work when file changes.
+	* Only recompute changes.
+		* Store AST of all methods.  
+		* If a method has changed, just recompute that method.
+		* Store extract method generated asts for all methods.
+			* Regenerate the list.
+			* For any that in the new list that match one from the old list, put the old list result (and it's clone instances!) into the saved bucket.
+			* Recompute for all still in the old list.

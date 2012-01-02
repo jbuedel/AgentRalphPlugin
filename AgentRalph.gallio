@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.gallio.org/">
+  <testPackage shadowCopy="false" debug="false">
+    <files>
+      <file>Bin\Debug\ICSharpCode.NRefactory.Tests.dll</file>
+      <file>Bin\Debug\AgentRalph.Tests.dll</file>
+    </files>
+    <hintDirectories>
+      <hintDirectory>Libs\JetBrains</hintDirectory>
+      <hintDirectory>Libs</hintDirectory>
+    </hintDirectories>
+    <excludedFrameworkIds />
+    <properties />
+  </testPackage>
+  <testFilters>
+    <testFilter filterName="AutoSave" filterExpr="Id: ebf3945f7476f903" />
+    <testFilter filterName="LastRun" filterExpr="Id: ebf3945f7476f903" />
+  </testFilters>
+  <extensionSpecifications />
+  <reportDirectory>Reports</reportDirectory>
+  <reportNameFormat>test-report-{0}-{1}</reportNameFormat>
+</testProject>

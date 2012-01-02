@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<actions>
+  <insert group-id="ReSharper" position="last">
+    <!-- Create an 'Agent Ralph' submenu under the Resharper menu. -->
+    <action-group id="AgentRalph" text="Agent Ralph" shared="true">
+      <!-- This must match the ActionHandler attribute on my ExploreSimianAction class -->
+      <action id="AgentRalph.ExploreSimianAction" text="Go Simian!"/>
+    </action-group>
+  </insert>
+</actions>
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Agent Ralph ReSharper $(var.DynReSharperVersion2) Plugin" Language="1033" Version="$(var.DynProductVersion)" Manufacturer="Josh Buedel" UpgradeCode="{4F9DD425-553F-4117-A317-FB36F008DF7D}">
+		<Package InstallerVersion="200" Compressed="yes" />
+
+		<Media Id="1" Cabinet="AgentRalphSetup.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="APPLICATIONFOLDER" Name="[ApplicationFolderName]"> <!-- This will be redirected into either R# installdir or user-data folder. -->
+          
+          <Component Id="RalphPluginDllsComponent" Guid="D6243F59-4E24-404d-903E-65A08E3E686A">
+            <File Id="Main" Name="$(var.Ralph.Plugin.TargetFileName)" Vital="yes" Source="$(var.Ralph.Plugin.TargetPath)" />
+            <File Id="Main1" Name="$(var.Ralph.Core.TargetFileName)" Vital="yes" Source="$(var.Ralph.Core.TargetPath)" />
+            <File Id="Main2" Name="$(var.NRefactory.TargetFileName)" Vital="yes" Source="$(var.NRefactory.TargetPath)" />
+            <File Id="Main3" Name="$(var.SharpRefactoring.TargetFileName)" Vital="yes" Source="$(var.SharpRefactoring.TargetPath)" />
+            <File Id="Main4" Name="$(var.ICSharpCode.SharpDevelop.Dom.TargetFileName)" Vital="yes" Source="$(var.ICSharpCode.SharpDevelop.Dom.TargetPath)" />
+            <File Id="Main5" Name="log4net.dll" Vital="yes" Source="..\Libs\log4net.dll" />
+            <File Id="Main6" Name="Mono.Cecil.dll" Vital="yes" Source="..\Libs\Mono.Cecil.dll" />
+          </Component>
+
+				</Directory>
+			</Directory>
+		</Directory>
+
+    <Feature Id="SingletonFeature" Title="Agent Ralph" Level="1">
+      <ComponentRef Id="RalphPluginDllsComponent" />
+    </Feature>
+    
+    <!-- Name of the innermost application folder; used by the stock WiX template, we're using it just for legacy. -->
+		<Property Id="ApplicationFolderName" Value="Agent Ralph" />
+		
+		<!-- Default selection for the “per user or per machine?” dialog. -->
+		<Property Id="WixAppFolder" Value="WixPerUserFolder" />
+
+		<!-- This includes the whole fragment with property declarations. -->
+		<PropertyRef Id="RESHARPERVERSION2"/>
+
+		<!-- Locate the R# installdir. -->
+		<Property Id="RESHARPERINSTALLDIR" Secure="yes">
+		  <RegistrySearch Id="AS.ReSharperBinariesDir" Root="HKLM" Key="Software\JetBrains\ReSharper\v[RESHARPERVERSION2]" Name="InstallDir" Type="directory" />
+		</Property>
+		
+		<!-- Assign the installation folder for the all users / current user scenarios. -->
+		<CustomAction Id="WixSetDefaultPerMachineFolder.Custom" Property="WixPerMachineFolder" Value="[ProgramFilesFolder]JetBrains\ReSharper\v[RESHARPERVERSION2]\Bin\Plugins\[ApplicationFolderName]" Execute="immediate" />	<!-- Per-machine folder, as for the default installation dir. -->
+		<CustomAction Id="WixSetDefaultPerMachineFolder.InstallDir" Property="WixPerMachineFolder" Value="[RESHARPERINSTALLDIR]\Plugins\[ApplicationFolderName]" Execute="immediate" /> <!-- Per-machine folder, as specified by the InstallDir (preferred, if available). -->
+		<CustomAction Id="WixSetDefaultPerUserFolder.Custom" Property="WixPerUserFolder" Value="[LocalAppDataFolder]JetBrains\ReSharper\v[RESHARPERVERSION2]\vs10.0\Plugins\[ApplicationFolderName]" Execute="immediate" /> <!-- Per-user folder in the application data. -->
+		<InstallExecuteSequence>
+			<Custom Action="WixSetDefaultPerMachineFolder.Custom" Before="WixSetPerMachineFolder">Not RESHARPERINSTALLDIR</Custom>
+			<Custom Action="WixSetDefaultPerMachineFolder.InstallDir" Before="WixSetPerMachineFolder">RESHARPERINSTALLDIR</Custom>
+			<Custom Action="WixSetDefaultPerUserFolder.Custom" Before="WixSetPerUserFolder" />
+		</InstallExecuteSequence>
+		<InstallUISequence>
+			<Custom Action="WixSetDefaultPerMachineFolder.Custom" Before="WixSetPerMachineFolder">Not RESHARPERINSTALLDIR</Custom>
+			<Custom Action="WixSetDefaultPerMachineFolder.InstallDir" Before="WixSetPerMachineFolder">RESHARPERINSTALLDIR</Custom>
+			<Custom Action="WixSetDefaultPerUserFolder.Custom" Before="WixSetPerUserFolder" />
+		</InstallUISequence>
+		
+	</Product>
+</Wix>

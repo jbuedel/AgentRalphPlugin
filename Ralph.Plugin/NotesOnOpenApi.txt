@@ -1,0 +1,6 @@
+﻿Highlighting
+
+To define exactly what is highlighted a doc range object is passed to a HighlightingInfo ctor.
+
+When you want to highlight just the name of a method, pass HighlightingInfo.ctor() the range object from IFunctionDeclaration.GetNameDocumentRange().  If
+you want the whole function itself (it puts little blue squigglies through every line) use IFuncionDeclaration.GetDocumentRange().

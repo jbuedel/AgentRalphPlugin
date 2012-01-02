@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0E8DF3F3-691B-48E5-9C65-67AFFF4158B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AgentRalph.Tests</RootNamespace>
+    <AssemblyName>Ralph.Core.Tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.0.8332, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalVersionInfo.cs">
+      <Link>Properties\GlobalVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="AstCompareTests\AstCompareTests.cs" />
+    <Compile Include="AstCompareTests\AstCompareTestsFactory.cs" />
+    <Compile Include="AstMatchHelperTests.cs" />
+    <Compile Include="CloneCandidateDetectionTests\TestCasesFactory.cs" />
+    <Compile Include="CloneCandidateDetectionTests\CloneReplacementInvocationTests.cs" />
+    <Compile Include="CloneCandidateDetectionTests\LiteralToParameterTests.cs" />
+    <Compile Include="CloneCandidateDetectionTests\OtherCloneFinderTests.cs" />
+    <Compile Include="CloneCandidateDetectionTests\RenameLocalVariableRefactoringTests.cs" />
+    <Compile Include="PerformanceTests.cs" />
+    <Compile Include="ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShallowCloneFinderTests\OtherShallowCloneFinderTests.cs" />
+    <Compile Include="ShallowCloneFinderTests\TestCasesFactory.cs" />
+    <Compile Include="TestLog.cs" />
+    <Compile Include="DemonstrateAstParserError.cs" />
+    <Compile Include="ExtractMethodTests\ExtractMethodTestFactory.cs" />
+    <Compile Include="ExtractMethodTests\OtherExtractMethodTests.cs" />
+    <Compile Include="FindJumpInstructionVisitorTests.cs" />
+    <Compile Include="FindSpecificCatchClauses.cs" />
+    <Compile Include="IndexableMethodFinderVisitorTests.cs" />
+    <Compile Include="ExtractMethodCounterTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetsTests.cs" />
+    <Compile Include="TestShrinkingOscillatingWindowAlgorithm.cs" />
+    <Compile Include="Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NRefactory\NRefactoryASTGenerator\NRefactoryASTGenerator.csproj">
+      <Project>{B22522AA-B5BF-4A58-AC6D-D4B45805521F}</Project>
+      <Name>NRefactoryASTGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NRefactory\Test\NRefactoryTests.csproj">
+      <Project>{870115DD-960A-4406-A6B9-600BCDC36A03}</Project>
+      <Name>NRefactoryTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NRefactory\Project\NRefactory.csproj">
+      <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
+      <Name>NRefactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ralph.Core\Ralph.Core.csproj">
+      <Project>{CA40C4FF-A47A-43D9-A429-CB212808F232}</Project>
+      <Name>Ralph.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpRefactoring\SharpRefactoring.csproj">
+      <Project>{3CA90546-3B4C-4663-9445-C4E9371750A7}</Project>
+      <Name>SharpRefactoring</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AstCompareTests\TestCases\" />
+    <Folder Include="CloneCandidateDetectionTests\TestCases\" />
+    <Folder Include="ExtractMethodTests\TestCases\" />
+    <Folder Include="ShallowCloneFinderTests\TestCases\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

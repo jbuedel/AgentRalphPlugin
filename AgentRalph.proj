@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Libs\MSBuild.Community.Tasks.Targets"/>
+  
+  <PropertyGroup>
+    <BUILD_NUMBER Condition=" '$(BUILD_NUMBER)' == '' ">00000</BUILD_NUMBER>
+    <AssemblyVersion>1.0.0.$(BUILD_NUMBER)</AssemblyVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+
+    <TestAssemblies>Bin\$(Configuration)\*Tests.dll</TestAssemblies>
+
+  	<BuildTargets>
+      SetVersion;
+      BuildAll;
+    </BuildTargets>
+
+    <RebuildTargets>
+      Clean;
+      $(BuildTargets)
+    </RebuildTargets>
+
+    <!-- Note that the Test target does not rebuild.  If you're running this target we assume you're local and want the fastest feedback possible. -->
+    <TestTargets>
+      $(BuildTargets);
+      RunTests
+    </TestTargets>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectsToBuild Include="**\*.csproj;**\*.wixproj" Exclude="**\Ralph.Test.Project.csproj"/>
+  </ItemGroup>
+
+  <Target Name="SetVersion">
+    <AssemblyInfo AssemblyVersion="$(AssemblyVersion)" CodeLanguage="CS" OutputFile="GlobalVersionInfo.cs"/>
+  </Target>
+
+  <Target Name="Clean">
+    <!-- Just to be safe, clean everything. -->
+    <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Debug" />
+    <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Release" />
+  </Target>
+
+	<Target Name="Build" DependsOnTargets="$(BuildTargets)" />
+	<Target Name="Rebuild" DependsOnTargets="$(RebuildTargets)" />
+
+  <Target Name="BuildAll">
+    <MSBuild Projects="@(ProjectsToBuild)" Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="RunTests">
+    
+    <CreateItem Include="$(TestAssemblies)">
+      <Output ItemName="TestAssembliesItem" TaskParameter="Include"/>
+    </CreateItem>
+    
+    <NUnit Assemblies="@(TestAssembliesItem)" ToolPath="Tools\NUnit-2.5.5.10112\bin\net-2.0"/>
+  </Target>
+
+  <!-- Note that we actually don't want to run this target on the TeamCity server.  Instead we call out
+       the Build target explicitely.  This way the TeamCity built in test runner is invoked, and using 
+       said test runner gives us code coverage too. -->
+  <Target Name="Test" DependsOnTargets="$(TestTargets)" />
+</Project>
