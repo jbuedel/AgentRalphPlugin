@@ -7,7 +7,11 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>AgentRalph</OutputName>
     <OutputType>Package</OutputType>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">..\Libs\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixCustomLibPath>$(MSBuildProjectDirectory)\..\Libs\WiX\v3.x\</WixCustomLibPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(WixCustomLibPath)Wix.targets</WixTargetsPath>
+    <WixTasksPath Condition=" '$(WixTasksPath)' == '' ">$(WixCustomLibPath)WixTasks.dll</WixTasksPath>
+    <LuxTargetsPath Condition=" '$(LuxTargetsPath)' == '' ">$(WixCustomLibPath)Lux.targets</LuxTargetsPath>
+    <LuxTasksPath Condition=" '$(LuxTasksPath)' == '' ">$(WixCustomLibPath)LuxTasks.dll</LuxTasksPath>
     <Name>Ralph.Setup</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
