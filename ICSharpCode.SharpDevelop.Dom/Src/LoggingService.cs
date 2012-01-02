@@ -6,7 +6,6 @@
 // </file>
 
 using System;
-using log4net;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {
@@ -15,42 +14,33 @@ namespace ICSharpCode.SharpDevelop.Dom
 	/// </summary>
 	internal static class LoggingService
 	{
-		static ILog log = LogManager.GetLogger(typeof(LoggingService));
 		
 		public static void Debug(object message)
 		{
-			log.Debug(message);
 		}
 		
 		public static void Info(object message)
 		{
-			log.Info(message);
 		}
 		
 		public static void Warn(object message)
 		{
-			log.Warn(message);
 		}
 		
 		public static void Warn(object message, Exception exception)
 		{
-			log.Warn(message, exception);
 		}
 		
 		public static void Error(object message)
 		{
-			log.Error(message);
 		}
 		
 		public static void Error(object message, Exception exception)
 		{
-			log.Error(message, exception);
 		}
 		
 		public static bool IsDebugEnabled {
-			get {
-				return log.IsDebugEnabled;
-			}
+			get { return false; }
 		}
 	}
 }
