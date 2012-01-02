@@ -17,16 +17,7 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
 
 		public void Execute(ISolution solution, JetBrains.TextControl.ITextControl textControl)
 		{
-			using (CommandCookie.Create(Text))
-			{
-                using (ModificationCookie ensureWritable = DocumentManager.GetInstance(solution).EnsureWritable(_documentRange.Document))
-				{
-					if (ensureWritable.EnsureWritableResult == EnsureWritableResult.SUCCESS)
-					{
-						textControl.Document.ReplaceText(_documentRange.TextRange, _functionCallReplacementText);
-					}
-				}
-			}
+            textControl.Document.ReplaceText(_documentRange.TextRange, _functionCallReplacementText);
 		}
 
 		public string Text

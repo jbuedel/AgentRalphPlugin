@@ -1,6 +1,7 @@
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Resolve;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.DeclaredElements;
 using JetBrains.ReSharper.Psi.Resolve;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
     /// <summary>
     /// Scans invocation expressions looking for enum.ToString() calls.
     /// </summary>
-    internal class MyIsExpressionStringCallsOnAnEnum : ElementVisitor
+    internal class MyIsExpressionStringCallsOnAnEnum : TreeNodeVisitor
     {
         // This will be called multiple times in the case of chained method calls.  
     	public override void VisitInvocationExpression(IInvocationExpression invocationExpressionParam)
