@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using AgentRalph.CloneCandidateDetection;
 using ICSharpCode.NRefactory;
-using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
-using JetBrains.ReSharper.Psi.CSharp.Impl;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.Util;
-using JetBrains.Util.dataStructures.TypedIntrinsics;
 
 namespace AgentRalph.CloneDetection
 {
@@ -28,7 +23,7 @@ namespace AgentRalph.CloneDetection
             try
             {
                 PsiManager manager = PsiManager.GetInstance(myDaemonProcess.Solution);
-                var file = manager.GetPsiFile(myDaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
+                ICSharpFile file = manager.GetPsiFile(myDaemonProcess.ProjectFile, CSharpLanguageService.CSHARP) as ICSharpFile;
                 if (file == null)
                     return;
 
@@ -42,33 +37,21 @@ namespace AgentRalph.CloneDetection
                 ScanResult scan_result = cloneFinder.GetCloneReplacements(codeText);
                 if (scan_result != null)
                 {
-                    var document = myDaemonProcess.SourceFile.Document;
+                    var Highlightings = (from clone in scan_result.Clones
+                                         let docRange =
+                                             SimianResultsParser.GetDocumentRange(myDaemonProcess.ProjectFile,
+                                                                                  new Location(clone.HighlightStartLocationColumn, clone.HighlightStartLocationLine),
+                                                                                  clone.HighlightLength, myDaemonProcess.Solution)
 
-                    var Highlightings = new List<HighlightingInfo>();
-
-                    foreach (var info in scan_result.Clones)
-                    {
-                        // We basically highlight the first line of the clone.
-                        var start = document.GetLineStartOffset(((Int32<DocLine>) (info.HighlightStartLocationLine - 1))) + info.HighlightStartLocationColumn;
-                        var end = start + info.HighlightLength;// Hmm, HighlightLength seems sort of arbitrary.
-                        var warningHighlightRange = new DocumentRange(document, new TextRange(start, end));
-
-                        // And this defines the chunk that gets replaced.
-                        var replacedCodeRange = new DocumentRange(document,
-                                                                  new TextRange(
-                                                                      document.GetLineStartOffset(
-                                                                          (Int32<DocLine>)
-                                                                          (info.ReplacementSectionStartLine-1)),
-                                                                      document.GetLineStartOffset(
-                                                                          (Int32<DocLine>)
-                                                                          info.ReplacementSectionEndLine)));
-
-
-
-                        var highlight = new HighlightingInfo(warningHighlightRange, 
-                                                             new CloneDetectionHighlighting(info, replacedCodeRange));
-                        Highlightings.Add(highlight);
-                    }
+                                         let bodyrange =
+                                             SimianResultsParser.GetDocumentRange(myDaemonProcess.ProjectFile,
+                                                                                  clone.ReplacementSectionStartLine,
+                                                                                  clone.ReplacementSectionEndLine,
+                                                                                  myDaemonProcess.Solution)
+                                         select
+                                             new HighlightingInfo(docRange,
+                                                                  new CloneDetectionHighlighting(clone,
+                                                                                                 bodyrange))).ToArray();
 
                     // Creating container to put highlightings into.
                     DaemonStageResult ret = new DaemonStageResult(Highlightings);
@@ -81,11 +64,6 @@ namespace AgentRalph.CloneDetection
                 System.Diagnostics.Debug.Write(e);
                 throw;
             }
-        }
-
-        public IDaemonProcess DaemonProcess
-        {
-            get { return myDaemonProcess; }
         }
     }
 }

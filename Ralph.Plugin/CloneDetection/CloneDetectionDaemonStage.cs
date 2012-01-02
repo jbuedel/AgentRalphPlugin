@@ -1,7 +1,6 @@
 using System;
-using JetBrains.Application.Settings;
+using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Psi;
 
 namespace AgentRalph.CloneDetection
 {
@@ -15,17 +14,18 @@ namespace AgentRalph.CloneDetection
 		/// <summary>
 		/// This method provides a <see cref="IDaemonStageProcess"/> instance which is assigned to highlighting a single document.
 		/// </summary>
-		public IDaemonStageProcess CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind kind)
+		public IDaemonStageProcess CreateProcess(IDaemonProcess process, DaemonProcessKind kind)
 		{
 			if (process == null)
 				throw new ArgumentNullException("process");
 
 			return new CloneDetectionDaemonStageProcess(process);
 		}
-	    public ErrorStripeRequest NeedsErrorStripe(IPsiSourceFile sourceFile, IContextBoundSettingsStore settingsStore)
-	    {
-            // We want to add markers to the right-side stripe as well as contribute to document errors
-            return ErrorStripeRequest.STRIPE_AND_ERRORS;
-        }
+
+		public ErrorStripeRequest NeedsErrorStripe(IProjectFile projectFile)
+		{
+			// We want to add markers to the right-side stripe as well as contribute to document errors
+			return ErrorStripeRequest.STRIPE_AND_ERRORS;
+		}
 	}
 }

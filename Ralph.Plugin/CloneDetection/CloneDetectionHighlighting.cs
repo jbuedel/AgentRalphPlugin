@@ -5,7 +5,7 @@ using JetBrains.ReSharper.Feature.Services.Bulbs;
 
 namespace AgentRalph.CloneDetection
 {
-	[StaticSeverityHighlighting(Severity.WARNING, "AgentRalph")]
+	[StaticSeverityHighlighting(Severity.WARNING)]
 	public class CloneDetectionHighlighting : IHighlighting
 	{
         private readonly QuickFixInfo clone;

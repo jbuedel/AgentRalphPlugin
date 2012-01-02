@@ -1,5 +1,4 @@
 using JetBrains.Application;
-using JetBrains.DocumentManagers;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
@@ -49,11 +48,11 @@ namespace AgentRalph.CloneDetection
 
 		public void Execute(ISolution solution, ITextControl textControl)
 		{
-//			using (CommandCookie.Create(Text))
+			using (CommandCookie.Create(Text))
 			{
-//                using (ModificationCookie ensureWritable = DocumentManager.GetInstance(solution).EnsureWritable(DocRangeToReplace.Document))
+                using (ModificationCookie ensureWritable = DocumentManager.GetInstance(solution).EnsureWritable(DocRangeToReplace.Document))
 				{
-//					if (ensureWritable.EnsureWritableResult == EnsureWritableResult.SUCCESS)
+					if (ensureWritable.EnsureWritableResult == EnsureWritableResult.SUCCESS)
 					{
                         const string indent = "\t\t\t";// hokey, I know
 					    textControl.Document.ReplaceText(DocRangeToReplace.TextRange, indent + TextToInsert);

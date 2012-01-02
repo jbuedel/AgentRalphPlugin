@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using JetBrains.Application;
-using JetBrains.Application.Components;
-using JetBrains.Application.Configuration;
 using JetBrains.ComponentModel;
 using JetBrains.Util;
 
@@ -65,7 +63,7 @@ namespace AgentRalph.Options
 
         [XmlExternalizableAttribute(null)] public string[] SpecsToExclude = DefaultExcludesList;
 
-        [XmlExternalizable(null)] public string[] SpecsToInclude = DefaultIncludesList;
+        [XmlExternalizableAttribute(null)] public string[] SpecsToInclude = DefaultIncludesList;
 
         #region IXmlExternalizableShellComponent implementation
 

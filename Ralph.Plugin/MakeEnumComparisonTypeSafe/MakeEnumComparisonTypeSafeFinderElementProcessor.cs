@@ -11,8 +11,8 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
     internal class MakeEnumComparisonTypeSafeFinderElementProcessor : IRecursiveElementProcessor
     {
         private readonly IDaemonProcess process;
-
-        public void ProcessAfterInterior(ITreeNode element)
+    
+        public void ProcessAfterInterior(IElement element)
         {
             var binexpr = element as IEqualityExpression;
             if(binexpr == null)
@@ -73,12 +73,12 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
             this.process = process;
         }
 
-        public bool InteriorShouldBeProcessed(ITreeNode element)
+        public bool InteriorShouldBeProcessed(IElement element)
         {
             return true;
         }
 
-        public void ProcessBeforeInterior(ITreeNode element)
+        public void ProcessBeforeInterior(IElement element)
         {
         }
 

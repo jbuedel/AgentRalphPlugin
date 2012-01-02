@@ -22,17 +22,17 @@ This file should be checked into your project's source control.
 #>
 
 function build_project { 
-	msbuild .\AgentRalph.proj /v:minimal
+	msbuild .\AgentRalph.proj
 }
 function test_project {
 	"The 'test' command has not been created.  Edit your project-stuff.psm1 file and add your project specific command(s) to the test_project function."
 }
 function clean_project {
-	msbuild .\AgentRalph.proj /t:Clean /v:minimal
+	msbuild .\AgentRalph.proj /t:Clean
 	rm-orig
 }
 function rebuild_project {
-	msbuild .\AgentRalph.proj /t:Rebuild /v:minimal
+	msbuild .\AgentRalph.proj /t:Rebuild
 }
 function develop_project {
 	.\AgentRalph.sln

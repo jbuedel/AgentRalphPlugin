@@ -1,8 +1,6 @@
 using System;
-using JetBrains.Application.Settings;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Psi;
 
 namespace AgentRalph.MakeEnumComparisonTypeSafe
 {
@@ -13,7 +11,7 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
     [DaemonStage]
     public class MakeEnumComparisonTypeSafeDaemonStage : IDaemonStage
     {
-        public IDaemonStageProcess CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind processKind)
+        public IDaemonStageProcess CreateProcess(IDaemonProcess process, DaemonProcessKind processKind)
         {
             if (process == null)
                 throw new ArgumentNullException("process");
@@ -21,7 +19,7 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
             return new MakeEnumComparisonTypeSafeDaemonStageProcess(process);
         }
 
-        public ErrorStripeRequest NeedsErrorStripe(IPsiSourceFile sourceFile, IContextBoundSettingsStore settingsStore)
+        public ErrorStripeRequest NeedsErrorStripe(IProjectFile projectFile)
         {
             // We want to add markers to the right-side stripe as well as contribute to document errors
             return ErrorStripeRequest.STRIPE_AND_ERRORS;

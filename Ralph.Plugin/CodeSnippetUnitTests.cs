@@ -27,4 +27,31 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
         }
     }
 
+    public class MOckCmdLine : ICommandLine
+    {
+        public bool IsKeyDefined(string key, bool caseSensitive)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetKeyValue(string key, bool caseSensitive)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] GetKeyValues(string key, bool caseSensitive)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] Keys
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string[] Parameters
+        {
+            get { throw new NotImplementedException(); }
+        }
+    }
 }

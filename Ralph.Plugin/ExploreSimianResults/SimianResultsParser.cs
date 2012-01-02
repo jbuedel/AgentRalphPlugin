@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using ICSharpCode.NRefactory;
-using JetBrains.DocumentManagers;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
 using JetBrains.Util.dataStructures.TypedIntrinsics;
 
@@ -59,7 +57,7 @@ namespace AgentRalph
                     int startLineNumber = Convert.ToInt32(xr.GetAttribute("startLineNumber"));
                     int endLineNumber = Convert.ToInt32(xr.GetAttribute("endLineNumber"));
 
-                    IList<IProjectItem> projectFiles = solution.FindProjectItemsByLocation(new FileSystemPath(sourceFile)).ToArray();
+                    IList<IProjectItem> projectFiles = solution.FindProjectItemsByLocation(new FileSystemPath(sourceFile));
                     if (projectFiles.Count > 1)
                         throw new ApplicationException("Expected exactly one file corresponding to " + sourceFile);
 
@@ -90,12 +88,12 @@ namespace AgentRalph
         }
 
         public static DocumentRange GetDocumentRange(IProjectFile projectFile, int startLineNumber, int endLineNumber, ISolution solution)
-        {projectFile.GetDocument().
+        {
             if (startLineNumber > endLineNumber)
                 throw new ArgumentException("start line must come before end line.");
 
             DocumentManager documentManager = DocumentManager.GetInstance(solution);
-            IDocument document = documentManager.GetProjectFile(projectFile);
+            IDocument document = documentManager.GetDocument(projectFile);
             
             int startOffset = document.GetLineStartOffset((Int32<DocLine>) (startLineNumber-1));
             int endOffset = document.GetLineEndOffsetNoLineBreak((Int32<DocLine>) (endLineNumber-1));
@@ -103,10 +101,11 @@ namespace AgentRalph
             return new DocumentRange(document, new TextRange(startOffset, endOffset));
         }
 
-        public static DocumentRange GetDocumentRange(IPsiSourceFile projectFile, Location startLocation, int nameLength, ISolution solution)
+        public static DocumentRange GetDocumentRange(IProjectFile projectFile, Location startLocation, int nameLength, ISolution solution)
         {
             DocumentManager documentManager = DocumentManager.GetInstance(solution);
-            IDocument document = documentManager.GetProjectFile(projectFile);
+            IDocument document = documentManager.GetDocument(projectFile);
+
             int startOffset = document.GetLineStartOffset((Int32<DocLine>) (startLocation.Line - 1)) + startLocation.Column;
             int endOffset = startOffset + nameLength;
 
