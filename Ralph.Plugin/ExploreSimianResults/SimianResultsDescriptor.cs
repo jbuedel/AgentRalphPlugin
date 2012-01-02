@@ -60,10 +60,6 @@ namespace AgentRalph
             RequestUpdate(UpdateKind.Structure, true);
         }
 
-        public override string Title
-        {
-            get { return title; }
-        }
 
         public override TreeModel Model
         {
@@ -75,10 +71,10 @@ namespace AgentRalph
             get { return myPresenter; }
         }
 
-        public override bool Navigate(TreeModelNode node, IPopupWindowContext windowContext, bool transferFocus)
+        public override bool Navigate(TreeModelNode node, PopupWindowContextSource popupWindowContextSource, bool transferFocus)
         {
             // Let the base take a crack at navigating.
-            if (base.Navigate(node, windowContext, transferFocus))
+            if (base.Navigate(node, popupWindowContextSource, transferFocus))
             {
                 return true;
             }

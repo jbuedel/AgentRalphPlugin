@@ -4,10 +4,11 @@ using System.IO;
 using AgentRalph.ExploreSimianResults;
 using AgentRalph.Options;
 using JetBrains.ActionManagement;
-using JetBrains.IDE;
+using JetBrains.Application.DataContext;
 using JetBrains.IDE.TreeBrowser;
 using JetBrains.ProjectModel;
 using JetBrains.Util;
+using DataConstants = JetBrains.IDE.DataConstants;
 using MessageBox=System.Windows.Forms.MessageBox;
 
 // TODO: Add a description of what my refactoring candidates view does.
@@ -32,8 +33,11 @@ namespace AgentRalph
     {
         public bool Update(IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)
         {
-            // Check that we have a solution
-            return context.CheckAllNotNull(DataConstants.SOLUTION);
+            // fetch active solution from context
+            ISolution solution = context.GetData(IDE.DataConstants.SOLUTION);
+
+            // enable this action if there is an active solution, disable otherwise
+            return solution != null;
         }
 
         public void Execute(IDataContext context, DelegateExecute nextExecute)
@@ -46,7 +50,7 @@ namespace AgentRalph
             }
 
             // Get solution from context in which action is executed
-            ISolution solution = context.GetData(DataConstants.SOLUTION);
+            ISolution solution = context.GetData(IDE.DataConstants.SOLUTION);
             if (solution == null)
                 return;
 

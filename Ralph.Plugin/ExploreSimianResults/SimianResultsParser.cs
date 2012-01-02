@@ -90,7 +90,7 @@ namespace AgentRalph
         }
 
         public static DocumentRange GetDocumentRange(IProjectFile projectFile, int startLineNumber, int endLineNumber, ISolution solution)
-        {projectFile.GetDocument().
+        {
             if (startLineNumber > endLineNumber)
                 throw new ArgumentException("start line must come before end line.");
 
@@ -99,16 +99,6 @@ namespace AgentRalph
             
             int startOffset = document.GetLineStartOffset((Int32<DocLine>) (startLineNumber-1));
             int endOffset = document.GetLineEndOffsetNoLineBreak((Int32<DocLine>) (endLineNumber-1));
-
-            return new DocumentRange(document, new TextRange(startOffset, endOffset));
-        }
-
-        public static DocumentRange GetDocumentRange(IPsiSourceFile projectFile, Location startLocation, int nameLength, ISolution solution)
-        {
-            DocumentManager documentManager = DocumentManager.GetInstance(solution);
-            IDocument document = documentManager.GetProjectFile(projectFile);
-            int startOffset = document.GetLineStartOffset((Int32<DocLine>) (startLocation.Line - 1)) + startLocation.Column;
-            int endOffset = startOffset + nameLength;
 
             return new DocumentRange(document, new TextRange(startOffset, endOffset));
         }
