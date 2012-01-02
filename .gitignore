@@ -49,6 +49,9 @@ PrecompileWeb/
 
 source/Gemfile.lock
 
+#NuGet directory
+packages/
+
 # Mercurial files
 .hg/
 .hgignore
