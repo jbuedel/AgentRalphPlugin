@@ -3,7 +3,7 @@ using JetBrains.ReSharper.Daemon;
 
 namespace AgentRalph.MakeEnumComparisonTypeSafe
 {
-    [StaticSeverityHighlighting(Severity.WARNING)]
+    [StaticSeverityHighlighting(Severity.WARNING, "AgentRalph")]
     public class MakeEnumComparisonTypeSafeWarningHighlight : IHighlighting
     {
 		public string ReplacementText { get; private set; }

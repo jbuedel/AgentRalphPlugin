@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using JetBrains.UI.CrossFramework;
 using JetBrains.UI.Options;
 
 namespace AgentRalph.Options
@@ -48,7 +49,7 @@ namespace AgentRalph.Options
             return true;
         }
 
-        public Control Control
+        public EitherControl Control
         {
             get { return this; }
         }

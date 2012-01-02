@@ -3,6 +3,7 @@ using JetBrains.Application.Progress;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
+using JetBrains.ReSharper.Psi.CSharp.Impl;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace AgentRalph.MakeEnumComparisonTypeSafe
@@ -19,7 +20,7 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
         public void Execute(Action<DaemonStageResult> commiter)
         {
             PsiManager manager = PsiManager.GetInstance(myDaemonProcess.Solution);
-            ICSharpFile file = manager.GetPsiFile(myDaemonProcess.ProjectFile, CSharpLanguageService.CSHARP) as ICSharpFile;
+            ICSharpFile file = manager.GetPsiFile(myDaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
             if (file == null)
                 return;
 
@@ -34,6 +35,11 @@ namespace AgentRalph.MakeEnumComparisonTypeSafe
             // Fill in the result
             DaemonStageResult result = new DaemonStageResult(elementProcessor.Highlightings);
             commiter(result);
+        }
+
+        public IDaemonProcess DaemonProcess
+        {
+            get { return DaemonProcess; }
         }
     }
 }
