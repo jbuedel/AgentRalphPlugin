@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<actions>
+  <insert group-id="ReSharper" position="last">
+    <action-group id="Ralph.Plugin.7.0" text="Ralph.Plugin.7.0">
+      <action id="Ralph.Plugin.7.0.About" text="About AgentRalphPlugin"/>
+      <!-- to break up elements use <separator/> -->
+    </action-group>
+  </insert>
+</actions>
