@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace AgentRalph.CloneCandidateDetection
 {
     [Serializable]
-    public class QuickFixInfo 
+    public class QuickFixInfo
     {
         private readonly MethodDeclaration left;
 

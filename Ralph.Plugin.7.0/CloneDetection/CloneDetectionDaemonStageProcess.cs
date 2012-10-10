@@ -27,15 +27,10 @@ namespace AgentRalph.CloneDetection
         {
             try
             {
-                PsiManager manager = PsiManager.GetInstance(myDaemonProcess.Solution);
-                var file = manager.GetPsiFile(myDaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
-                if (file == null)
-                    return;
-
                 // GetText gives the unsaved file contents, unlike file.ProjectFile.GetReadStream().
-                string codeText = file.GetText();
+                string codeText = myDaemonProcess.Document.GetText();
 
-                MethodsOnASingleClassCloneFinder cloneFinder = new MethodsOnASingleClassCloneFinder(new ShallowExpansionFactory());
+                var cloneFinder = new MethodsOnASingleClassCloneFinder(new ShallowExpansionFactory());
 
                 cloneFinder.AddRefactoring(new LiteralToParameterExpansion());
 

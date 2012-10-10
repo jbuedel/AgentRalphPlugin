@@ -2,6 +2,7 @@ using AgentRalph.CloneCandidateDetection;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
+using QuickFixInfo = AgentRalph.CloneCandidateDetection.QuickFixInfo;
 
 namespace AgentRalph.CloneDetection
 {
