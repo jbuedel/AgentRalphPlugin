@@ -2,9 +2,9 @@ using System.Windows.Forms;
 using JetBrains.ActionManagement;
 using JetBrains.Application.DataContext;
 
-namespace Ralph.Plugin._7._0
+namespace AgentRalph
 {
-  [ActionHandler("Ralph.Plugin.7.0.About")]
+  [ActionHandler("AgentRalph.About")]
   public class AboutAction : IActionHandler
   {
     public bool Update(IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)

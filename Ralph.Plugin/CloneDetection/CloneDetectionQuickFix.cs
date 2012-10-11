@@ -2,7 +2,10 @@ using JetBrains.Application;
 using JetBrains.DocumentManagers;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
+using JetBrains.ReSharper.Intentions.Extensibility;
+using JetBrains.ReSharper.Intentions.Extensibility.Menu;
 using JetBrains.TextControl;
 using JetBrains.Util;
 
@@ -20,7 +23,12 @@ namespace AgentRalph.CloneDetection
 			this.suggestion = suggestion;
 		}
 
-		public bool IsAvailable(IUserDataHolder cache)
+	    public void CreateBulbItems(BulbMenu menu, Severity severity)
+	    {
+            menu.ArrangeContextActions(suggestion.GetBulbItems());
+	    }
+
+	    public bool IsAvailable(IUserDataHolder cache)
 		{
 			return true;
 		}

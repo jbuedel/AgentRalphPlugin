@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
@@ -15,12 +16,12 @@ namespace AgentRalph.CloneDetection
 		/// <summary>
 		/// This method provides a <see cref="IDaemonStageProcess"/> instance which is assigned to highlighting a single document.
 		/// </summary>
-		public IDaemonStageProcess CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind kind)
+		public IEnumerable<IDaemonStageProcess> CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind kind)
 		{
 			if (process == null)
 				throw new ArgumentNullException("process");
 
-			return new CloneDetectionDaemonStageProcess(process);
+			return new[] {new CloneDetectionDaemonStageProcess(process)};
 		}
 	    public ErrorStripeRequest NeedsErrorStripe(IPsiSourceFile sourceFile, IContextBoundSettingsStore settingsStore)
 	    {

@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactoryASTGenerator", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Process", "Ralph.Process\Ralph.Process.csproj", "{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Plugin", "Ralph.Plugin\Ralph.Plugin.csproj", "{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}"
-EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Ralph.Setup", "Ralph.Setup\Ralph.Setup.wixproj", "{68D258F4-2852-4FFF-B16B-43E48BF4BE13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Core", "Ralph.Core\Ralph.Core.csproj", "{CA40C4FF-A47A-43D9-A429-CB212808F232}"
@@ -37,8 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{926029
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Plugin.7.0", "Ralph.Plugin.7.0\Ralph.Plugin.7.0.csproj", "{C8C9C590-A3A9-4FB4-817B-54573C55A573}"
-EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Plugin", "Ralph.Plugin\Ralph.Plugin.csproj", "{C8C9C590-A3A9-4FB4-817B-54573C55A573}"
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,16 +107,6 @@ Global
 		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|x86.ActiveCfg = Release|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A1D72FD3-5523-4A22-8CBA-0BF569032AEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{68D258F4-2852-4FFF-B16B-43E48BF4BE13}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{68D258F4-2852-4FFF-B16B-43E48BF4BE13}.Debug|Any CPU.Build.0 = Debug|x86
 		{68D258F4-2852-4FFF-B16B-43E48BF4BE13}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
