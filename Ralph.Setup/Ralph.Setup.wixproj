@@ -30,9 +30,9 @@
     <!-- Name of the plugin product and of the plugin folder in the R# plugins store, as well. -->
     <ProductName>Agent Ralph</ProductName>
     <!-- Version of the plugin, to be specified in the installer. -->
-    <ProductVersion>0.1.17.0</ProductVersion>
+    <ProductVersion>0.2.17.0</ProductVersion>
     <!-- Version of R# (two components only) that the plugin is targeting. -->
-    <ReSharperVersion2>6.1</ReSharperVersion2>
+    <ReSharperVersion2>7.0</ReSharperVersion2>
     <!-- Plugin vendor name. -->
     <CompanyName>Josh Buedel</CompanyName>
     <!-- The GUIDs that must be unique for each of the plugins. -->

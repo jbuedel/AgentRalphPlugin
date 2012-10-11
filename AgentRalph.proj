@@ -4,7 +4,7 @@
   
   <PropertyGroup>
     <BUILD_NUMBER Condition=" '$(BUILD_NUMBER)' == '' ">00000</BUILD_NUMBER>
-    <AssemblyVersion>1.1.0.$(BUILD_NUMBER)</AssemblyVersion>
+    <AssemblyVersion>1.2.0.$(BUILD_NUMBER)</AssemblyVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 
     <TestAssemblies>Bin\$(Configuration)\*Tests.dll</TestAssemblies>
