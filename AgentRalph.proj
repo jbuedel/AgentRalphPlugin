@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectsToBuild Include="**\*.csproj;**\*.wixproj" Exclude="**\Ralph.Test.Project.csproj"/>
+    <ProjectsToBuild Include="**\*.csproj;**\*.wixproj" Exclude="**\Ralph.Test.Project.csproj;Libs\**"/>
   </ItemGroup>
 
   <Target Name="SetVersion">
