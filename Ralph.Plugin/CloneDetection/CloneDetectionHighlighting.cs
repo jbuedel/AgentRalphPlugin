@@ -1,7 +1,6 @@
-using AgentRalph.CloneCandidateDetection;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Feature.Services.Bulbs;
+using JetBrains.ReSharper.Intentions.Extensibility;
 using QuickFixInfo = AgentRalph.CloneCandidateDetection.QuickFixInfo;
 
 namespace AgentRalph.CloneDetection
@@ -41,9 +40,9 @@ namespace AgentRalph.CloneDetection
 
         // Create a BulbItem for each possible way we can do something with the clone we've found.
         // That is, each one of these is a member of the drop down list.
-	    public IBulbItem[] GetBulbItems()
+        public IBulbAction[] GetBulbItems()
 	    {
-	        return new IBulbItem[]
+            return new IBulbAction[]
 	                   {
 	                       new CloneDetectionReplaceContentsWithCallToBulbItem(bodyRange, 
 	                                                                           clone.TextForACallToJanga, clone.BulbItemText)

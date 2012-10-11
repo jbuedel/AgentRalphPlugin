@@ -1,14 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AgentRalph.CloneCandidateDetection;
-using ICSharpCode.NRefactory;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.CSharp;
-using JetBrains.ReSharper.Psi.CSharp.Impl;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.Util;
 using JetBrains.Util.dataStructures.TypedIntrinsics;
 

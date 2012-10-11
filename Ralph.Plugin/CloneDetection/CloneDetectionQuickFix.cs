@@ -1,5 +1,3 @@
-using JetBrains.Application;
-using JetBrains.DocumentManagers;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Daemon;
@@ -32,17 +30,9 @@ namespace AgentRalph.CloneDetection
 		{
 			return true;
 		}
-
-		public IBulbItem[] Items
-		{
-			get 
-			{
-				return suggestion.GetBulbItems(); 
-			}
-		}
 	}
 
-	internal class CloneDetectionReplaceContentsWithCallToBulbItem : IBulbItem
+    internal class CloneDetectionReplaceContentsWithCallToBulbItem : IBulbAction
 	{
 		private readonly string TextToInsert;
 		private DocumentRange DocRangeToReplace;
