@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="JetBrains.Build.Platform.Tasks.ThemedIconsConverter" AssemblyFile="JetBrains.Build.Platform.dll"/>
+  <!-- Enables support for the “ThemedIconsV2” build action in the projects. -->
+	<!-- Reads raw input for themed icons, parses out the icon device images, writes to resources in ready-for-use format, and emits accessor classes for compile-time-validated icons access. -->
+	
+  <ItemGroup>
+    <!-- Add to the Visual Studio Build Action list on the files. -->
+		<!-- NOTE: if more formats are added later on, add them to this list and extend the build task with support for them, to emit the common set of accessors etc. -->
+    <AvailableItemName Include="ThemedIconsV2" />
+    <AvailableItemName Include="ThemedIconsXamlV3" />
+    <AvailableItemName Include="ThemedIconPng" />
+  </ItemGroup>
+	<ItemGroup>
+		<!-- Include all of the input item groups into the common list, for simplicity of use later. -->
+		<ThemedIconsConverterInput Include="@(ThemedIconsV2)" />
+		<ThemedIconsConverterInput Include="@(ThemedIconsXamlV3)" />
+		<ThemedIconsConverterInput Include="@(ThemedIconPng)" />
+	</ItemGroup>
+
+	<!-- Dispatch. -->
+  <PropertyGroup>
+    <GenerateThemedIconsConverterDependsOn>
+      $(GenerateThemedIconsConverterDependsOn);
+      GenerateThemedIconsConverter_Build;
+    </GenerateThemedIconsConverterDependsOn>
+    <CleanThemedIconsConverterDependsOn>
+      $(CleanThemedIconsConverterDependsOn);
+      CleanThemedIconsConverter_Clean;
+    </CleanThemedIconsConverterDependsOn>
+  </PropertyGroup>
+
+  <!-- Plugin. -->
+  <PropertyGroup>
+    <!-- Plug into the build process before the Compile target executes. -->
+    <PrepareResourcesDependsOn>
+			$(GenerateThemedIconsConverterDependsOn);
+			$(PrepareResourcesDependsOn);
+		</PrepareResourcesDependsOn>
+    <!-- Clean the files, this enables proper Rebuild. -->
+    <CleanDependsOn>
+			$(CleanDependsOn);
+			$(CleanThemedIconsConverterDependsOn);
+		</CleanDependsOn>
+  </PropertyGroup>
+
+  <!-- The generation itself. -->
+	<!-- NOTE: no inputs/outputs control because the task calculates the output items and this target adds them to @(Compile)/@(Page) => we cannot skip the target even if everything is up-to-date (but the task will skip lengthy file operations if they seem up-to-date). -->
+  <Target Name="GenerateThemedIconsConverter_Build" Condition="'@(ThemedIconsConverterInput)'!=''">
+		
+    <!-- Emit. -->
+		<ThemedIconsConverter
+				CompileItems="@(Compile)"
+				PageItems="@(Page)"
+				InputThemedIconsV2="@(ThemedIconsV2)"
+				InputThemedIconsXamlV3="@(ThemedIconsXamlV3)"
+				InputThemedIconPng="@(ThemedIconPng)"
+				InputAdditionalDirty="$(MSBuildProjectFullPath);$(MSBuildThisFileFullPath);$(JetBrainsBuildPlatformTasksDll)"
+				ProjectNamespace="$(RootNamespace)"
+				ProjectDirectory="$(MSBuildProjectDirectory)"
+				SourceFileExtensionWithDot="$(DefaultLanguageSourceExtension)"
+				Mode="Build"
+				AssemblyName="$(AssemblyName)"
+			>
+			
+				<!-- Emitted payload. -->
+				<Output TaskParameter="GeneratedCompile" ItemName="ThemedIconsConverterGeneratedCompile" />
+				<Output TaskParameter="GeneratedPage" ItemName="ThemedIconsConverterGeneratedPage" />
+			
+				<!-- Mark for IncrementalClean. -->
+				<Output TaskParameter="GeneratedAll" ItemName="FileWrites" />
+		</ThemedIconsConverter>
+		
+		<!-- Add to common item groups, unless duplicate. Non-duplicates marked with %(IsYetToAdd) boolean metadata by the task. -->
+		<ItemGroup>
+			<Compile Include="@(ThemedIconsConverterGeneratedCompile)" Condition="%(ThemedIconsConverterGeneratedCompile.IsYetToAdd)==True" />
+			<Page Include="@(ThemedIconsConverterGeneratedPage)" Condition="%(ThemedIconsConverterGeneratedPage.IsYetToAdd)==True" />
+		</ItemGroup>
+  </Target>
+
+  <!-- Cleans the generated files. -->
+  <Target Name="CleanThemedIconsConverter_Clean" Condition="'@(ThemedIconsConverterInput)'!=''">
+		
+		<!-- As outputs are determined by the task itself, we just run the task in Clean mode to clean up. -->
+		<ThemedIconsConverter
+				InputThemedIconsV2="@(ThemedIconsV2)"
+				InputThemedIconsXamlV3="@(ThemedIconsXamlV3)"
+				InputThemedIconPng="@(ThemedIconPng)"
+				ProjectNamespace="$(RootNamespace)"
+				ProjectDirectory="$(MSBuildProjectDirectory)"
+				SourceFileExtensionWithDot="$(DefaultLanguageSourceExtension)"
+				Mode="Clean"
+				AssemblyName="$(AssemblyName)"
+			>
+			<Output TaskParameter="GeneratedAll" ItemName="FileWrites" />
+		</ThemedIconsConverter>
+		</Target>
+
+</Project>

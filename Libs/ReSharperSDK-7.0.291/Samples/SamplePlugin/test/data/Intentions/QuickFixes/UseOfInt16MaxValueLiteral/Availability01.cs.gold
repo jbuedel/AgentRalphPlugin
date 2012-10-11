@@ -1,0 +1,11 @@
+class C
+{
+  public static void Main()
+  {
+    (|32767|(0) - 1 + 32767.0).ToString();
+  }
+}
+------------------------------------------------
+0: Usage of Int16.MaxValue literal
+QUICKFIXES:
+Replace '32767' with 'Int16.MaxValue'

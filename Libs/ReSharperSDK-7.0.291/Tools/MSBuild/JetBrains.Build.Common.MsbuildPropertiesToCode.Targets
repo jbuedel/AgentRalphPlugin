@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="JetBrains.Build.Common.Tasks.MsbuildPropertiesToCode" AssemblyFile="JetBrains.Build.Common.dll"/>
+  <!-- Enables support for the “MsbuildPropertiesToCode” build action in the projects. -->
+
+  <PropertyGroup>
+    <MsbuildPropertiesToCodeFileExtension>.cs</MsbuildPropertiesToCodeFileExtension>
+    <MsbuildPropertiesToCodeFileExtension Condition="'$(MSBuildProjectExtension)'=='.vbproj'">.vb</MsbuildPropertiesToCodeFileExtension>
+    <MsbuildPropertiesToCodeFileSuffix>$(MsbuildPropertiesToCodeFileExtension)</MsbuildPropertiesToCodeFileSuffix>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Add to the Visual Studio Build Action list on the files. -->
+    <AvailableItemName Include="MsbuildPropertiesToCode" />
+    <!-- Calculate output. -->
+    <MsbuildPropertiesToCodeOutput Include="@(MsbuildPropertiesToCode->'%(Link)$(MsbuildPropertiesToCodeFileSuffix)')">
+      <AutoGen>True</AutoGen>
+    </MsbuildPropertiesToCodeOutput>
+  </ItemGroup>
+
+  <!-- Dispatch. -->
+  <PropertyGroup>
+    <GenerateMsbuildPropertiesToCodeDependsOn>
+      $(GenerateMsbuildPropertiesToCodeDependsOn);
+      GenerateMsbuildPropertiesToCode_AddToItemGroups;
+      GenerateMsbuildPropertiesToCode_UndupeCompile;
+      GenerateMsbuildPropertiesToCode_Generate;
+    </GenerateMsbuildPropertiesToCodeDependsOn>
+    <CleanMsbuildPropertiesToCodeDependsOn>
+      $(CleanMsbuildPropertiesToCodeDependsOn);
+      CleanMsbuildPropertiesToCode_Clean;
+    </CleanMsbuildPropertiesToCodeDependsOn>
+  </PropertyGroup>
+
+  <!-- Plugin. -->
+  <PropertyGroup>
+    <!-- Plug into the build process before the Compile target executes. -->
+    <PrepareResourcesDependsOn>
+      $(GenerateMsbuildPropertiesToCodeDependsOn);
+      $(PrepareResourcesDependsOn);
+    </PrepareResourcesDependsOn>
+    <!-- Clean the files, this enables proper Rebuild. -->
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      $(CleanMsbuildPropertiesToCodeDependsOn);
+    </CleanDependsOn>
+  </PropertyGroup>
+
+  <!-- Produces the list of the output files for needs-rebuild check and Clean. -->
+  <Target Name="GenerateMsbuildPropertiesToCode_AddToItemGroups" Condition="'@(MsbuildPropertiesToCode)'!=''">
+    <ItemGroup>
+      <!-- Use the result in the build process. -->
+      <Compile Remove="@(MsbuildPropertiesToCodeOutput)" />
+      <Compile Include="@(MsbuildPropertiesToCodeOutput)" />
+
+      <!-- Support incremental clean for our files. -->
+      <FileWrites Include="@(MsbuildPropertiesToCodeOutput)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- After adding the outputs to the @(Compile) group, we might encounter duplicates — remove them. -->
+  <Target Name="GenerateMsbuildPropertiesToCode_UndupeCompile">
+    <ItemGroup>
+      <CompileUnfiltered Remove="%(CompileUnfiltered.Identity)" />
+      <CompileUnfiltered Include="%(Compile.FullPath)" />
+      <Compile Remove="%(Compile.Identity)" />
+    </ItemGroup>
+    <RemoveDuplicates Inputs="@(CompileUnfiltered)">
+      <Output TaskParameter="Filtered" ItemName="Compile" />
+    </RemoveDuplicates>
+  </Target>
+
+  <!-- The generation itself. -->
+  <!-- We cannot track inputs/outputs because env variables could affect the result. Call the task every time, let it see if there were changes. -->
+  <Target Name="GenerateMsbuildPropertiesToCode_Generate" Condition="'@(MsbuildPropertiesToCode)'!=''">
+
+    <!-- Emit. -->
+    <MsbuildPropertiesToCode MsbuildProject="%(MsbuildPropertiesToCode.Identity)" OutputFile="%(Link)$(MsbuildPropertiesToCodeFileSuffix)" ClassName="$(RootNamespace).Defines"/>
+    <Message Text="%(MsbuildPropertiesToCode.Identity) --(*)--> %(Link)$(MsbuildPropertiesToCodeFileSuffix)" />
+  </Target>
+
+  <!-- Cleans the generated files. -->
+  <Target Name="CleanMsbuildPropertiesToCode_Clean">
+    <Delete Files="@(MsbuildPropertiesToCodeOutput)" TreatErrorsAsWarnings="true"  />
+  </Target>
+
+</Project>

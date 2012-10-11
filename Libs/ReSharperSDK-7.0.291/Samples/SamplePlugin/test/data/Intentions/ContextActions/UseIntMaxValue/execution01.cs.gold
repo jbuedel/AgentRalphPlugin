@@ -1,0 +1,7 @@
+﻿class A
+{
+  void Foo()
+  {
+  var s = 1 + int.MaxValue{caret};
+  }
+}

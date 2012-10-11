@@ -1,0 +1,9 @@
+using System;
+
+class C
+{
+  public static void Main()
+  {
+    (Int16.MaxValue{caret} - 1 + 32767.0).ToString();
+  }
+}

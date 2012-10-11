@@ -1,0 +1,9 @@
+class C
+{
+  public static void Main()
+  {
+    (|9223372036854775807L|(0) - 1).ToString();
+  }
+}
+---------------------------------------------------------
+(0): ReSharper Warning: Usage of Int64.MaxValue literal

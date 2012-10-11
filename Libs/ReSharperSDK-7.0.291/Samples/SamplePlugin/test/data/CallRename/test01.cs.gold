@@ -1,0 +1,9 @@
+class xxx{caret}
+{
+  void Foo()
+  {
+    var a = new xxx();
+  }
+}
+
+class B : System.Collections.Generic.List<xxx> {}
