@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Daemon;
+using JetBrains.ReSharper.Daemon.CSharp.Stages;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace AgentRalph.CloneDetection
 {
@@ -11,22 +13,17 @@ namespace AgentRalph.CloneDetection
 	/// because it's marked with the attribute.
 	/// </summary>
 	[DaemonStage]
-    public class CloneDetectionDaemonStage : IDaemonStage // TODO: Change this to a CSharpDaemonStageBase, per http://codevanced.net/post/How-to-write-a-ReSharper-plugin.aspx
+    public class CloneDetectionDaemonStage : CSharpDaemonStageBase // TODO: Change this to a CSharpDaemonStageBase, per http://codevanced.net/post/How-to-write-a-ReSharper-plugin.aspx
 	{
-		/// <summary>
-		/// This method provides a <see cref="IDaemonStageProcess"/> instance which is assigned to highlighting a single document.
-		/// </summary>
-		public IEnumerable<IDaemonStageProcess> CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind kind)
-		{
+        /// <summary>
+        /// This method provides a <see cref="IDaemonStageProcess"/> instance which is assigned to highlighting a single document.
+        /// </summary>
+	    protected override IDaemonStageProcess CreateProcess(IDaemonProcess process, IContextBoundSettingsStore settings, DaemonProcessKind processKind, ICSharpFile file)
+	    {
 			if (process == null)
 				throw new ArgumentNullException("process");
 
-			return new[] {new CloneDetectionDaemonStageProcess(process)};
+			return new CloneDetectionDaemonStageProcess(process);
 		}
-	    public ErrorStripeRequest NeedsErrorStripe(IPsiSourceFile sourceFile, IContextBoundSettingsStore settingsStore)
-	    {
-            // We want to add markers to the right-side stripe as well as contribute to document errors
-            return ErrorStripeRequest.STRIPE_AND_ERRORS;
-        }
 	}
 }
