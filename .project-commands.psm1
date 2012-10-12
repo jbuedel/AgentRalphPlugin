@@ -25,7 +25,7 @@ function build_project {
 	msbuild .\AgentRalph.proj /v:minimal
 }
 function test_project {
-	"The 'test' command has not been created.  Edit your project-stuff.psm1 file and add your project specific command(s) to the test_project function."
+   &"c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" Ralph.Test.Project\Ralph.Test.Project.sln /ReSharper.Plugin Bin\Debug\Ralph.Plugin.dll
 }
 function clean_project {
 	msbuild .\AgentRalph.proj /t:Clean /v:minimal
