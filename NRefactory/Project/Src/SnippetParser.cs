@@ -157,8 +157,7 @@ namespace ICSharpCode.NRefactory
                 }
                 return true;
 		    }
-
-            public IEnumerable<INode> Chilluns {get { yield break; }}
+            public IEnumerable<INode> Chilluns { get { return Children; } }
 		}
 	}
 }

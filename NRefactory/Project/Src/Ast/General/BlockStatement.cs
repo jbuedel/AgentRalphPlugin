@@ -37,7 +37,7 @@ namespace ICSharpCode.NRefactory.Ast
 			return String.Format("[BlockStatement: Children={0}]",
 			                     GetCollectionString(base.Children));
 		}
-        public override IEnumerable<INode> Chilluns { get { yield break; } }
+        public override IEnumerable<INode> Chilluns { get { return Children; } }
     }
 	
 	internal sealed class NullBlockStatement : BlockStatement

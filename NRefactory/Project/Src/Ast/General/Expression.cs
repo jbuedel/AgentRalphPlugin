@@ -110,6 +110,6 @@ namespace ICSharpCode.NRefactory.Ast
 		{
 			return String.Format("[NullExpression]");
 		}
-        public override IEnumerable<INode> Chilluns { get { yield break; } }
+        public override IEnumerable<INode> Chilluns { get { return Children; } }
     }
 }

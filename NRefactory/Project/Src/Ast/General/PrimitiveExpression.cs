@@ -56,6 +56,6 @@ namespace ICSharpCode.NRefactory.Ast
                                  ValueType == null ? "null" : ValueType.FullName
 			                    );
 	    }
-        public override IEnumerable<INode> Chilluns { get { yield break; } }
+        public override IEnumerable<INode> Chilluns { get { return Children; } }
 	}
 }

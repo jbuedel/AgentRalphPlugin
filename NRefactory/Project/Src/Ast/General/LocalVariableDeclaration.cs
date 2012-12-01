@@ -105,6 +105,6 @@ namespace ICSharpCode.NRefactory.Ast
 			                     modifier, 
 			                     GetCollectionString(variables));
 		}
-        public override IEnumerable<INode> Chilluns { get { yield break; } }
+        public override IEnumerable<INode> Chilluns { get { return Children; } }
     }
 }
