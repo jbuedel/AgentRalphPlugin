@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.CodeDom;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.IO;
 using NRefactoryASTGenerator.Ast;
@@ -19,11 +20,12 @@ namespace NRefactoryASTGenerator
 	public class MainClass
 	{
 		public const string VisitPrefix = "Visit";
-		
-		public static void Main(string[] args)
+	    private const string FiveTabs = "\t\t\t\t\t";
+
+	    public static void Main(string[] args)
 		{
-			string directory = "../../NRefactory/Src/Ast/";
-            string visitorsDir = "../../NRefactory/Src/Visitors/";
+			string directory = "../../NRefactory/Project/Src/Ast/";
+            string visitorsDir = "../../NRefactory/Project/Src/Visitors/";
 			Debug.WriteLine("AST Generator running...");
 			if (!File.Exists(directory + "INode.cs")) {
 				Debug.WriteLine("did not find output directory " + Path.GetFullPath(Path.GetDirectoryName(directory)));
@@ -68,6 +70,8 @@ namespace NRefactoryASTGenerator
 
 					    // Create an overload 
                         AddAnAcceptVisitorMethod(type, ctd, "AstComparisonVisitor", typeof(bool));
+
+					    AddAChillunsGetter(type, ctd);
 
                         var method = new CodeMemberMethod();
                         method.Name = "ToString";
@@ -193,7 +197,7 @@ namespace NRefactoryASTGenerator
 	        method.Statements.Add(new CodeMethodReturnStatement(ex));
 	        ctd.Members.Add(method);
 	    }
-
+        
 	    static CodeTypeDeclaration CreateAstVisitorInterface(List<Type> nodeTypes)
 		{
 			CodeTypeDeclaration td = new CodeTypeDeclaration("IAstVisitor");
@@ -208,6 +212,31 @@ namespace NRefactoryASTGenerator
 			}
 			return td;
 		}
+
+        public static void AddAChillunsGetter(Type type, CodeTypeDeclaration ctd)
+        {
+            if (!type.IsAbstract) {
+                var method = new CodeMemberProperty {
+                        Name = "Chilluns",
+                        HasGet = true,
+                        Attributes = MemberAttributes.Public | MemberAttributes.Override,
+                        Type = new CodeTypeReference("IEnumerable<INode>")
+                    };
+
+                var statements = (from field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                                            where !field.FieldType.FullName.StartsWith("System.Collections.Generic.List")
+                                            where typeof (INode).IsAssignableFrom(field.FieldType)
+                                            select new CodeSnippetStatement(FiveTabs + @"yield return " + field.Name + @";")).ToArray();
+
+                if (!statements.Any())
+                    statements = new[] {new CodeSnippetStatement(FiveTabs + "yield break;")};
+
+                method.GetStatements.AddRange(statements);
+
+                ctd.Members.Add(method);
+            }
+        }
+
         static CodeTypeDeclaration CreateAstComparisonVisitorClass(List<Type> nodeTypes)
         {
             CodeTypeDeclaration td = new CodeTypeDeclaration("AstComparisonVisitor");

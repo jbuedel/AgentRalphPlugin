@@ -37,6 +37,8 @@ namespace ICSharpCode.NRefactory.Ast
 				children = value;
 			}
 		}
+
+        public abstract IEnumerable<INode> Chilluns { get; }
 		
 		public virtual void AddChild(INode childNode)
 		{

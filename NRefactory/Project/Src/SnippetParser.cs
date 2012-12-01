@@ -157,6 +157,8 @@ namespace ICSharpCode.NRefactory
                 }
                 return true;
 		    }
+
+            public IEnumerable<INode> Chilluns {get { yield break; }}
 		}
 	}
 }

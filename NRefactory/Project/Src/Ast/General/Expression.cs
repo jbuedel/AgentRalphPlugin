@@ -6,6 +6,7 @@
 // </file>
 
 using System;
+using System.Collections.Generic;
 using AgentRalph.Visitors;
 
 namespace ICSharpCode.NRefactory.Ast
@@ -109,5 +110,6 @@ namespace ICSharpCode.NRefactory.Ast
 		{
 			return String.Format("[NullExpression]");
 		}
-	}
+        public override IEnumerable<INode> Chilluns { get { yield break; } }
+    }
 }

@@ -23,7 +23,9 @@ namespace ICSharpCode.NRefactory.Ast
 		List<INode> Children {
 			get;
 		}
-		
+
+        IEnumerable<INode> Chilluns { get; }
+
 		Location StartLocation {
 			get;
 			set;

@@ -370,6 +370,8 @@ namespace ICSharpCode.NRefactory.Ast
 			}
 			return true;
 		}
+
+	    public override IEnumerable<INode> Chilluns { get { yield break; } }
 	}
 
 	internal sealed class NullTypeReference : TypeReference
