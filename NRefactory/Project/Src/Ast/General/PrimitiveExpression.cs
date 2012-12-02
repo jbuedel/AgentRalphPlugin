@@ -57,5 +57,24 @@ namespace ICSharpCode.NRefactory.Ast
 			                    );
 	    }
         public override IEnumerable<INode> Chilluns { get { return Children; } }
+        internal override bool ShallowMatch(INode right)
+        {
+          var r = (PrimitiveExpression) right;
+          if (this.LiteralFormat == r.LiteralFormat)
+          {
+            if (this.Value == null && r.Value == null)
+            {
+              // both null counts as a match
+            }
+            else if (this.Value == null || r.Value == null || !this.Value.Equals(r.Value))
+            {
+              // Fail if one or the other is null, or the values don't match.
+              return false;
+            }
+          }
+          return true;
+
+        }
+
 	}
 }

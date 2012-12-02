@@ -148,7 +148,12 @@ namespace ICSharpCode.NRefactory
 		        return AcceptChildren(visitor, data);
 		    }
 
-		    private bool AcceptChildren(AstComparisonVisitor visitor, object data)
+		  public bool IsShallowMatch(INode right)
+		  {
+		    return false;
+		  }
+
+		  private bool AcceptChildren(AstComparisonVisitor visitor, object data)
 		    {
                 foreach (INode n in nodes)
                 {

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AgentRalph.Visitors;
 
 namespace ICSharpCode.NRefactory.Ast
@@ -105,6 +106,12 @@ namespace ICSharpCode.NRefactory.Ast
 			                     modifier, 
 			                     GetCollectionString(variables));
 		}
-        public override IEnumerable<INode> Chilluns { get { return Children; } }
+        public override IEnumerable<INode> Chilluns { get { return this.Variables.Cast<INode>(); } }
+        internal override bool ShallowMatch(INode right)
+        {
+          var r = (LocalVariableDeclaration) right;
+          return this.Modifier == r.Modifier;
+        }
+
     }
 }

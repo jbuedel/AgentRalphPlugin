@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Parser.CSharp;
@@ -60,6 +61,35 @@ namespace AgentRalph
             return cv.Match;
         }
 
+        public static bool Matches2(this INode left, INode right) {
+
+          var l_flat = left.Flatten().ToArray();
+          var r_flat = right.Flatten().ToArray();
+
+          if (l_flat.Count() != r_flat.Count())
+            return false;
+
+          for (int i = 0; i < l_flat.Count(); i++) {
+            if(!l_flat[i].IsShallowMatch(r_flat[i])) {
+              Console.WriteLine("Failing type was " + l_flat[i].GetType());
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+      private static IEnumerable<INode> Flatten(this INode node)
+        {
+          IList<INode> all = new List<INode>();
+          Action<INode> flatten = null; 
+          flatten = n => {
+              all.Add(n);
+              foreach (var c in n.Chilluns) flatten(c);
+          };
+          flatten(node);
+          return all;
+        }
         public static Dictionary<string, List<LocalLookupVariable>> GetLookupTable(this MethodDeclaration md)
         {
             LookupTableVisitor v = new LookupTableVisitor(SupportedLanguage.CSharp);

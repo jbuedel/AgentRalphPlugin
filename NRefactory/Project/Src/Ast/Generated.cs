@@ -14,7 +14,7 @@ namespace ICSharpCode.NRefactory.Ast {
 	using AgentRalph.Visitors;
 	
 	
-	public class AddHandlerStatement : Statement {
+	public partial class  AddHandlerStatement : Statement {
 		
 		Expression eventExpression;
 		
@@ -65,7 +65,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class AddressOfExpression : Expression {
+	public partial class  AddressOfExpression : Expression {
 		
 		Expression expression;
 		
@@ -102,7 +102,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class AnonymousMethodExpression : Expression {
+	public partial class  AnonymousMethodExpression : Expression {
 		
 		List<ParameterDeclarationExpression> parameters;
 		
@@ -162,7 +162,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ArrayCreateExpression : Expression {
+	public partial class  ArrayCreateExpression : Expression {
 		
 		TypeReference createType;
 		
@@ -243,7 +243,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class AssignmentExpression : Expression {
+	public partial class  AssignmentExpression : Expression {
 		
 		Expression left;
 		
@@ -306,7 +306,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class Attribute : AbstractNode {
+	public partial class  Attribute : AbstractNode {
 		
 		string name;
 		
@@ -372,7 +372,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public abstract class AttributedNode : AbstractNode {
+	public abstract partial class  AttributedNode : AbstractNode {
 		
 		List<AttributeSection> attributes;
 		
@@ -410,7 +410,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class AttributeSection : AbstractNode {
+	public partial class  AttributeSection : AbstractNode {
 		
 		string attributeTarget;
 		
@@ -458,7 +458,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class BaseReferenceExpression : Expression {
+	public partial class  BaseReferenceExpression : Expression {
 		
 		public BaseReferenceExpression() {
 		}
@@ -482,7 +482,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class BinaryOperatorExpression : Expression {
+	public partial class  BinaryOperatorExpression : Expression {
 		
 		Expression left;
 		
@@ -550,7 +550,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class BreakStatement : Statement {
+	public partial class  BreakStatement : Statement {
 		
 		public BreakStatement() {
 		}
@@ -574,7 +574,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CaseLabel : AbstractNode {
+	public partial class  CaseLabel : AbstractNode {
 		
 		Expression label;
 		
@@ -658,7 +658,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CastExpression : Expression {
+	public partial class  CastExpression : Expression {
 		
 		TypeReference castTo;
 		
@@ -726,7 +726,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CatchClause : AbstractNode {
+	public partial class  CatchClause : AbstractNode {
 		
 		TypeReference typeReference;
 		
@@ -818,7 +818,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CheckedExpression : Expression {
+	public partial class  CheckedExpression : Expression {
 		
 		Expression expression;
 		
@@ -855,7 +855,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CheckedStatement : Statement {
+	public partial class  CheckedStatement : Statement {
 		
 		Statement block;
 		
@@ -892,7 +892,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ClassReferenceExpression : Expression {
+	public partial class ClassReferenceExpression : Expression {
 		
 		public ClassReferenceExpression() {
 		}
@@ -916,7 +916,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class CollectionInitializerExpression : Expression {
+	public partial class  CollectionInitializerExpression : Expression {
 		
 		List<Expression> createExpressions;
 		
@@ -962,7 +962,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullCollectionInitializerExpression : CollectionInitializerExpression {
+	internal sealed partial class  NullCollectionInitializerExpression : CollectionInitializerExpression {
 		
 		internal static NullCollectionInitializerExpression Instance = new NullCollectionInitializerExpression();
 		
@@ -981,7 +981,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ConditionalExpression : Expression {
+	public partial class  ConditionalExpression : Expression {
 		
 		Expression condition;
 		
@@ -1052,7 +1052,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ConstructorDeclaration : ParametrizedNode {
+	public partial class  ConstructorDeclaration : ParametrizedNode {
 		
 		ConstructorInitializer constructorInitializer;
 		
@@ -1117,7 +1117,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ConstructorInitializer : AbstractNode, INullable {
+	public partial class  ConstructorInitializer : AbstractNode, INullable {
 		
 		ConstructorInitializerType constructorInitializerType;
 		
@@ -1176,7 +1176,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullConstructorInitializer : ConstructorInitializer {
+	internal sealed partial class  NullConstructorInitializer : ConstructorInitializer {
 		
 		internal static NullConstructorInitializer Instance = new NullConstructorInitializer();
 		
@@ -1195,7 +1195,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ContinueStatement : Statement {
+	public partial class  ContinueStatement : Statement {
 		
 		ContinueType continueType;
 		
@@ -1234,7 +1234,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DeclareDeclaration : ParametrizedNode {
+	public partial class  DeclareDeclaration : ParametrizedNode {
 		
 		string alias;
 		
@@ -1312,7 +1312,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DefaultValueExpression : Expression {
+	public partial class  DefaultValueExpression : Expression {
 		
 		TypeReference typeReference;
 		
@@ -1349,7 +1349,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DelegateDeclaration : AttributedNode {
+	public partial class  DelegateDeclaration : AttributedNode {
 		
 		string name;
 		
@@ -1416,6 +1416,18 @@ namespace ICSharpCode.NRefactory.Ast {
 		public override IEnumerable<INode> Chilluns {
 			get {
 					yield return returnType;
+			  foreach (var parameter in Parameters)
+			  {
+			    yield return parameter;
+			  }
+			  foreach (var template in Templates)
+			  {
+			    yield return template;
+			  }
+			  foreach (var attribute in Attributes)
+			  {
+			    yield return attribute;
+			  }
 			}
 		}
 		
@@ -1425,7 +1437,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DestructorDeclaration : AttributedNode {
+	public partial class  DestructorDeclaration : AttributedNode {
 		
 		string name;
 		
@@ -1476,7 +1488,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DirectionExpression : Expression {
+	public partial class  DirectionExpression : Expression {
 		
 		FieldDirection fieldDirection;
 		
@@ -1525,7 +1537,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class DoLoopStatement : StatementWithEmbeddedStatement {
+	public partial class  DoLoopStatement : StatementWithEmbeddedStatement {
 		
 		Expression condition;
 		
@@ -1588,7 +1600,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ElseIfSection : StatementWithEmbeddedStatement {
+	public partial class  ElseIfSection : StatementWithEmbeddedStatement {
 		
 		Expression condition;
 		
@@ -1626,7 +1638,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EmptyStatement : Statement {
+	public partial class  EmptyStatement : Statement {
 		
 		public EmptyStatement() {
 		}
@@ -1650,7 +1662,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EndStatement : Statement {
+	public partial class  EndStatement : Statement {
 		
 		public EndStatement() {
 		}
@@ -1674,7 +1686,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EraseStatement : Statement {
+	public partial class  EraseStatement : Statement {
 		
 		List<Expression> expressions;
 		
@@ -1714,7 +1726,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ErrorStatement : Statement {
+	public partial class  ErrorStatement : Statement {
 		
 		Expression expression;
 		
@@ -1751,7 +1763,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EventAddRegion : EventAddRemoveRegion {
+	public partial class  EventAddRegion : EventAddRemoveRegion {
 		
 		public EventAddRegion(List<AttributeSection> attributes) : 
 				base(attributes) {
@@ -1782,7 +1794,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullEventAddRegion : EventAddRegion {
+	internal sealed partial class  NullEventAddRegion : EventAddRegion {
 		
 		private NullEventAddRegion() : 
 				base(null) {
@@ -1805,7 +1817,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public abstract class EventAddRemoveRegion : AttributedNode, INullable {
+	public abstract partial class  EventAddRemoveRegion : AttributedNode, INullable {
 		
 		BlockStatement block;
 		
@@ -1843,7 +1855,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EventDeclaration : MemberNode {
+	public partial class  EventDeclaration : MemberNode {
 		
 		EventAddRegion addRegion;
 		
@@ -1966,7 +1978,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EventRaiseRegion : EventAddRemoveRegion {
+	public partial class  EventRaiseRegion : EventAddRemoveRegion {
 		
 		public EventRaiseRegion(List<AttributeSection> attributes) : 
 				base(attributes) {
@@ -1997,7 +2009,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullEventRaiseRegion : EventRaiseRegion {
+	internal sealed partial class  NullEventRaiseRegion : EventRaiseRegion {
 		
 		private NullEventRaiseRegion() : 
 				base(null) {
@@ -2020,7 +2032,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class EventRemoveRegion : EventAddRemoveRegion {
+	public partial class  EventRemoveRegion : EventAddRemoveRegion {
 		
 		public EventRemoveRegion(List<AttributeSection> attributes) : 
 				base(attributes) {
@@ -2051,7 +2063,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullEventRemoveRegion : EventRemoveRegion {
+	internal sealed partial class  NullEventRemoveRegion : EventRemoveRegion {
 		
 		private NullEventRemoveRegion() : 
 				base(null) {
@@ -2074,7 +2086,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ExitStatement : Statement {
+	public partial class  ExitStatement : Statement {
 		
 		ExitType exitType;
 		
@@ -2110,7 +2122,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ExpressionRangeVariable : AbstractNode, INullable {
+	public partial class  ExpressionRangeVariable : AbstractNode, INullable {
 		
 		string identifier;
 		
@@ -2185,7 +2197,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	internal sealed class NullExpressionRangeVariable : ExpressionRangeVariable {
+	internal sealed partial class  NullExpressionRangeVariable : ExpressionRangeVariable {
 		
 		internal static NullExpressionRangeVariable Instance = new NullExpressionRangeVariable();
 		
@@ -2204,7 +2216,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ExpressionStatement : Statement {
+	public partial class  ExpressionStatement : Statement {
 		
 		Expression expression;
 		
@@ -2241,7 +2253,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ExternAliasDirective : AbstractNode {
+	public partial class  ExternAliasDirective : AbstractNode {
 		
 		string name;
 		
@@ -2277,7 +2289,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class FieldDeclaration : AttributedNode {
+	public partial class  FieldDeclaration : AttributedNode {
 		
 		TypeReference typeReference;
 		
@@ -2354,7 +2366,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class FixedStatement : StatementWithEmbeddedStatement {
+	public partial class  FixedStatement : StatementWithEmbeddedStatement {
 		
 		Statement pointerDeclaration;
 		
@@ -2392,7 +2404,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ForeachStatement : StatementWithEmbeddedStatement {
+	public partial class  ForeachStatement : StatementWithEmbeddedStatement {
 		
 		TypeReference typeReference;
 		
@@ -2479,7 +2491,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ForNextStatement : StatementWithEmbeddedStatement {
+	public partial class  ForNextStatement : StatementWithEmbeddedStatement {
 		
 		Expression start;
 		
@@ -2597,7 +2609,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class ForStatement : StatementWithEmbeddedStatement {
+	public partial class  ForStatement : StatementWithEmbeddedStatement {
 		
 		List<Statement> initializers;
 		
@@ -2659,7 +2671,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class GotoCaseStatement : Statement {
+	public partial class  GotoCaseStatement : Statement {
 		
 		Expression expression;
 		
@@ -2702,7 +2714,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class GotoStatement : Statement {
+	public partial class  GotoStatement : Statement {
 		
 		string label;
 		
@@ -2738,7 +2750,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class IdentifierExpression : Expression {
+	public partial class  IdentifierExpression : Expression {
 		
 		string identifier;
 		
@@ -2786,7 +2798,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class IfElseStatement : Statement {
+	public partial class  IfElseStatement : Statement {
 		
 		Expression condition;
 		
@@ -2888,7 +2900,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class IndexerDeclaration : AttributedNode {
+	public partial class  IndexerDeclaration : AttributedNode {
 		
 		List<ParameterDeclarationExpression> parameters;
 		
@@ -3041,7 +3053,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class IndexerExpression : Expression {
+	public partial class  IndexerExpression : Expression {
 		
 		Expression targetObject;
 		
@@ -3090,7 +3102,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class InterfaceImplementation : AbstractNode {
+	public partial class  InterfaceImplementation : AbstractNode {
 		
 		TypeReference interfaceType;
 		
@@ -3139,7 +3151,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class InvocationExpression : Expression {
+	public partial class  InvocationExpression : Expression {
 		
 		Expression targetObject;
 		
@@ -3191,6 +3203,10 @@ namespace ICSharpCode.NRefactory.Ast {
 		public override IEnumerable<INode> Chilluns {
 			get {
 					yield return targetObject;
+			  foreach (var argument in Arguments)
+			  {
+			    yield return argument;
+			  }
 			}
 		}
 		
@@ -3199,7 +3215,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class LabelStatement : Statement {
+	public partial class  LabelStatement : Statement {
 		
 		string label;
 		
@@ -3235,7 +3251,7 @@ namespace ICSharpCode.NRefactory.Ast {
 		}
 	}
 	
-	public class LambdaExpression : Expression {
+	public partial class  LambdaExpression : Expression {
 		
 		List<ParameterDeclarationExpression> parameters;
 		
@@ -3300,7 +3316,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class LockStatement : StatementWithEmbeddedStatement {
+	public partial class  LockStatement : StatementWithEmbeddedStatement {
 		
 		Expression lockExpression;
 		
@@ -3338,7 +3354,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public abstract class MemberNode : ParametrizedNode {
+	public abstract partial class  MemberNode : ParametrizedNode {
 		
 		List<InterfaceImplementation> interfaceImplementations;
 		
@@ -3378,7 +3394,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class MemberReferenceExpression : Expression {
+	public partial class  MemberReferenceExpression : Expression {
 		
 		Expression targetObject;
 		
@@ -3441,7 +3457,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class MethodDeclaration : MemberNode {
+	public partial class  MethodDeclaration : MemberNode {
 		
 		BlockStatement body;
 		
@@ -3505,6 +3521,10 @@ public Location ExtendedEndLocation { get; set; }
 		public override IEnumerable<INode> Chilluns {
 			get {
 					yield return body;
+			  foreach (var template in Templates)
+			  {
+			    yield return template;
+			  }
 			}
 		}
 		
@@ -3515,7 +3535,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class NamedArgumentExpression : Expression {
+	public partial class  NamedArgumentExpression : Expression {
 		
 		string name;
 		
@@ -3569,7 +3589,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class NamespaceDeclaration : AbstractNode {
+	public partial class  NamespaceDeclaration : AbstractNode {
 		
 		string name;
 		
@@ -3605,7 +3625,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ObjectCreateExpression : Expression {
+	public partial class  ObjectCreateExpression : Expression {
 		
 		TypeReference createType;
 		
@@ -3674,7 +3694,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class OnErrorStatement : StatementWithEmbeddedStatement {
+	public partial class  OnErrorStatement : StatementWithEmbeddedStatement {
 		
 		public OnErrorStatement(Statement embeddedStatement) {
 			EmbeddedStatement = embeddedStatement;
@@ -3699,7 +3719,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class OperatorDeclaration : MethodDeclaration {
+	public partial class  OperatorDeclaration : MethodDeclaration {
 		
 		ConversionType conversionType;
 		
@@ -3766,7 +3786,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class OptionDeclaration : AbstractNode {
+	public partial class  OptionDeclaration : AbstractNode {
 		
 		OptionType optionType;
 		
@@ -3814,7 +3834,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ParameterDeclarationExpression : Expression {
+	public partial class  ParameterDeclarationExpression : Expression {
 		
 		List<AttributeSection> attributes;
 		
@@ -3917,7 +3937,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public abstract class ParametrizedNode : AttributedNode {
+	public abstract partial class  ParametrizedNode : AttributedNode {
 		
 		string name;
 		
@@ -3954,7 +3974,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ParenthesizedExpression : Expression {
+	public partial class  ParenthesizedExpression : Expression {
 		
 		Expression expression;
 		
@@ -3991,7 +4011,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class PointerReferenceExpression : Expression {
+	public partial class  PointerReferenceExpression : Expression {
 		
 		Expression targetObject;
 		
@@ -4054,7 +4074,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class PropertyDeclaration : MemberNode {
+	public partial class  PropertyDeclaration : MemberNode {
 		
 		Location bodyStart;
 		
@@ -4171,7 +4191,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class PropertyGetRegion : PropertyGetSetRegion {
+	public partial class  PropertyGetRegion : PropertyGetSetRegion {
 		
 		public PropertyGetRegion(BlockStatement block, List<AttributeSection> attributes) : 
 				base(block, attributes) {
@@ -4202,7 +4222,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullPropertyGetRegion : PropertyGetRegion {
+	internal sealed partial class  NullPropertyGetRegion : PropertyGetRegion {
 		
 		private NullPropertyGetRegion() : 
 				base(null, null) {
@@ -4225,7 +4245,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public abstract class PropertyGetSetRegion : AttributedNode, INullable {
+	public abstract partial class  PropertyGetSetRegion : AttributedNode, INullable {
 		
 		BlockStatement block;
 		
@@ -4251,7 +4271,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class PropertySetRegion : PropertyGetSetRegion {
+	public partial class  PropertySetRegion : PropertyGetSetRegion {
 		
 		List<ParameterDeclarationExpression> parameters;
 		
@@ -4294,7 +4314,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullPropertySetRegion : PropertySetRegion {
+	internal sealed partial class  NullPropertySetRegion : PropertySetRegion {
 		
 		private NullPropertySetRegion() : 
 				base(null, null) {
@@ -4317,7 +4337,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpression : Expression {
+	public partial class  QueryExpression : Expression {
 		
 		QueryExpressionFromClause fromClause;
 		
@@ -4388,6 +4408,9 @@ public Location ExtendedEndLocation { get; set; }
 		public override IEnumerable<INode> Chilluns {
 			get {
 					yield return fromClause;
+			  foreach (var clause in MiddleClauses) {
+			    yield return clause;
+			  }
 					yield return selectOrGroupClause;
 			}
 		}
@@ -4398,7 +4421,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullQueryExpression : QueryExpression {
+	internal sealed partial class  NullQueryExpression : QueryExpression {
 		
 		internal static NullQueryExpression Instance = new NullQueryExpression();
 		
@@ -4417,7 +4440,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionAggregateClause : QueryExpressionClause {
+	public partial class  QueryExpressionAggregateClause : QueryExpressionClause {
 		
 		QueryExpressionFromClause fromClause;
 		
@@ -4479,7 +4502,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public abstract class QueryExpressionClause : AbstractNode, INullable {
+	public abstract partial class  QueryExpressionClause : AbstractNode, INullable {
 		
 		protected QueryExpressionClause() {
 		}
@@ -4497,7 +4520,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullQueryExpressionClause : QueryExpressionClause {
+	internal sealed partial class  NullQueryExpressionClause : QueryExpressionClause {
 		
 		internal static NullQueryExpressionClause Instance = new NullQueryExpressionClause();
 		
@@ -4526,7 +4549,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionDistinctClause : QueryExpressionClause {
+	public partial class  QueryExpressionDistinctClause : QueryExpressionClause {
 		
 		public QueryExpressionDistinctClause() {
 		}
@@ -4550,7 +4573,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionFromClause : QueryExpressionFromOrJoinClause {
+	public partial class  QueryExpressionFromClause : QueryExpressionFromOrJoinClause {
 		
 		public QueryExpressionFromClause() {
 		}
@@ -4580,7 +4603,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullQueryExpressionFromClause : QueryExpressionFromClause {
+	internal sealed partial class  NullQueryExpressionFromClause : QueryExpressionFromClause {
 		
 		internal static NullQueryExpressionFromClause Instance = new NullQueryExpressionFromClause();
 		
@@ -4599,7 +4622,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public abstract class QueryExpressionFromOrJoinClause : QueryExpressionClause {
+	public abstract partial class  QueryExpressionFromOrJoinClause : QueryExpressionClause {
 		
 		TypeReference type;
 		
@@ -4643,7 +4666,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionGroupClause : QueryExpressionClause {
+	public partial class  QueryExpressionGroupClause : QueryExpressionClause {
 		
 		Expression projection;
 		
@@ -4694,7 +4717,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionGroupJoinVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionGroupJoinVBClause : QueryExpressionClause {
 		
 		QueryExpressionJoinVBClause joinClause;
 		
@@ -4743,7 +4766,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionGroupVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionGroupVBClause : QueryExpressionClause {
 		
 		List<ExpressionRangeVariable> groupVariables;
 		
@@ -4804,7 +4827,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionJoinClause : QueryExpressionFromOrJoinClause {
+	public partial class  QueryExpressionJoinClause : QueryExpressionFromOrJoinClause {
 		
 		Expression onExpression;
 		
@@ -4868,7 +4891,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionJoinConditionVB : AbstractNode {
+	public partial class  QueryExpressionJoinConditionVB : AbstractNode {
 		
 		Expression leftSide;
 		
@@ -4919,7 +4942,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionJoinVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionJoinVBClause : QueryExpressionClause {
 		
 		QueryExpressionFromClause joinVariable;
 		
@@ -4988,7 +5011,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	internal sealed class NullQueryExpressionJoinVBClause : QueryExpressionJoinVBClause {
+	internal sealed partial class  NullQueryExpressionJoinVBClause : QueryExpressionJoinVBClause {
 		
 		internal static NullQueryExpressionJoinVBClause Instance = new NullQueryExpressionJoinVBClause();
 		
@@ -5007,7 +5030,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionLetClause : QueryExpressionClause {
+	public partial class  QueryExpressionLetClause : QueryExpressionClause {
 		
 		string identifier;
 		
@@ -5056,7 +5079,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionLetVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionLetVBClause : QueryExpressionClause {
 		
 		List<ExpressionRangeVariable> variables;
 		
@@ -5092,7 +5115,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionOrderClause : QueryExpressionClause {
+	public partial class  QueryExpressionOrderClause : QueryExpressionClause {
 		
 		List<QueryExpressionOrdering> orderings;
 		
@@ -5128,7 +5151,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionOrdering : AbstractNode {
+	public partial class  QueryExpressionOrdering : AbstractNode {
 		
 		Expression criteria;
 		
@@ -5176,7 +5199,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionPartitionVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionPartitionVBClause : QueryExpressionClause {
 		
 		Expression expression;
 		
@@ -5224,7 +5247,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionSelectClause : QueryExpressionClause {
+	public partial class  QueryExpressionSelectClause : QueryExpressionClause {
 		
 		Expression projection;
 		
@@ -5261,7 +5284,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionSelectVBClause : QueryExpressionClause {
+	public partial class  QueryExpressionSelectVBClause : QueryExpressionClause {
 		
 		List<ExpressionRangeVariable> variables;
 		
@@ -5297,7 +5320,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class QueryExpressionWhereClause : QueryExpressionClause {
+	public partial class  QueryExpressionWhereClause : QueryExpressionClause {
 		
 		Expression condition;
 		
@@ -5334,7 +5357,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class RaiseEventStatement : Statement {
+	public partial class  RaiseEventStatement : Statement {
 		
 		string eventName;
 		
@@ -5382,7 +5405,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ReDimStatement : Statement {
+	public partial class  ReDimStatement : Statement {
 		
 		List<InvocationExpression> reDimClauses;
 		
@@ -5430,7 +5453,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class RemoveHandlerStatement : Statement {
+	public partial class  RemoveHandlerStatement : Statement {
 		
 		Expression eventExpression;
 		
@@ -5481,7 +5504,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ResumeStatement : Statement {
+	public partial class  ResumeStatement : Statement {
 		
 		string labelName;
 		
@@ -5533,7 +5556,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ReturnStatement : Statement {
+	public partial class  ReturnStatement : Statement {
 		
 		Expression expression;
 		
@@ -5570,7 +5593,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class SizeOfExpression : Expression {
+	public partial class  SizeOfExpression : Expression {
 		
 		TypeReference typeReference;
 		
@@ -5607,7 +5630,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class StackAllocExpression : Expression {
+	public partial class  StackAllocExpression : Expression {
 		
 		TypeReference typeReference;
 		
@@ -5658,7 +5681,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class StopStatement : Statement {
+	public partial class  StopStatement : Statement {
 		
 		public StopStatement() {
 		}
@@ -5682,7 +5705,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class SwitchSection : BlockStatement {
+	public partial class  SwitchSection : BlockStatement {
 		
 		List<CaseLabel> switchLabels;
 		
@@ -5722,7 +5745,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class SwitchStatement : Statement {
+	public partial class  SwitchStatement : Statement {
 		
 		Expression switchExpression;
 		
@@ -5771,7 +5794,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TemplateDefinition : AttributedNode {
+	public partial class  TemplateDefinition : AttributedNode {
 		
 		string name;
 		
@@ -5820,7 +5843,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ThisReferenceExpression : Expression {
+	public partial class  ThisReferenceExpression : Expression {
 		
 		public ThisReferenceExpression() {
 		}
@@ -5844,7 +5867,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class ThrowStatement : Statement {
+	public partial class  ThrowStatement : Statement {
 		
 		Expression expression;
 		
@@ -5881,7 +5904,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TryCatchStatement : Statement {
+	public partial class  TryCatchStatement : Statement {
 		
 		Statement statementBlock;
 		
@@ -5944,7 +5967,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TypeDeclaration : AttributedNode {
+	public partial class  TypeDeclaration : AttributedNode {
 		
 		string name;
 		
@@ -6030,7 +6053,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TypeOfExpression : Expression {
+	public partial class  TypeOfExpression : Expression {
 		
 		TypeReference typeReference;
 		
@@ -6067,7 +6090,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TypeOfIsExpression : Expression {
+	public partial class  TypeOfIsExpression : Expression {
 		
 		Expression expression;
 		
@@ -6118,7 +6141,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class TypeReferenceExpression : Expression {
+	public partial class  TypeReferenceExpression : Expression {
 		
 		TypeReference typeReference;
 		
@@ -6157,7 +6180,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class UnaryOperatorExpression : Expression {
+	public partial class  UnaryOperatorExpression : Expression {
 		
 		UnaryOperatorType op;
 		
@@ -6211,7 +6234,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class UncheckedExpression : Expression {
+	public partial class  UncheckedExpression : Expression {
 		
 		Expression expression;
 		
@@ -6248,7 +6271,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class UncheckedStatement : Statement {
+	public partial class  UncheckedStatement : Statement {
 		
 		Statement block;
 		
@@ -6285,7 +6308,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class UnsafeStatement : Statement {
+	public partial class  UnsafeStatement : Statement {
 		
 		Statement block;
 		
@@ -6322,7 +6345,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class Using : AbstractNode {
+	public partial class  Using : AbstractNode {
 		
 		string name;
 		
@@ -6382,7 +6405,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 	}
 	
-	public class UsingDeclaration : AbstractNode {
+	public partial class  UsingDeclaration : AbstractNode {
 		
 		List<Using> usings;
 		
@@ -6422,7 +6445,7 @@ public UsingDeclaration(string @namespace, TypeReference alias) { usings = new L
 		}
 	}
 	
-	public class UsingStatement : StatementWithEmbeddedStatement {
+	public partial class  UsingStatement : StatementWithEmbeddedStatement {
 		
 		Statement resourceAcquisition;
 		
@@ -6460,7 +6483,7 @@ public UsingDeclaration(string @namespace, TypeReference alias) { usings = new L
 		}
 	}
 	
-	public class VariableDeclaration : AbstractNode {
+	public partial class  VariableDeclaration : AbstractNode {
 		
 		string name;
 		
@@ -6552,7 +6575,7 @@ public UsingDeclaration(string @namespace, TypeReference alias) { usings = new L
 		}
 	}
 	
-	public class WithStatement : Statement {
+	public partial class  WithStatement : Statement {
 		
 		Expression expression;
 		
@@ -6603,7 +6626,7 @@ public UsingDeclaration(string @namespace, TypeReference alias) { usings = new L
 		}
 	}
 	
-	public class YieldStatement : Statement {
+	public partial class  YieldStatement : Statement {
 		
 		Statement statement;
 		

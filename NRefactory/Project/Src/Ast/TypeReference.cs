@@ -319,7 +319,7 @@ namespace ICSharpCode.NRefactory.Ast
 	        return visitor.VisitTypeReference(this, data);
 	    }
 
-	    public override string ToString()
+	  public override string ToString()
 		{
 			StringBuilder b = new StringBuilder(type);
 			if (genericTypes != null && genericTypes.Count > 0) {
@@ -345,8 +345,8 @@ namespace ICSharpCode.NRefactory.Ast
 			}
 			return b.ToString();
 		}
-		
-		public static bool AreEqualReferences(TypeReference a, TypeReference b)
+
+	  public static bool AreEqualReferences(TypeReference a, TypeReference b)
 		{
 			if (a == b) return true;
 			if (a == null || b == null) return false;
@@ -371,7 +371,12 @@ namespace ICSharpCode.NRefactory.Ast
 			return true;
 		}
 
-	    public override IEnumerable<INode> Chilluns { get { return Children; } }
+	  public override IEnumerable<INode> Chilluns { get { return Children; } }
+
+	  internal override bool ShallowMatch(INode right)
+	  {
+	    return true;
+	  }
 	}
 
 	internal sealed class NullTypeReference : TypeReference

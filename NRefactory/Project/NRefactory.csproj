@@ -70,6 +70,7 @@
     <Compile Include="Configuration\AssemblyInfo.cs" />
     <Compile Include="Src\AstBuilder\ExpressionBuilder.cs" />
     <Compile Include="Src\AstBuilder\StatementBuilder.cs" />
+    <Compile Include="Src\Ast\Generated.Ralph.cs" />
     <Compile Include="Src\INodeExt.cs" />
     <Compile Include="Src\Lexer\AbstractLexer.cs" />
     <Compile Include="Src\Lexer\CSharp\ConditionalCompilation.cs" />

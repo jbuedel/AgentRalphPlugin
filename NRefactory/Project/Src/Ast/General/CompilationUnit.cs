@@ -65,5 +65,10 @@ namespace ICSharpCode.NRefactory.Ast
 		}
 
         public override IEnumerable<INode> Chilluns { get { return Children; } }
+        internal override bool ShallowMatch(INode right)
+        {
+          return true;
+        }
+
     }
 }

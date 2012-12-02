@@ -58,5 +58,6 @@ namespace ICSharpCode.NRefactory.Ast
 		object AcceptVisitor(IAstVisitor visitor, object data);
 		
         bool AcceptVisitor(AstComparisonVisitor visitor, object data);
+	  bool IsShallowMatch(INode right);
 	}
 }

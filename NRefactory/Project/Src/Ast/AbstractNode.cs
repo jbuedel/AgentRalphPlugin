@@ -95,5 +95,17 @@ namespace ICSharpCode.NRefactory.Ast
 			output.Append('}');
 			return output.ToString();
 		}
+
+      internal abstract bool ShallowMatch(INode right);
+      public bool IsShallowMatch(INode right)
+      {
+
+        if (right != null && this.GetType() == right.GetType())
+        {
+          return this.ShallowMatch(right);
+        }
+        return false;
+      }
+
 	}
 }

@@ -111,5 +111,11 @@ namespace ICSharpCode.NRefactory.Ast
 			return String.Format("[NullExpression]");
 		}
         public override IEnumerable<INode> Chilluns { get { return Children; } }
+        internal override bool ShallowMatch(INode right)
+        {
+          return true;
+        }
+
     }
+
 }

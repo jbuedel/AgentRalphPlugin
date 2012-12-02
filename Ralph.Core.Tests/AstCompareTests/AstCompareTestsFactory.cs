@@ -88,10 +88,17 @@ namespace AgentRalph.Tests.AstCompareTests
             AstComparisonVisitor cv = new AstComparisonVisitor();
             visitor.BarMethod.AcceptVisitor(cv, visitor.FooMethod);
 
-            if (expectedResult == Result.Match)
-                Assert.IsTrue(cv.Match, "Expected Foo & Bar to match: " + msgFromCodeComment);
-            else
-                Assert.IsFalse(cv.Match, "Expected Foo & Bar to not match: " + msgFromCodeComment);
+
+          if (expectedResult == Result.Match)
+          {
+            Assert.IsTrue(cv.Match, "Expected Foo & Bar to match: " + msgFromCodeComment);
+            Assert.That(visitor.BarMethod.Body.Matches2(visitor.FooMethod.Body));
+          }
+          else
+          {
+            Assert.IsFalse(cv.Match, "Expected Foo & Bar to not match: " + msgFromCodeComment);
+            Assert.That(visitor.BarMethod.Matches2(visitor.FooMethod), Is.False);
+          }
         }
     }
 

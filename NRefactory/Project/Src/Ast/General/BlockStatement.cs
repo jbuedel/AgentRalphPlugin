@@ -32,13 +32,19 @@ namespace ICSharpCode.NRefactory.Ast
 	        return visitor.VisitBlockStatement(this, data);
 	    }
 
-	    public override string ToString()
+	  public override string ToString()
 		{
 			return String.Format("[BlockStatement: Children={0}]",
 			                     GetCollectionString(base.Children));
 		}
-        public override IEnumerable<INode> Chilluns { get { return Children; } }
-    }
+
+	  public override IEnumerable<INode> Chilluns { get { return Children; } }
+
+	  internal override bool ShallowMatch(INode right)
+	  {
+	    return true;
+	  }
+	}
 	
 	internal sealed class NullBlockStatement : BlockStatement
 	{
