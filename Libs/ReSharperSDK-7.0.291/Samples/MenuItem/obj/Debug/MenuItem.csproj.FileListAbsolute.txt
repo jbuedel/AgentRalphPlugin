@@ -1,5 +1,0 @@
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\MenuItem\bin\Debug\MenuItem.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\MenuItem\bin\Debug\MenuItem.pdb
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\MenuItem\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\MenuItem\obj\Debug\MenuItem.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\MenuItem\obj\Debug\MenuItem.pdb

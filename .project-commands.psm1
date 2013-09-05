@@ -32,7 +32,11 @@ function clean_project {
 	rm-orig
 }
 function rebuild_project {
-	msbuild .\AgentRalph.proj /t:Rebuild /v:minimal
+	#msbuild .\AgentRalph.proj /t:Rebuild /v:minimal
+	write-host "*****************************************************************************"
+	write-host "***Rebuild actually builds for release including making the nuget package.***"
+	write-host "*****************************************************************************"
+	msbuild .\AgentRalph.proj /t:Release /p:BUILD_NUMBER=77 /p:Configuration=Release /v:detailed
 }
 function develop_project {
 	.\AgentRalph.sln

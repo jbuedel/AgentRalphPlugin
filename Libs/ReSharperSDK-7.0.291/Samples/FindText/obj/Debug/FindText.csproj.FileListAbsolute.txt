@@ -1,8 +1,0 @@
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\bin\Debug\FindText.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\bin\Debug\FindText.pdb
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\JetBrains.ReSharper.PowerToys.FindText.EnterSearchStringDialog.resources
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\ResGen.read.1.tlog
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\ResGen.write.1.tlog
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\FindText.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\FindText\obj\Debug\FindText.pdb

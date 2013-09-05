@@ -1,8 +1,0 @@
-// ${COMPLETE_ITEM:abstract}
-// ${SHOW_SIGNATURES:false}
-// ${CASE_SENSITIVE_COMPLETION:false}
-// ${COMPLETION_TYPE:Replace}
-
-a{caret}b b:
-	c
-  ;

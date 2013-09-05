@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="Libs\MSBuild.Community.Tasks.Targets"/>
-  
+  <Import Project="Libs\MSBuild.Community.Tasks.Targets" />
+
+
   <PropertyGroup>
     <BUILD_NUMBER Condition=" '$(BUILD_NUMBER)' == '' ">00000</BUILD_NUMBER>
-    <AssemblyVersion>1.2.0.$(BUILD_NUMBER)</AssemblyVersion>
+    <AssemblyVersion>1.3.0.$(BUILD_NUMBER)</AssemblyVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectPath>Ralph.nuspec</ProjectPath>
 
     <TestAssemblies>Bin\$(Configuration)\*Tests.dll</TestAssemblies>
 
@@ -25,6 +27,13 @@
       RunTests
     </TestTargets>
 
+    <ReleaseTargets>
+      AssertBuildNumber;
+      AssertRelease;
+      $(RebuildTargets);
+      BuildPackage
+    </ReleaseTargets>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,14 +44,28 @@
     <AssemblyInfo AssemblyVersion="$(AssemblyVersion)" CodeLanguage="CS" OutputFile="GlobalVersionInfo.cs"/>
   </Target>
 
+  <Target Name="AssertBuildNumber">
+    <Error Condition=" '$(BUILD_NUMBER)' == '00000' " Text="BUILD_NUMBER must be supplied.  Can't release without it." />
+  </Target>
+
+  <Target Name="AssertRelease">
+    <Warning Condition=" '$(Configuration)' != 'Release' " Text="Forcing Configuration to 'Release'." />
+    <PropertyGroup>
+    <Configuration>Release</Configuration>
+    </PropertyGroup>
+  </Target>
+
   <Target Name="Clean">
     <!-- Just to be safe, clean everything. -->
     <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Debug" />
     <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Release" />
+
+    <Delete Files="*.nupkg" />
   </Target>
 
 	<Target Name="Build" DependsOnTargets="$(BuildTargets)" />
 	<Target Name="Rebuild" DependsOnTargets="$(RebuildTargets)" />
+  <Target Name="Release" DependsOnTargets="$(ReleaseTargets)" />
 
   <Target Name="BuildAll">
     <MSBuild Projects="@(ProjectsToBuild)" Properties="Configuration=$(Configuration)" />
@@ -61,4 +84,6 @@
        the Build target explicitely.  This way the TeamCity built in test runner is invoked, and using 
        said test runner gives us code coverage too. -->
   <Target Name="Test" DependsOnTargets="$(TestTargets)" />
+  
+  <Import Project=".nuget\NuGet.targets" />
 </Project>

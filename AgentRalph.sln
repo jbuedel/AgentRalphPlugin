@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5606B313-638C-4F5E-A4FB-79B456F6492D}"
 	ProjectSection(SolutionItems) = preProject
 		AgentRalph.proj = AgentRalph.proj
+		ralph.nuspec = ralph.nuspec
 		Libs\Report By Assembly.xslt = Libs\Report By Assembly.xslt
 		Libs\Report By Class .xslt = Libs\Report By Class .xslt
 		Libs\Report By Class-2.xslt = Libs\Report By Class-2.xslt

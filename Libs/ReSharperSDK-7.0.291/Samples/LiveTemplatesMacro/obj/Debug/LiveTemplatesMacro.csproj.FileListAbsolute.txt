@@ -1,5 +1,0 @@
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\LiveTemplatesMacro\bin\Debug\LiveTemplatesMacro.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\LiveTemplatesMacro\bin\Debug\LiveTemplatesMacro.pdb
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\LiveTemplatesMacro\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\LiveTemplatesMacro\obj\Debug\LiveTemplatesMacro.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\LiveTemplatesMacro\obj\Debug\LiveTemplatesMacro.pdb

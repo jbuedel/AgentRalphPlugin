@@ -1,7 +1,0 @@
-﻿internal class A
-{
-  private void Foo()
-  {
-    int s = 1 + int.MaxValue;
-  }
-}
