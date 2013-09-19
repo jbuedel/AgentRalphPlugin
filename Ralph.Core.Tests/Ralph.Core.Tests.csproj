@@ -93,6 +93,7 @@
     <Compile Include="SetsTests.cs" />
     <Compile Include="TestShrinkingOscillatingWindowAlgorithm.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="Visualizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NRefactory\NRefactoryASTGenerator\NRefactoryASTGenerator.csproj">

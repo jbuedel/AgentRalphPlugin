@@ -46,7 +46,27 @@ namespace AgentRalph
             }
             return match;
         }
-        
+
+      public static MatchResult MatchesWithState(this INode md_this, INode md)
+      {
+        AstComparisonVisitor cv = new AstComparisonVisitor();
+        md_this.AcceptVisitor(cv, md);
+        return new MatchResult(md_this,cv.FailNodeLeft, cv.FailNodeRight);
+      }
+
+      public class MatchResult
+      {
+        public INode Root { get; set; }
+        public INode FailNodeLeft { get; set; }
+        public INode FailNodeRight { get; set; }
+
+        public MatchResult(INode root,INode failNodeLeft, INode failNodeRight)
+        {
+          Root = root;
+          FailNodeLeft = failNodeLeft;
+          FailNodeRight = failNodeRight;
+        }
+      }
         public static bool Matches(this MethodDeclaration md_this, MethodDeclaration md)
         {
             AstComparisonVisitor cv = new AstComparisonVisitor();

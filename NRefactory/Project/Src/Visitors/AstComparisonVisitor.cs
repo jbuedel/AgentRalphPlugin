@@ -9,13 +9,22 @@ namespace AgentRalph.Visitors
     partial class AstComparisonVisitor
     {
         public bool Match = true;
+      public INode FailNodeRight { get; private set; }
+      public INode FailNodeLeft { get; private set; }
 
-        private bool SetFailure()
+      private bool SetFailure()
         {
             return Match = false;
         }
 
-        private bool IsMatch(Using left, Using right)
+      private bool SetFailure(INode left, INode right)
+      {
+        FailNodeLeft = left;
+        FailNodeRight = right;
+        return SetFailure();
+      }
+
+      private bool IsMatch(Using left, Using right)
         {
             return left.Name == right.Name;
         }

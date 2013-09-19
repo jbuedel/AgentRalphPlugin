@@ -55,6 +55,7 @@ namespace NRefactoryASTGenerator
 					if (type.IsAbstract) {
 						ctd.TypeAttributes |= TypeAttributes.Abstract;
 					}
+				  ctd.IsPartial = true;
 					ctd.BaseTypes.Add(new CodeTypeReference(type.BaseType.Name));
 					
 					ProcessType(type, ctd);
@@ -265,16 +266,16 @@ namespace NRefactoryASTGenerator
 
                     CodeExpression r_var = Easy.Var(right_hand_side_name);
                     assertions.Add(IfNullSetFailure(r_var));
-
+ Some of these SetFailure updates are not passing the left and right properly.  THey need to pass the parameters of the visit function.
 					// Confirm their types are the same.
-                    m.Statements.Add(new CodeSnippetStatement("\t\t\tif(" + varVariableName + ".GetType() != " + right_hand_side_name + ".GetType()) {return SetFailure();}"));
+                    m.Statements.Add(new CodeSnippetStatement("\t\t\tif(" + varVariableName + ".GetType() != " + right_hand_side_name + ".GetType()) {return SetFailure("+varVariableName + "," + right_hand_side_name+");}"));
 
                     // Cast the object parameter to whatever the other parameter is, and call the variable 'data'.
                     // Like so: AddHandlerStatement data = (AddHandlerStatement) d;
                     m.Statements.Add(new CodeSnippetStatement("\t\t\tvar data = (" + ConvertType(type).BaseType + ")d;"));
 
 					m.Statements.Add(new CodeConditionStatement(new CodeSnippetExpression("!IsMatch(" + varVariableName + ", data)"),
-                	                                            new CodeSnippetStatement("\t\t\t\treturn SetFailure();")));
+                	                                            new CodeSnippetStatement("\t\t\t\treturn SetFailure("+varVariableName + "," + right_hand_side_name+");")));
                         
                     AddFieldVisitCode(m, type, var, assertions, false);
 
@@ -477,10 +478,10 @@ namespace NRefactoryASTGenerator
                         "\t\t\tif (" + propertyName + ".Count == data." + GetPropertyName(field.Name) + ".Count) {\n" +
                         "\t\t\tfor (int i=0; i<" + propertyName + ".Count;i++) {\n" +
                         "\t\t\t\t" + ConvertType(elType).BaseType + " o = " + propertyName + "[i];\n" +
-                        "\t\t\t\tif(o == null){return SetFailure();}\n" + "\t\t\t\tif((bool)o.AcceptVisitor(this, data." + GetPropertyName(field.Name) + "[i]) == false) return SetFailure();\n" +
+                        "\t\t\t\tif(o == null){return SetFailure("+propertyName+",d);}\n" + "\t\t\t\tif((bool)o.AcceptVisitor(this, data." + GetPropertyName(field.Name) + "[i]) == false) return SetFailure("+propertyName+",d);\n" +
                         "\t\t\t}" + 
                         "\t\t\t}" + 
-                        "\t\t\telse { return SetFailure(); }";
+                        "\t\t\telse { return SetFailure("+propertyName+",d); }";
 				}
 				m.Statements.Add(new CodeSnippetStatement(code));
 				return true;
