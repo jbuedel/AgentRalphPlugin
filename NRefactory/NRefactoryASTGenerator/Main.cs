@@ -26,13 +26,13 @@ namespace NRefactoryASTGenerator
 		{
 			string directory = "../../NRefactory/Project/Src/Ast/";
             string visitorsDir = "../../NRefactory/Project/Src/Visitors/";
-			Debug.WriteLine("AST Generator running...");
+			Console.WriteLine("AST Generator running...");
 			if (!File.Exists(directory + "INode.cs")) {
-				Debug.WriteLine("did not find output directory " + Path.GetFullPath(Path.GetDirectoryName(directory)));
+				Console.WriteLine("did not find output directory " + Path.GetFullPath(Path.GetDirectoryName(directory)));
 				return;
 			}
 			if (!File.Exists(visitorsDir + "AbstractAstTransformer.cs")) {
-				Debug.WriteLine("did not find visitor output directory");
+				Console.WriteLine("did not find visitor output directory");
 				return;
 			}
 			
@@ -55,6 +55,7 @@ namespace NRefactoryASTGenerator
 					if (type.IsAbstract) {
 						ctd.TypeAttributes |= TypeAttributes.Abstract;
 					}
+				  ctd.IsPartial = true;
 					ctd.BaseTypes.Add(new CodeTypeReference(type.BaseType.Name));
 					
 					ProcessType(type, ctd);
@@ -178,7 +179,7 @@ namespace NRefactoryASTGenerator
 
 
 
-			Debug.WriteLine("AST Generator done!");
+			Console.WriteLine("AST Generator done!");
 		}
 
 	    private static void AddAnAcceptVisitorMethod(Type type, CodeTypeDeclaration ctd, string typeOfFirstParam, Type returnType)
