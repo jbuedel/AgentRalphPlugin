@@ -5,6 +5,8 @@
 //
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
+// This file does NOT generate correctly.  It has partial classes and things that do not get created properly.
+// Fix the generator before you try to check it in.  Mostly you can just discard changes to this file when generating.
 // </auto-generated>
 //------------------------------------------------------------------------------
 
