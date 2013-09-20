@@ -20,7 +20,12 @@ namespace ICSharpCode.NRefactory.Ast
 	        get { return Value == null ? null : Value.GetType(); }
 	    }
 
-	    public Parser.LiteralFormat LiteralFormat { get; set; }
+	  public override object JsonData()
+	  {
+	    return StringValue;
+	  }
+
+	  public Parser.LiteralFormat LiteralFormat { get; set; }
 		public object Value { get; set; }
 		
 		public string StringValue {
