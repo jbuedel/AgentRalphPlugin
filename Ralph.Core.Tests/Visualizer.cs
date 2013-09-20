@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using Newtonsoft.Json;
@@ -21,7 +22,9 @@ namespace AgentRalph.Tests
     [Test]
     public void Print()
     {
-      Console.WriteLine(Visualizer.ToJson(AstMatchHelper.ParseToExpression("3+2")));
+      var json = Visualizer.ToJson(AstMatchHelper.ParseToExpression("3+2"));
+      File.WriteAllText(@"C:\Users\jbuedel\Projects\agentralphplugin\bin\" + DateTime.Now.Ticks + ".json", json);
+      Console.WriteLine(json);
     }
   }
 }

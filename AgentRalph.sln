@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{926029
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Plugin", "Ralph.Plugin\Ralph.Plugin.csproj", "{C8C9C590-A3A9-4FB4-817B-54573C55A573}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{23A80FA4-A3E5-4907-B806-69E845D616F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,16 @@ Global
 		{C8C9C590-A3A9-4FB4-817B-54573C55A573}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C8C9C590-A3A9-4FB4-817B-54573C55A573}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C8C9C590-A3A9-4FB4-817B-54573C55A573}.Release|x86.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -30,7 +30,7 @@ namespace ICSharpCode.NRefactory.Ast
       }
 
       public virtual object ToJson() {
-        return new {GetType().Name, Data = JsonData(), Children = this.Chilluns.Select(c=>c.ToJson())};
+        return new {name = GetType().Name, data = JsonData(), children = this.Chilluns.Select(c=>c.ToJson())};
       }
 		
         /// <summary>
