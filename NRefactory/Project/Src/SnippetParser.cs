@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-
+using System.Linq;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Parser;
 using AgentRalph.Visitors;
@@ -129,8 +129,13 @@ namespace ICSharpCode.NRefactory
 			public Location EndLocation { get; set; }
 			
 			public object UserData { get; set; }
-			
-			public object AcceptChildren(IAstVisitor visitor, object data)
+
+		  public object ToJson()
+		  {
+		    return Chilluns.Select(c => c.ToJson());
+		  }
+
+		  public object AcceptChildren(IAstVisitor visitor, object data)
 			{
 				foreach (INode n in nodes) {
 					n.AcceptVisitor(visitor, data);

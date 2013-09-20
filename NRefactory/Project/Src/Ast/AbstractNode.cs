@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using AgentRalph.Visitors;
 
@@ -23,6 +24,11 @@ namespace ICSharpCode.NRefactory.Ast
 		public Location StartLocation { get; set; }
 		public Location EndLocation { get; set; }
 		public object UserData { get; set; }
+
+      public object ToJson()
+      {
+        return new {Name=this.GetType().Name, Children = this.Chilluns.Select(c=>c.ToJson())};
+      }
 		
         /// <summary>
         ///  This is only ever set when an AST is constructed by the VB parser.

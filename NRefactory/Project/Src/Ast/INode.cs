@@ -40,6 +40,11 @@ namespace ICSharpCode.NRefactory.Ast
 			get;
 			set;
 		}
+
+          /// <summary>
+          /// Return an object suitable for Json serialization.
+          /// </summary>
+	  object ToJson();
 		
 		/// <summary>
 		/// Visits all children

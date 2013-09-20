@@ -253,21 +253,29 @@ namespace AgentRalph
 
         public static Expression DeepCopy(this Expression right)
         {
-            // SEMICOLON HACK : without a trailing semicolon, parsing expressions does not work correctly
-            IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(right.Print() + ";"));
-            object parsedExpression = parser.ParseExpression();
-            
-            if(parser.Errors.Count > 0)
-                throw new ApplicationException("Unable to parse the expression.  Parse errors:" + parser.Errors.ErrorOutput);
+          var parsedExpression = ParseToExpression(right.Print() + ";");
 
-            Type type = typeof(Expression);
-            if (type.IsAssignableFrom(parsedExpression.GetType()))
-                throw new ApplicationException(String.Format("Parsed expression was {0} instead of {1} ({2}).", parsedExpression.GetType(), type, parsedExpression));
+          Type type = typeof(Expression);
+          if (type.IsAssignableFrom(parsedExpression.GetType()))
+            throw new ApplicationException(String.Format("Parsed expression was {0} instead of {1} ({2}).",
+              parsedExpression.GetType(), type, parsedExpression));
 
-            return (Expression)parsedExpression;
+          return parsedExpression;
         }
 
-        public static MethodDeclaration ParseToMethodDeclaration(string codeText)
+      public static Expression ParseToExpression(string code)
+      {
+        // SEMICOLON HACK : without a trailing semicolon, parsing expressions does not work correctly
+        IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(code));
+        var parsedExpression = parser.ParseExpression();
+
+        if (parser.Errors.Count > 0)
+          throw new ApplicationException("Unable to parse the expression.  Parse errors:" + parser.Errors.ErrorOutput);
+
+        return parsedExpression;
+      }
+
+      public static MethodDeclaration ParseToMethodDeclaration(string codeText)
         {
             IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader("class MyClass {" + codeText + "}"));
             parser.ParseMethodBodies = true;
