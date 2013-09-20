@@ -45,6 +45,8 @@ namespace ICSharpCode.NRefactory.Ast
           /// Return an object suitable for Json serialization.
           /// </summary>
 	  object ToJson();
+
+	  object JsonData();
 		
 		/// <summary>
 		/// Visits all children

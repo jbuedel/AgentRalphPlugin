@@ -25,9 +25,12 @@ namespace ICSharpCode.NRefactory.Ast
 		public Location EndLocation { get; set; }
 		public object UserData { get; set; }
 
-      public object ToJson()
-      {
-        return new {Name=this.GetType().Name, Children = this.Chilluns.Select(c=>c.ToJson())};
+      public virtual object JsonData() {
+        return null;
+      }
+
+      public virtual object ToJson() {
+        return new {GetType().Name, Data = JsonData(), Children = this.Chilluns.Select(c=>c.ToJson())};
       }
 		
         /// <summary>

@@ -135,6 +135,11 @@ namespace ICSharpCode.NRefactory
 		    return Chilluns.Select(c => c.ToJson());
 		  }
 
+		  public object JsonData()
+		  {
+		    return null;
+		  }
+
 		  public object AcceptChildren(IAstVisitor visitor, object data)
 			{
 				foreach (INode n in nodes) {

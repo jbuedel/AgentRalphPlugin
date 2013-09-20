@@ -93,6 +93,11 @@ namespace ICSharpCode.NRefactory.Ast
       var r = (BinaryOperatorExpression) right;
       return this.Op == r.Op;
     }
+
+    public override object JsonData()
+    {
+      return this.Op.ToString();
+    }
   }
 
   public partial class BreakStatement
