@@ -17,10 +17,10 @@ namespace AgentRalph.Visitors
             return Match = false;
         }
 
-      private bool SetFailure(INode left, INode right)
+      private bool SetFailure(INode left, object right)
       {
         FailNodeLeft = left;
-        FailNodeRight = right;
+        FailNodeRight = (INode) right;
         return SetFailure();
       }
 

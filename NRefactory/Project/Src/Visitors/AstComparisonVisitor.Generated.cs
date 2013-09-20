@@ -18,3082 +18,3082 @@ namespace AgentRalph.Visitors {
 	
 	public partial class AstComparisonVisitor {
 		
-		public virtual bool VisitAddHandlerStatement(AddHandlerStatement addHandlerStatement, object d) {
-			if ((addHandlerStatement == null)) {
+		public virtual bool VisitAddHandlerStatement(AddHandlerStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((addHandlerStatement.EventExpression == null)) {
+			if ((left.EventExpression == null)) {
 				return SetFailure();
 			}
-			if ((addHandlerStatement.HandlerExpression == null)) {
+			if ((left.HandlerExpression == null)) {
 				return SetFailure();
 			}
-			if(addHandlerStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (AddHandlerStatement)d;
-			if (!IsMatch(addHandlerStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			addHandlerStatement.EventExpression.AcceptVisitor(this, data.EventExpression);
-			return addHandlerStatement.HandlerExpression.AcceptVisitor(this, data.HandlerExpression);
+			left.EventExpression.AcceptVisitor(this, data.EventExpression);
+			return left.HandlerExpression.AcceptVisitor(this, data.HandlerExpression);
 		}
 		
-		public virtual bool VisitAddressOfExpression(AddressOfExpression addressOfExpression, object d) {
-			if ((addressOfExpression == null)) {
+		public virtual bool VisitAddressOfExpression(AddressOfExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((addressOfExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(addressOfExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (AddressOfExpression)d;
-			if (!IsMatch(addressOfExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return addressOfExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitAnonymousMethodExpression(AnonymousMethodExpression anonymousMethodExpression, object d) {
-			if ((anonymousMethodExpression == null)) {
+		public virtual bool VisitAnonymousMethodExpression(AnonymousMethodExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((anonymousMethodExpression.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((anonymousMethodExpression.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if(anonymousMethodExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (AnonymousMethodExpression)d;
-			if (!IsMatch(anonymousMethodExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (anonymousMethodExpression.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<anonymousMethodExpression.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = anonymousMethodExpression.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return anonymousMethodExpression.Body.AcceptVisitor(this, data.Body);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.Body.AcceptVisitor(this, data.Body);
 		}
 		
-		public virtual bool VisitArrayCreateExpression(ArrayCreateExpression arrayCreateExpression, object d) {
-			if ((arrayCreateExpression == null)) {
+		public virtual bool VisitArrayCreateExpression(ArrayCreateExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((arrayCreateExpression.CreateType == null)) {
+			if ((left.CreateType == null)) {
 				return SetFailure();
 			}
-			if ((arrayCreateExpression.Arguments == null)) {
+			if ((left.Arguments == null)) {
 				return SetFailure();
 			}
-			if ((arrayCreateExpression.ArrayInitializer == null)) {
+			if ((left.ArrayInitializer == null)) {
 				return SetFailure();
 			}
-			if(arrayCreateExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ArrayCreateExpression)d;
-			if (!IsMatch(arrayCreateExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			arrayCreateExpression.CreateType.AcceptVisitor(this, data.CreateType);
-			if (arrayCreateExpression.Arguments.Count == data.Arguments.Count) {
-			for (int i=0; i<arrayCreateExpression.Arguments.Count;i++) {
-				Expression o = arrayCreateExpression.Arguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return arrayCreateExpression.ArrayInitializer.AcceptVisitor(this, data.ArrayInitializer);
+			left.CreateType.AcceptVisitor(this, data.CreateType);
+			if (left.Arguments.Count == data.Arguments.Count) {
+			for (int i=0; i<left.Arguments.Count;i++) {
+				Expression o = left.Arguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.ArrayInitializer.AcceptVisitor(this, data.ArrayInitializer);
 		}
 		
-		public virtual bool VisitAssignmentExpression(AssignmentExpression assignmentExpression, object d) {
-			if ((assignmentExpression == null)) {
+		public virtual bool VisitAssignmentExpression(AssignmentExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((assignmentExpression.Left == null)) {
+			if ((left.Left == null)) {
 				return SetFailure();
 			}
-			if ((assignmentExpression.Right == null)) {
+			if ((left.Right == null)) {
 				return SetFailure();
 			}
-			if(assignmentExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (AssignmentExpression)d;
-			if (!IsMatch(assignmentExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			assignmentExpression.Left.AcceptVisitor(this, data.Left);
-			return assignmentExpression.Right.AcceptVisitor(this, data.Right);
+			left.Left.AcceptVisitor(this, data.Left);
+			return left.Right.AcceptVisitor(this, data.Right);
 		}
 		
-		public virtual bool VisitAttribute(ICSharpCode.NRefactory.Ast.Attribute attribute, object d) {
-			if ((attribute == null)) {
+		public virtual bool VisitAttribute(ICSharpCode.NRefactory.Ast.Attribute left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((attribute.PositionalArguments == null)) {
+			if ((left.PositionalArguments == null)) {
 				return SetFailure();
 			}
-			if ((attribute.NamedArguments == null)) {
+			if ((left.NamedArguments == null)) {
 				return SetFailure();
 			}
-			if(attribute.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ICSharpCode.NRefactory.Ast.Attribute)d;
-			if (!IsMatch(attribute, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (attribute.PositionalArguments.Count == data.PositionalArguments.Count) {
-			for (int i=0; i<attribute.PositionalArguments.Count;i++) {
-				Expression o = attribute.PositionalArguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.PositionalArguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (attribute.NamedArguments.Count == data.NamedArguments.Count) {
-			for (int i=0; i<attribute.NamedArguments.Count;i++) {
-				NamedArgumentExpression o = attribute.NamedArguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.NamedArguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.PositionalArguments.Count == data.PositionalArguments.Count) {
+			for (int i=0; i<left.PositionalArguments.Count;i++) {
+				Expression o = left.PositionalArguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.PositionalArguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.NamedArguments.Count == data.NamedArguments.Count) {
+			for (int i=0; i<left.NamedArguments.Count;i++) {
+				NamedArgumentExpression o = left.NamedArguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.NamedArguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitAttributeSection(AttributeSection attributeSection, object d) {
-			if ((attributeSection == null)) {
+		public virtual bool VisitAttributeSection(AttributeSection left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((attributeSection.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if(attributeSection.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (AttributeSection)d;
-			if (!IsMatch(attributeSection, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (attributeSection.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<attributeSection.Attributes.Count;i++) {
-				ICSharpCode.NRefactory.Ast.Attribute o = attributeSection.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				ICSharpCode.NRefactory.Ast.Attribute o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitBaseReferenceExpression(BaseReferenceExpression baseReferenceExpression, object d) {
-			if ((baseReferenceExpression == null)) {
+		public virtual bool VisitBaseReferenceExpression(BaseReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(baseReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (BaseReferenceExpression)d;
-			if (!IsMatch(baseReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitBinaryOperatorExpression(BinaryOperatorExpression binaryOperatorExpression, object d) {
-			if ((binaryOperatorExpression == null)) {
+		public virtual bool VisitBinaryOperatorExpression(BinaryOperatorExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((binaryOperatorExpression.Left == null)) {
+			if ((left.Left == null)) {
 				return SetFailure();
 			}
-			if ((binaryOperatorExpression.Right == null)) {
+			if ((left.Right == null)) {
 				return SetFailure();
 			}
-			if(binaryOperatorExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (BinaryOperatorExpression)d;
-			if (!IsMatch(binaryOperatorExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			binaryOperatorExpression.Left.AcceptVisitor(this, data.Left);
-			return binaryOperatorExpression.Right.AcceptVisitor(this, data.Right);
+			left.Left.AcceptVisitor(this, data.Left);
+			return left.Right.AcceptVisitor(this, data.Right);
 		}
 		
-		public virtual bool VisitBlockStatement(BlockStatement blockStatement, object d) {
-			if ((blockStatement == null)) {
+		public virtual bool VisitBlockStatement(BlockStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(blockStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (BlockStatement)d;
-			if (!IsMatch(blockStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return blockStatement.AcceptChildren(this, d);
+			return left.AcceptChildren(this, d);
 		}
 		
-		public virtual bool VisitBreakStatement(BreakStatement breakStatement, object d) {
-			if ((breakStatement == null)) {
+		public virtual bool VisitBreakStatement(BreakStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(breakStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (BreakStatement)d;
-			if (!IsMatch(breakStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitCaseLabel(CaseLabel caseLabel, object d) {
-			if ((caseLabel == null)) {
+		public virtual bool VisitCaseLabel(CaseLabel left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((caseLabel.Label == null)) {
+			if ((left.Label == null)) {
 				return SetFailure();
 			}
-			if ((caseLabel.ToExpression == null)) {
+			if ((left.ToExpression == null)) {
 				return SetFailure();
 			}
-			if(caseLabel.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CaseLabel)d;
-			if (!IsMatch(caseLabel, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			caseLabel.Label.AcceptVisitor(this, data.Label);
-			return caseLabel.ToExpression.AcceptVisitor(this, data.ToExpression);
+			left.Label.AcceptVisitor(this, data.Label);
+			return left.ToExpression.AcceptVisitor(this, data.ToExpression);
 		}
 		
-		public virtual bool VisitCastExpression(CastExpression castExpression, object d) {
-			if ((castExpression == null)) {
+		public virtual bool VisitCastExpression(CastExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((castExpression.CastTo == null)) {
+			if ((left.CastTo == null)) {
 				return SetFailure();
 			}
-			if ((castExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(castExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CastExpression)d;
-			if (!IsMatch(castExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			castExpression.CastTo.AcceptVisitor(this, data.CastTo);
-			return castExpression.Expression.AcceptVisitor(this, data.Expression);
+			left.CastTo.AcceptVisitor(this, data.CastTo);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitCatchClause(CatchClause catchClause, object d) {
-			if ((catchClause == null)) {
+		public virtual bool VisitCatchClause(CatchClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((catchClause.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((catchClause.StatementBlock == null)) {
+			if ((left.StatementBlock == null)) {
 				return SetFailure();
 			}
-			if ((catchClause.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if(catchClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CatchClause)d;
-			if (!IsMatch(catchClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			catchClause.TypeReference.AcceptVisitor(this, data.TypeReference);
-			catchClause.StatementBlock.AcceptVisitor(this, data.StatementBlock);
-			return catchClause.Condition.AcceptVisitor(this, data.Condition);
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.StatementBlock.AcceptVisitor(this, data.StatementBlock);
+			return left.Condition.AcceptVisitor(this, data.Condition);
 		}
 		
-		public virtual bool VisitCheckedExpression(CheckedExpression checkedExpression, object d) {
-			if ((checkedExpression == null)) {
+		public virtual bool VisitCheckedExpression(CheckedExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((checkedExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(checkedExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CheckedExpression)d;
-			if (!IsMatch(checkedExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return checkedExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitCheckedStatement(CheckedStatement checkedStatement, object d) {
-			if ((checkedStatement == null)) {
+		public virtual bool VisitCheckedStatement(CheckedStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((checkedStatement.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if(checkedStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CheckedStatement)d;
-			if (!IsMatch(checkedStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return checkedStatement.Block.AcceptVisitor(this, data.Block);
+			return left.Block.AcceptVisitor(this, data.Block);
 		}
 		
-		public virtual bool VisitClassReferenceExpression(ClassReferenceExpression classReferenceExpression, object d) {
-			if ((classReferenceExpression == null)) {
+		public virtual bool VisitClassReferenceExpression(ClassReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(classReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ClassReferenceExpression)d;
-			if (!IsMatch(classReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitCollectionInitializerExpression(CollectionInitializerExpression collectionInitializerExpression, object d) {
-			if ((collectionInitializerExpression == null)) {
+		public virtual bool VisitCollectionInitializerExpression(CollectionInitializerExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((collectionInitializerExpression.CreateExpressions == null)) {
+			if ((left.CreateExpressions == null)) {
 				return SetFailure();
 			}
-			if(collectionInitializerExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CollectionInitializerExpression)d;
-			if (!IsMatch(collectionInitializerExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (collectionInitializerExpression.CreateExpressions.Count == data.CreateExpressions.Count) {
-			for (int i=0; i<collectionInitializerExpression.CreateExpressions.Count;i++) {
-				Expression o = collectionInitializerExpression.CreateExpressions[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.CreateExpressions[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.CreateExpressions.Count == data.CreateExpressions.Count) {
+			for (int i=0; i<left.CreateExpressions.Count;i++) {
+				Expression o = left.CreateExpressions[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.CreateExpressions[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitCompilationUnit(CompilationUnit compilationUnit, object d) {
-			if ((compilationUnit == null)) {
+		public virtual bool VisitCompilationUnit(CompilationUnit left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(compilationUnit.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (CompilationUnit)d;
-			if (!IsMatch(compilationUnit, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return compilationUnit.AcceptChildren(this, d);
+			return left.AcceptChildren(this, d);
 		}
 		
-		public virtual bool VisitConditionalExpression(ConditionalExpression conditionalExpression, object d) {
-			if ((conditionalExpression == null)) {
+		public virtual bool VisitConditionalExpression(ConditionalExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((conditionalExpression.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if ((conditionalExpression.TrueExpression == null)) {
+			if ((left.TrueExpression == null)) {
 				return SetFailure();
 			}
-			if ((conditionalExpression.FalseExpression == null)) {
+			if ((left.FalseExpression == null)) {
 				return SetFailure();
 			}
-			if(conditionalExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ConditionalExpression)d;
-			if (!IsMatch(conditionalExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			conditionalExpression.Condition.AcceptVisitor(this, data.Condition);
-			conditionalExpression.TrueExpression.AcceptVisitor(this, data.TrueExpression);
-			return conditionalExpression.FalseExpression.AcceptVisitor(this, data.FalseExpression);
+			left.Condition.AcceptVisitor(this, data.Condition);
+			left.TrueExpression.AcceptVisitor(this, data.TrueExpression);
+			return left.FalseExpression.AcceptVisitor(this, data.FalseExpression);
 		}
 		
-		public virtual bool VisitConstructorDeclaration(ConstructorDeclaration constructorDeclaration, object d) {
-			if ((constructorDeclaration == null)) {
+		public virtual bool VisitConstructorDeclaration(ConstructorDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((constructorDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((constructorDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((constructorDeclaration.ConstructorInitializer == null)) {
+			if ((left.ConstructorInitializer == null)) {
 				return SetFailure();
 			}
-			if ((constructorDeclaration.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if(constructorDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ConstructorDeclaration)d;
-			if (!IsMatch(constructorDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (constructorDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<constructorDeclaration.Attributes.Count;i++) {
-				AttributeSection o = constructorDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (constructorDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<constructorDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = constructorDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			constructorDeclaration.ConstructorInitializer.AcceptVisitor(this, data.ConstructorInitializer);
-			return constructorDeclaration.Body.AcceptVisitor(this, data.Body);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.ConstructorInitializer.AcceptVisitor(this, data.ConstructorInitializer);
+			return left.Body.AcceptVisitor(this, data.Body);
 		}
 		
-		public virtual bool VisitConstructorInitializer(ConstructorInitializer constructorInitializer, object d) {
-			if ((constructorInitializer == null)) {
+		public virtual bool VisitConstructorInitializer(ConstructorInitializer left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((constructorInitializer.Arguments == null)) {
+			if ((left.Arguments == null)) {
 				return SetFailure();
 			}
-			if(constructorInitializer.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ConstructorInitializer)d;
-			if (!IsMatch(constructorInitializer, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (constructorInitializer.Arguments.Count == data.Arguments.Count) {
-			for (int i=0; i<constructorInitializer.Arguments.Count;i++) {
-				Expression o = constructorInitializer.Arguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Arguments.Count == data.Arguments.Count) {
+			for (int i=0; i<left.Arguments.Count;i++) {
+				Expression o = left.Arguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitContinueStatement(ContinueStatement continueStatement, object d) {
-			if ((continueStatement == null)) {
+		public virtual bool VisitContinueStatement(ContinueStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(continueStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ContinueStatement)d;
-			if (!IsMatch(continueStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitDeclareDeclaration(DeclareDeclaration declareDeclaration, object d) {
-			if ((declareDeclaration == null)) {
+		public virtual bool VisitDeclareDeclaration(DeclareDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((declareDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((declareDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((declareDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(declareDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DeclareDeclaration)d;
-			if (!IsMatch(declareDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (declareDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<declareDeclaration.Attributes.Count;i++) {
-				AttributeSection o = declareDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (declareDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<declareDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = declareDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return declareDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitDefaultValueExpression(DefaultValueExpression defaultValueExpression, object d) {
-			if ((defaultValueExpression == null)) {
+		public virtual bool VisitDefaultValueExpression(DefaultValueExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((defaultValueExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(defaultValueExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DefaultValueExpression)d;
-			if (!IsMatch(defaultValueExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return defaultValueExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitDelegateDeclaration(DelegateDeclaration delegateDeclaration, object d) {
-			if ((delegateDeclaration == null)) {
+		public virtual bool VisitDelegateDeclaration(DelegateDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((delegateDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((delegateDeclaration.ReturnType == null)) {
+			if ((left.ReturnType == null)) {
 				return SetFailure();
 			}
-			if ((delegateDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((delegateDeclaration.Templates == null)) {
+			if ((left.Templates == null)) {
 				return SetFailure();
 			}
-			if(delegateDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DelegateDeclaration)d;
-			if (!IsMatch(delegateDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (delegateDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<delegateDeclaration.Attributes.Count;i++) {
-				AttributeSection o = delegateDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			delegateDeclaration.ReturnType.AcceptVisitor(this, data.ReturnType);
-			if (delegateDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<delegateDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = delegateDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (delegateDeclaration.Templates.Count == data.Templates.Count) {
-			for (int i=0; i<delegateDeclaration.Templates.Count;i++) {
-				TemplateDefinition o = delegateDeclaration.Templates[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.ReturnType.AcceptVisitor(this, data.ReturnType);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Templates.Count == data.Templates.Count) {
+			for (int i=0; i<left.Templates.Count;i++) {
+				TemplateDefinition o = left.Templates[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitDestructorDeclaration(DestructorDeclaration destructorDeclaration, object d) {
-			if ((destructorDeclaration == null)) {
+		public virtual bool VisitDestructorDeclaration(DestructorDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((destructorDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((destructorDeclaration.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if(destructorDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DestructorDeclaration)d;
-			if (!IsMatch(destructorDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (destructorDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<destructorDeclaration.Attributes.Count;i++) {
-				AttributeSection o = destructorDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return destructorDeclaration.Body.AcceptVisitor(this, data.Body);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.Body.AcceptVisitor(this, data.Body);
 		}
 		
-		public virtual bool VisitDirectionExpression(DirectionExpression directionExpression, object d) {
-			if ((directionExpression == null)) {
+		public virtual bool VisitDirectionExpression(DirectionExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((directionExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(directionExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DirectionExpression)d;
-			if (!IsMatch(directionExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return directionExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitDoLoopStatement(DoLoopStatement doLoopStatement, object d) {
-			if ((doLoopStatement == null)) {
+		public virtual bool VisitDoLoopStatement(DoLoopStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((doLoopStatement.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if ((doLoopStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(doLoopStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (DoLoopStatement)d;
-			if (!IsMatch(doLoopStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			doLoopStatement.Condition.AcceptVisitor(this, data.Condition);
-			return doLoopStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.Condition.AcceptVisitor(this, data.Condition);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitElseIfSection(ElseIfSection elseIfSection, object d) {
-			if ((elseIfSection == null)) {
+		public virtual bool VisitElseIfSection(ElseIfSection left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((elseIfSection.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if ((elseIfSection.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(elseIfSection.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ElseIfSection)d;
-			if (!IsMatch(elseIfSection, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			elseIfSection.Condition.AcceptVisitor(this, data.Condition);
-			return elseIfSection.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.Condition.AcceptVisitor(this, data.Condition);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitEmptyStatement(EmptyStatement emptyStatement, object d) {
-			if ((emptyStatement == null)) {
+		public virtual bool VisitEmptyStatement(EmptyStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(emptyStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EmptyStatement)d;
-			if (!IsMatch(emptyStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitEndStatement(EndStatement endStatement, object d) {
-			if ((endStatement == null)) {
+		public virtual bool VisitEndStatement(EndStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(endStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EndStatement)d;
-			if (!IsMatch(endStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitEraseStatement(EraseStatement eraseStatement, object d) {
-			if ((eraseStatement == null)) {
+		public virtual bool VisitEraseStatement(EraseStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((eraseStatement.Expressions == null)) {
+			if ((left.Expressions == null)) {
 				return SetFailure();
 			}
-			if(eraseStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EraseStatement)d;
-			if (!IsMatch(eraseStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (eraseStatement.Expressions.Count == data.Expressions.Count) {
-			for (int i=0; i<eraseStatement.Expressions.Count;i++) {
-				Expression o = eraseStatement.Expressions[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Expressions[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Expressions.Count == data.Expressions.Count) {
+			for (int i=0; i<left.Expressions.Count;i++) {
+				Expression o = left.Expressions[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Expressions[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitErrorStatement(ErrorStatement errorStatement, object d) {
-			if ((errorStatement == null)) {
+		public virtual bool VisitErrorStatement(ErrorStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((errorStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(errorStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ErrorStatement)d;
-			if (!IsMatch(errorStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return errorStatement.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitEventAddRegion(EventAddRegion eventAddRegion, object d) {
-			if ((eventAddRegion == null)) {
+		public virtual bool VisitEventAddRegion(EventAddRegion left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((eventAddRegion.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((eventAddRegion.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if ((eventAddRegion.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if(eventAddRegion.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EventAddRegion)d;
-			if (!IsMatch(eventAddRegion, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (eventAddRegion.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<eventAddRegion.Attributes.Count;i++) {
-				AttributeSection o = eventAddRegion.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			eventAddRegion.Block.AcceptVisitor(this, data.Block);
-			if (eventAddRegion.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<eventAddRegion.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = eventAddRegion.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.Block.AcceptVisitor(this, data.Block);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitEventDeclaration(EventDeclaration eventDeclaration, object d) {
-			if ((eventDeclaration == null)) {
+		public virtual bool VisitEventDeclaration(EventDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.InterfaceImplementations == null)) {
+			if ((left.InterfaceImplementations == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.AddRegion == null)) {
+			if ((left.AddRegion == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.RemoveRegion == null)) {
+			if ((left.RemoveRegion == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.RaiseRegion == null)) {
+			if ((left.RaiseRegion == null)) {
 				return SetFailure();
 			}
-			if ((eventDeclaration.Initializer == null)) {
+			if ((left.Initializer == null)) {
 				return SetFailure();
 			}
-			if(eventDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EventDeclaration)d;
-			if (!IsMatch(eventDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (eventDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<eventDeclaration.Attributes.Count;i++) {
-				AttributeSection o = eventDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (eventDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<eventDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = eventDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (eventDeclaration.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
-			for (int i=0; i<eventDeclaration.InterfaceImplementations.Count;i++) {
-				InterfaceImplementation o = eventDeclaration.InterfaceImplementations[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			eventDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			eventDeclaration.AddRegion.AcceptVisitor(this, data.AddRegion);
-			eventDeclaration.RemoveRegion.AcceptVisitor(this, data.RemoveRegion);
-			eventDeclaration.RaiseRegion.AcceptVisitor(this, data.RaiseRegion);
-			return eventDeclaration.Initializer.AcceptVisitor(this, data.Initializer);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
+			for (int i=0; i<left.InterfaceImplementations.Count;i++) {
+				InterfaceImplementation o = left.InterfaceImplementations[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.AddRegion.AcceptVisitor(this, data.AddRegion);
+			left.RemoveRegion.AcceptVisitor(this, data.RemoveRegion);
+			left.RaiseRegion.AcceptVisitor(this, data.RaiseRegion);
+			return left.Initializer.AcceptVisitor(this, data.Initializer);
 		}
 		
-		public virtual bool VisitEventRaiseRegion(EventRaiseRegion eventRaiseRegion, object d) {
-			if ((eventRaiseRegion == null)) {
+		public virtual bool VisitEventRaiseRegion(EventRaiseRegion left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((eventRaiseRegion.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((eventRaiseRegion.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if ((eventRaiseRegion.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if(eventRaiseRegion.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EventRaiseRegion)d;
-			if (!IsMatch(eventRaiseRegion, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (eventRaiseRegion.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<eventRaiseRegion.Attributes.Count;i++) {
-				AttributeSection o = eventRaiseRegion.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			eventRaiseRegion.Block.AcceptVisitor(this, data.Block);
-			if (eventRaiseRegion.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<eventRaiseRegion.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = eventRaiseRegion.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.Block.AcceptVisitor(this, data.Block);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitEventRemoveRegion(EventRemoveRegion eventRemoveRegion, object d) {
-			if ((eventRemoveRegion == null)) {
+		public virtual bool VisitEventRemoveRegion(EventRemoveRegion left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((eventRemoveRegion.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((eventRemoveRegion.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if ((eventRemoveRegion.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if(eventRemoveRegion.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (EventRemoveRegion)d;
-			if (!IsMatch(eventRemoveRegion, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (eventRemoveRegion.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<eventRemoveRegion.Attributes.Count;i++) {
-				AttributeSection o = eventRemoveRegion.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			eventRemoveRegion.Block.AcceptVisitor(this, data.Block);
-			if (eventRemoveRegion.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<eventRemoveRegion.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = eventRemoveRegion.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.Block.AcceptVisitor(this, data.Block);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitExitStatement(ExitStatement exitStatement, object d) {
-			if ((exitStatement == null)) {
+		public virtual bool VisitExitStatement(ExitStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(exitStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ExitStatement)d;
-			if (!IsMatch(exitStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitExpressionRangeVariable(ExpressionRangeVariable expressionRangeVariable, object d) {
-			if ((expressionRangeVariable == null)) {
+		public virtual bool VisitExpressionRangeVariable(ExpressionRangeVariable left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((expressionRangeVariable.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if ((expressionRangeVariable.Type == null)) {
+			if ((left.Type == null)) {
 				return SetFailure();
 			}
-			if(expressionRangeVariable.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ExpressionRangeVariable)d;
-			if (!IsMatch(expressionRangeVariable, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			expressionRangeVariable.Expression.AcceptVisitor(this, data.Expression);
-			return expressionRangeVariable.Type.AcceptVisitor(this, data.Type);
+			left.Expression.AcceptVisitor(this, data.Expression);
+			return left.Type.AcceptVisitor(this, data.Type);
 		}
 		
-		public virtual bool VisitExpressionStatement(ExpressionStatement expressionStatement, object d) {
-			if ((expressionStatement == null)) {
+		public virtual bool VisitExpressionStatement(ExpressionStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((expressionStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(expressionStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ExpressionStatement)d;
-			if (!IsMatch(expressionStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return expressionStatement.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitExternAliasDirective(ExternAliasDirective externAliasDirective, object d) {
-			if ((externAliasDirective == null)) {
+		public virtual bool VisitExternAliasDirective(ExternAliasDirective left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(externAliasDirective.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ExternAliasDirective)d;
-			if (!IsMatch(externAliasDirective, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitFieldDeclaration(FieldDeclaration fieldDeclaration, object d) {
-			if ((fieldDeclaration == null)) {
+		public virtual bool VisitFieldDeclaration(FieldDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((fieldDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((fieldDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((fieldDeclaration.Fields == null)) {
+			if ((left.Fields == null)) {
 				return SetFailure();
 			}
-			if(fieldDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (FieldDeclaration)d;
-			if (!IsMatch(fieldDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (fieldDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<fieldDeclaration.Attributes.Count;i++) {
-				AttributeSection o = fieldDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			fieldDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			if (fieldDeclaration.Fields.Count == data.Fields.Count) {
-			for (int i=0; i<fieldDeclaration.Fields.Count;i++) {
-				VariableDeclaration o = fieldDeclaration.Fields[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Fields[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			if (left.Fields.Count == data.Fields.Count) {
+			for (int i=0; i<left.Fields.Count;i++) {
+				VariableDeclaration o = left.Fields[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Fields[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitFixedStatement(FixedStatement fixedStatement, object d) {
-			if ((fixedStatement == null)) {
+		public virtual bool VisitFixedStatement(FixedStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((fixedStatement.PointerDeclaration == null)) {
+			if ((left.PointerDeclaration == null)) {
 				return SetFailure();
 			}
-			if ((fixedStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(fixedStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (FixedStatement)d;
-			if (!IsMatch(fixedStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			fixedStatement.PointerDeclaration.AcceptVisitor(this, data.PointerDeclaration);
-			return fixedStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.PointerDeclaration.AcceptVisitor(this, data.PointerDeclaration);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitForeachStatement(ForeachStatement foreachStatement, object d) {
-			if ((foreachStatement == null)) {
+		public virtual bool VisitForeachStatement(ForeachStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((foreachStatement.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((foreachStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if ((foreachStatement.NextExpression == null)) {
+			if ((left.NextExpression == null)) {
 				return SetFailure();
 			}
-			if ((foreachStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(foreachStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ForeachStatement)d;
-			if (!IsMatch(foreachStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			foreachStatement.TypeReference.AcceptVisitor(this, data.TypeReference);
-			foreachStatement.Expression.AcceptVisitor(this, data.Expression);
-			foreachStatement.NextExpression.AcceptVisitor(this, data.NextExpression);
-			return foreachStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.Expression.AcceptVisitor(this, data.Expression);
+			left.NextExpression.AcceptVisitor(this, data.NextExpression);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitForNextStatement(ForNextStatement forNextStatement, object d) {
-			if ((forNextStatement == null)) {
+		public virtual bool VisitForNextStatement(ForNextStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.Start == null)) {
+			if ((left.Start == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.End == null)) {
+			if ((left.End == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.Step == null)) {
+			if ((left.Step == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.NextExpressions == null)) {
+			if ((left.NextExpressions == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.LoopVariableExpression == null)) {
+			if ((left.LoopVariableExpression == null)) {
 				return SetFailure();
 			}
-			if ((forNextStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(forNextStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ForNextStatement)d;
-			if (!IsMatch(forNextStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			forNextStatement.Start.AcceptVisitor(this, data.Start);
-			forNextStatement.End.AcceptVisitor(this, data.End);
-			forNextStatement.Step.AcceptVisitor(this, data.Step);
-			if (forNextStatement.NextExpressions.Count == data.NextExpressions.Count) {
-			for (int i=0; i<forNextStatement.NextExpressions.Count;i++) {
-				Expression o = forNextStatement.NextExpressions[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.NextExpressions[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			forNextStatement.TypeReference.AcceptVisitor(this, data.TypeReference);
-			forNextStatement.LoopVariableExpression.AcceptVisitor(this, data.LoopVariableExpression);
-			return forNextStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.Start.AcceptVisitor(this, data.Start);
+			left.End.AcceptVisitor(this, data.End);
+			left.Step.AcceptVisitor(this, data.Step);
+			if (left.NextExpressions.Count == data.NextExpressions.Count) {
+			for (int i=0; i<left.NextExpressions.Count;i++) {
+				Expression o = left.NextExpressions[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.NextExpressions[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.LoopVariableExpression.AcceptVisitor(this, data.LoopVariableExpression);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitForStatement(ForStatement forStatement, object d) {
-			if ((forStatement == null)) {
+		public virtual bool VisitForStatement(ForStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((forStatement.Initializers == null)) {
+			if ((left.Initializers == null)) {
 				return SetFailure();
 			}
-			if ((forStatement.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if ((forStatement.Iterator == null)) {
+			if ((left.Iterator == null)) {
 				return SetFailure();
 			}
-			if ((forStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(forStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ForStatement)d;
-			if (!IsMatch(forStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (forStatement.Initializers.Count == data.Initializers.Count) {
-			for (int i=0; i<forStatement.Initializers.Count;i++) {
-				Statement o = forStatement.Initializers[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Initializers[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			forStatement.Condition.AcceptVisitor(this, data.Condition);
-			if (forStatement.Iterator.Count == data.Iterator.Count) {
-			for (int i=0; i<forStatement.Iterator.Count;i++) {
-				Statement o = forStatement.Iterator[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Iterator[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return forStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			if (left.Initializers.Count == data.Initializers.Count) {
+			for (int i=0; i<left.Initializers.Count;i++) {
+				Statement o = left.Initializers[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Initializers[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.Condition.AcceptVisitor(this, data.Condition);
+			if (left.Iterator.Count == data.Iterator.Count) {
+			for (int i=0; i<left.Iterator.Count;i++) {
+				Statement o = left.Iterator[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Iterator[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitGotoCaseStatement(GotoCaseStatement gotoCaseStatement, object d) {
-			if ((gotoCaseStatement == null)) {
+		public virtual bool VisitGotoCaseStatement(GotoCaseStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((gotoCaseStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(gotoCaseStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (GotoCaseStatement)d;
-			if (!IsMatch(gotoCaseStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return gotoCaseStatement.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitGotoStatement(GotoStatement gotoStatement, object d) {
-			if ((gotoStatement == null)) {
+		public virtual bool VisitGotoStatement(GotoStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(gotoStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (GotoStatement)d;
-			if (!IsMatch(gotoStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitIdentifierExpression(IdentifierExpression identifierExpression, object d) {
-			if ((identifierExpression == null)) {
+		public virtual bool VisitIdentifierExpression(IdentifierExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((identifierExpression.TypeArguments == null)) {
+			if ((left.TypeArguments == null)) {
 				return SetFailure();
 			}
-			if(identifierExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (IdentifierExpression)d;
-			if (!IsMatch(identifierExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (identifierExpression.TypeArguments.Count == data.TypeArguments.Count) {
-			for (int i=0; i<identifierExpression.TypeArguments.Count;i++) {
-				TypeReference o = identifierExpression.TypeArguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.TypeArguments.Count == data.TypeArguments.Count) {
+			for (int i=0; i<left.TypeArguments.Count;i++) {
+				TypeReference o = left.TypeArguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitIfElseStatement(IfElseStatement ifElseStatement, object d) {
-			if ((ifElseStatement == null)) {
+		public virtual bool VisitIfElseStatement(IfElseStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((ifElseStatement.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if ((ifElseStatement.TrueStatement == null)) {
+			if ((left.TrueStatement == null)) {
 				return SetFailure();
 			}
-			if ((ifElseStatement.FalseStatement == null)) {
+			if ((left.FalseStatement == null)) {
 				return SetFailure();
 			}
-			if ((ifElseStatement.ElseIfSections == null)) {
+			if ((left.ElseIfSections == null)) {
 				return SetFailure();
 			}
-			if(ifElseStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (IfElseStatement)d;
-			if (!IsMatch(ifElseStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			ifElseStatement.Condition.AcceptVisitor(this, data.Condition);
-			if (ifElseStatement.TrueStatement.Count == data.TrueStatement.Count) {
-			for (int i=0; i<ifElseStatement.TrueStatement.Count;i++) {
-				Statement o = ifElseStatement.TrueStatement[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.TrueStatement[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (ifElseStatement.FalseStatement.Count == data.FalseStatement.Count) {
-			for (int i=0; i<ifElseStatement.FalseStatement.Count;i++) {
-				Statement o = ifElseStatement.FalseStatement[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.FalseStatement[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (ifElseStatement.ElseIfSections.Count == data.ElseIfSections.Count) {
-			for (int i=0; i<ifElseStatement.ElseIfSections.Count;i++) {
-				ElseIfSection o = ifElseStatement.ElseIfSections[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.ElseIfSections[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.Condition.AcceptVisitor(this, data.Condition);
+			if (left.TrueStatement.Count == data.TrueStatement.Count) {
+			for (int i=0; i<left.TrueStatement.Count;i++) {
+				Statement o = left.TrueStatement[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.TrueStatement[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.FalseStatement.Count == data.FalseStatement.Count) {
+			for (int i=0; i<left.FalseStatement.Count;i++) {
+				Statement o = left.FalseStatement[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.FalseStatement[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.ElseIfSections.Count == data.ElseIfSections.Count) {
+			for (int i=0; i<left.ElseIfSections.Count;i++) {
+				ElseIfSection o = left.ElseIfSections[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.ElseIfSections[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitIndexerDeclaration(IndexerDeclaration indexerDeclaration, object d) {
-			if ((indexerDeclaration == null)) {
+		public virtual bool VisitIndexerDeclaration(IndexerDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.InterfaceImplementations == null)) {
+			if ((left.InterfaceImplementations == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.GetRegion == null)) {
+			if ((left.GetRegion == null)) {
 				return SetFailure();
 			}
-			if ((indexerDeclaration.SetRegion == null)) {
+			if ((left.SetRegion == null)) {
 				return SetFailure();
 			}
-			if(indexerDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (IndexerDeclaration)d;
-			if (!IsMatch(indexerDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (indexerDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<indexerDeclaration.Attributes.Count;i++) {
-				AttributeSection o = indexerDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (indexerDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<indexerDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = indexerDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (indexerDeclaration.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
-			for (int i=0; i<indexerDeclaration.InterfaceImplementations.Count;i++) {
-				InterfaceImplementation o = indexerDeclaration.InterfaceImplementations[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			indexerDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			indexerDeclaration.GetRegion.AcceptVisitor(this, data.GetRegion);
-			return indexerDeclaration.SetRegion.AcceptVisitor(this, data.SetRegion);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
+			for (int i=0; i<left.InterfaceImplementations.Count;i++) {
+				InterfaceImplementation o = left.InterfaceImplementations[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.GetRegion.AcceptVisitor(this, data.GetRegion);
+			return left.SetRegion.AcceptVisitor(this, data.SetRegion);
 		}
 		
-		public virtual bool VisitIndexerExpression(IndexerExpression indexerExpression, object d) {
-			if ((indexerExpression == null)) {
+		public virtual bool VisitIndexerExpression(IndexerExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((indexerExpression.TargetObject == null)) {
+			if ((left.TargetObject == null)) {
 				return SetFailure();
 			}
-			if ((indexerExpression.Indexes == null)) {
+			if ((left.Indexes == null)) {
 				return SetFailure();
 			}
-			if(indexerExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (IndexerExpression)d;
-			if (!IsMatch(indexerExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			indexerExpression.TargetObject.AcceptVisitor(this, data.TargetObject);
-			if (indexerExpression.Indexes.Count == data.Indexes.Count) {
-			for (int i=0; i<indexerExpression.Indexes.Count;i++) {
-				Expression o = indexerExpression.Indexes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Indexes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.TargetObject.AcceptVisitor(this, data.TargetObject);
+			if (left.Indexes.Count == data.Indexes.Count) {
+			for (int i=0; i<left.Indexes.Count;i++) {
+				Expression o = left.Indexes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Indexes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitInnerClassTypeReference(InnerClassTypeReference innerClassTypeReference, object d) {
-			if ((innerClassTypeReference == null)) {
+		public virtual bool VisitInnerClassTypeReference(InnerClassTypeReference left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((innerClassTypeReference.GenericTypes == null)) {
+			if ((left.GenericTypes == null)) {
 				return SetFailure();
 			}
-			if ((innerClassTypeReference.BaseType == null)) {
+			if ((left.BaseType == null)) {
 				return SetFailure();
 			}
-			if(innerClassTypeReference.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (InnerClassTypeReference)d;
-			if (!IsMatch(innerClassTypeReference, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (innerClassTypeReference.GenericTypes.Count == data.GenericTypes.Count) {
-			for (int i=0; i<innerClassTypeReference.GenericTypes.Count;i++) {
-				TypeReference o = innerClassTypeReference.GenericTypes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.GenericTypes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return innerClassTypeReference.BaseType.AcceptVisitor(this, data.BaseType);
+			if (left.GenericTypes.Count == data.GenericTypes.Count) {
+			for (int i=0; i<left.GenericTypes.Count;i++) {
+				TypeReference o = left.GenericTypes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.GenericTypes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.BaseType.AcceptVisitor(this, data.BaseType);
 		}
 		
-		public virtual bool VisitInterfaceImplementation(InterfaceImplementation interfaceImplementation, object d) {
-			if ((interfaceImplementation == null)) {
+		public virtual bool VisitInterfaceImplementation(InterfaceImplementation left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((interfaceImplementation.InterfaceType == null)) {
+			if ((left.InterfaceType == null)) {
 				return SetFailure();
 			}
-			if(interfaceImplementation.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (InterfaceImplementation)d;
-			if (!IsMatch(interfaceImplementation, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return interfaceImplementation.InterfaceType.AcceptVisitor(this, data.InterfaceType);
+			return left.InterfaceType.AcceptVisitor(this, data.InterfaceType);
 		}
 		
-		public virtual bool VisitInvocationExpression(InvocationExpression invocationExpression, object d) {
-			if ((invocationExpression == null)) {
+		public virtual bool VisitInvocationExpression(InvocationExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((invocationExpression.TargetObject == null)) {
+			if ((left.TargetObject == null)) {
 				return SetFailure();
 			}
-			if ((invocationExpression.Arguments == null)) {
+			if ((left.Arguments == null)) {
 				return SetFailure();
 			}
-			if(invocationExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (InvocationExpression)d;
-			if (!IsMatch(invocationExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			invocationExpression.TargetObject.AcceptVisitor(this, data.TargetObject);
-			if (invocationExpression.Arguments.Count == data.Arguments.Count) {
-			for (int i=0; i<invocationExpression.Arguments.Count;i++) {
-				Expression o = invocationExpression.Arguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.TargetObject.AcceptVisitor(this, data.TargetObject);
+			if (left.Arguments.Count == data.Arguments.Count) {
+			for (int i=0; i<left.Arguments.Count;i++) {
+				Expression o = left.Arguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitLabelStatement(LabelStatement labelStatement, object d) {
-			if ((labelStatement == null)) {
+		public virtual bool VisitLabelStatement(LabelStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(labelStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (LabelStatement)d;
-			if (!IsMatch(labelStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitLambdaExpression(LambdaExpression lambdaExpression, object d) {
-			if ((lambdaExpression == null)) {
+		public virtual bool VisitLambdaExpression(LambdaExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((lambdaExpression.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((lambdaExpression.StatementBody == null)) {
+			if ((left.StatementBody == null)) {
 				return SetFailure();
 			}
-			if ((lambdaExpression.ExpressionBody == null)) {
+			if ((left.ExpressionBody == null)) {
 				return SetFailure();
 			}
-			if(lambdaExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (LambdaExpression)d;
-			if (!IsMatch(lambdaExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (lambdaExpression.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<lambdaExpression.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = lambdaExpression.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			lambdaExpression.StatementBody.AcceptVisitor(this, data.StatementBody);
-			return lambdaExpression.ExpressionBody.AcceptVisitor(this, data.ExpressionBody);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.StatementBody.AcceptVisitor(this, data.StatementBody);
+			return left.ExpressionBody.AcceptVisitor(this, data.ExpressionBody);
 		}
 		
-		public virtual bool VisitLocalVariableDeclaration(LocalVariableDeclaration localVariableDeclaration, object d) {
-			if ((localVariableDeclaration == null)) {
+		public virtual bool VisitLocalVariableDeclaration(LocalVariableDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((localVariableDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((localVariableDeclaration.Variables == null)) {
+			if ((left.Variables == null)) {
 				return SetFailure();
 			}
-			if(localVariableDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (LocalVariableDeclaration)d;
-			if (!IsMatch(localVariableDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			localVariableDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			if (localVariableDeclaration.Variables.Count == data.Variables.Count) {
-			for (int i=0; i<localVariableDeclaration.Variables.Count;i++) {
-				VariableDeclaration o = localVariableDeclaration.Variables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			if (left.Variables.Count == data.Variables.Count) {
+			for (int i=0; i<left.Variables.Count;i++) {
+				VariableDeclaration o = left.Variables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitLockStatement(LockStatement lockStatement, object d) {
-			if ((lockStatement == null)) {
+		public virtual bool VisitLockStatement(LockStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((lockStatement.LockExpression == null)) {
+			if ((left.LockExpression == null)) {
 				return SetFailure();
 			}
-			if ((lockStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(lockStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (LockStatement)d;
-			if (!IsMatch(lockStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			lockStatement.LockExpression.AcceptVisitor(this, data.LockExpression);
-			return lockStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.LockExpression.AcceptVisitor(this, data.LockExpression);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitMemberReferenceExpression(MemberReferenceExpression memberReferenceExpression, object d) {
-			if ((memberReferenceExpression == null)) {
+		public virtual bool VisitMemberReferenceExpression(MemberReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((memberReferenceExpression.TargetObject == null)) {
+			if ((left.TargetObject == null)) {
 				return SetFailure();
 			}
-			if ((memberReferenceExpression.TypeArguments == null)) {
+			if ((left.TypeArguments == null)) {
 				return SetFailure();
 			}
-			if(memberReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (MemberReferenceExpression)d;
-			if (!IsMatch(memberReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			memberReferenceExpression.TargetObject.AcceptVisitor(this, data.TargetObject);
-			if (memberReferenceExpression.TypeArguments.Count == data.TypeArguments.Count) {
-			for (int i=0; i<memberReferenceExpression.TypeArguments.Count;i++) {
-				TypeReference o = memberReferenceExpression.TypeArguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.TargetObject.AcceptVisitor(this, data.TargetObject);
+			if (left.TypeArguments.Count == data.TypeArguments.Count) {
+			for (int i=0; i<left.TypeArguments.Count;i++) {
+				TypeReference o = left.TypeArguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitMethodDeclaration(MethodDeclaration methodDeclaration, object d) {
-			if ((methodDeclaration == null)) {
+		public virtual bool VisitMethodDeclaration(MethodDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.InterfaceImplementations == null)) {
+			if ((left.InterfaceImplementations == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if ((methodDeclaration.Templates == null)) {
+			if ((left.Templates == null)) {
 				return SetFailure();
 			}
-			if(methodDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (MethodDeclaration)d;
-			if (!IsMatch(methodDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (methodDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<methodDeclaration.Attributes.Count;i++) {
-				AttributeSection o = methodDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (methodDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<methodDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = methodDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (methodDeclaration.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
-			for (int i=0; i<methodDeclaration.InterfaceImplementations.Count;i++) {
-				InterfaceImplementation o = methodDeclaration.InterfaceImplementations[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			methodDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			methodDeclaration.Body.AcceptVisitor(this, data.Body);
-			if (methodDeclaration.Templates.Count == data.Templates.Count) {
-			for (int i=0; i<methodDeclaration.Templates.Count;i++) {
-				TemplateDefinition o = methodDeclaration.Templates[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
+			for (int i=0; i<left.InterfaceImplementations.Count;i++) {
+				InterfaceImplementation o = left.InterfaceImplementations[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.Body.AcceptVisitor(this, data.Body);
+			if (left.Templates.Count == data.Templates.Count) {
+			for (int i=0; i<left.Templates.Count;i++) {
+				TemplateDefinition o = left.Templates[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitNamedArgumentExpression(NamedArgumentExpression namedArgumentExpression, object d) {
-			if ((namedArgumentExpression == null)) {
+		public virtual bool VisitNamedArgumentExpression(NamedArgumentExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((namedArgumentExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(namedArgumentExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (NamedArgumentExpression)d;
-			if (!IsMatch(namedArgumentExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return namedArgumentExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitNamespaceDeclaration(NamespaceDeclaration namespaceDeclaration, object d) {
-			if ((namespaceDeclaration == null)) {
+		public virtual bool VisitNamespaceDeclaration(NamespaceDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(namespaceDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (NamespaceDeclaration)d;
-			if (!IsMatch(namespaceDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return namespaceDeclaration.AcceptChildren(this, d);
+			return left.AcceptChildren(this, d);
 		}
 		
-		public virtual bool VisitObjectCreateExpression(ObjectCreateExpression objectCreateExpression, object d) {
-			if ((objectCreateExpression == null)) {
+		public virtual bool VisitObjectCreateExpression(ObjectCreateExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((objectCreateExpression.CreateType == null)) {
+			if ((left.CreateType == null)) {
 				return SetFailure();
 			}
-			if ((objectCreateExpression.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((objectCreateExpression.ObjectInitializer == null)) {
+			if ((left.ObjectInitializer == null)) {
 				return SetFailure();
 			}
-			if(objectCreateExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ObjectCreateExpression)d;
-			if (!IsMatch(objectCreateExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			objectCreateExpression.CreateType.AcceptVisitor(this, data.CreateType);
-			if (objectCreateExpression.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<objectCreateExpression.Parameters.Count;i++) {
-				Expression o = objectCreateExpression.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return objectCreateExpression.ObjectInitializer.AcceptVisitor(this, data.ObjectInitializer);
+			left.CreateType.AcceptVisitor(this, data.CreateType);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				Expression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.ObjectInitializer.AcceptVisitor(this, data.ObjectInitializer);
 		}
 		
-		public virtual bool VisitOnErrorStatement(OnErrorStatement onErrorStatement, object d) {
-			if ((onErrorStatement == null)) {
+		public virtual bool VisitOnErrorStatement(OnErrorStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((onErrorStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(onErrorStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (OnErrorStatement)d;
-			if (!IsMatch(onErrorStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return onErrorStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitOperatorDeclaration(OperatorDeclaration operatorDeclaration, object d) {
-			if ((operatorDeclaration == null)) {
+		public virtual bool VisitOperatorDeclaration(OperatorDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.InterfaceImplementations == null)) {
+			if ((left.InterfaceImplementations == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.Templates == null)) {
+			if ((left.Templates == null)) {
 				return SetFailure();
 			}
-			if ((operatorDeclaration.ReturnTypeAttributes == null)) {
+			if ((left.ReturnTypeAttributes == null)) {
 				return SetFailure();
 			}
-			if(operatorDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (OperatorDeclaration)d;
-			if (!IsMatch(operatorDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (operatorDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<operatorDeclaration.Attributes.Count;i++) {
-				AttributeSection o = operatorDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (operatorDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<operatorDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = operatorDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (operatorDeclaration.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
-			for (int i=0; i<operatorDeclaration.InterfaceImplementations.Count;i++) {
-				InterfaceImplementation o = operatorDeclaration.InterfaceImplementations[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			operatorDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			operatorDeclaration.Body.AcceptVisitor(this, data.Body);
-			if (operatorDeclaration.Templates.Count == data.Templates.Count) {
-			for (int i=0; i<operatorDeclaration.Templates.Count;i++) {
-				TemplateDefinition o = operatorDeclaration.Templates[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (operatorDeclaration.ReturnTypeAttributes.Count == data.ReturnTypeAttributes.Count) {
-			for (int i=0; i<operatorDeclaration.ReturnTypeAttributes.Count;i++) {
-				AttributeSection o = operatorDeclaration.ReturnTypeAttributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.ReturnTypeAttributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
+			for (int i=0; i<left.InterfaceImplementations.Count;i++) {
+				InterfaceImplementation o = left.InterfaceImplementations[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.Body.AcceptVisitor(this, data.Body);
+			if (left.Templates.Count == data.Templates.Count) {
+			for (int i=0; i<left.Templates.Count;i++) {
+				TemplateDefinition o = left.Templates[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.ReturnTypeAttributes.Count == data.ReturnTypeAttributes.Count) {
+			for (int i=0; i<left.ReturnTypeAttributes.Count;i++) {
+				AttributeSection o = left.ReturnTypeAttributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.ReturnTypeAttributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitOptionDeclaration(OptionDeclaration optionDeclaration, object d) {
-			if ((optionDeclaration == null)) {
+		public virtual bool VisitOptionDeclaration(OptionDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(optionDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (OptionDeclaration)d;
-			if (!IsMatch(optionDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitParameterDeclarationExpression(ParameterDeclarationExpression parameterDeclarationExpression, object d) {
-			if ((parameterDeclarationExpression == null)) {
+		public virtual bool VisitParameterDeclarationExpression(ParameterDeclarationExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((parameterDeclarationExpression.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((parameterDeclarationExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((parameterDeclarationExpression.DefaultValue == null)) {
+			if ((left.DefaultValue == null)) {
 				return SetFailure();
 			}
-			if(parameterDeclarationExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ParameterDeclarationExpression)d;
-			if (!IsMatch(parameterDeclarationExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (parameterDeclarationExpression.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<parameterDeclarationExpression.Attributes.Count;i++) {
-				AttributeSection o = parameterDeclarationExpression.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			parameterDeclarationExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
-			return parameterDeclarationExpression.DefaultValue.AcceptVisitor(this, data.DefaultValue);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.DefaultValue.AcceptVisitor(this, data.DefaultValue);
 		}
 		
-		public virtual bool VisitParenthesizedExpression(ParenthesizedExpression parenthesizedExpression, object d) {
-			if ((parenthesizedExpression == null)) {
+		public virtual bool VisitParenthesizedExpression(ParenthesizedExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((parenthesizedExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(parenthesizedExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ParenthesizedExpression)d;
-			if (!IsMatch(parenthesizedExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return parenthesizedExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitPointerReferenceExpression(PointerReferenceExpression pointerReferenceExpression, object d) {
-			if ((pointerReferenceExpression == null)) {
+		public virtual bool VisitPointerReferenceExpression(PointerReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((pointerReferenceExpression.TargetObject == null)) {
+			if ((left.TargetObject == null)) {
 				return SetFailure();
 			}
-			if ((pointerReferenceExpression.TypeArguments == null)) {
+			if ((left.TypeArguments == null)) {
 				return SetFailure();
 			}
-			if(pointerReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (PointerReferenceExpression)d;
-			if (!IsMatch(pointerReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			pointerReferenceExpression.TargetObject.AcceptVisitor(this, data.TargetObject);
-			if (pointerReferenceExpression.TypeArguments.Count == data.TypeArguments.Count) {
-			for (int i=0; i<pointerReferenceExpression.TypeArguments.Count;i++) {
-				TypeReference o = pointerReferenceExpression.TypeArguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.TargetObject.AcceptVisitor(this, data.TargetObject);
+			if (left.TypeArguments.Count == data.TypeArguments.Count) {
+			for (int i=0; i<left.TypeArguments.Count;i++) {
+				TypeReference o = left.TypeArguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.TypeArguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitPrimitiveExpression(PrimitiveExpression primitiveExpression, object d) {
-			if ((primitiveExpression == null)) {
+		public virtual bool VisitPrimitiveExpression(PrimitiveExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(primitiveExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (PrimitiveExpression)d;
-			if (!IsMatch(primitiveExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitPropertyDeclaration(PropertyDeclaration propertyDeclaration, object d) {
-			if ((propertyDeclaration == null)) {
+		public virtual bool VisitPropertyDeclaration(PropertyDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.InterfaceImplementations == null)) {
+			if ((left.InterfaceImplementations == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.GetRegion == null)) {
+			if ((left.GetRegion == null)) {
 				return SetFailure();
 			}
-			if ((propertyDeclaration.SetRegion == null)) {
+			if ((left.SetRegion == null)) {
 				return SetFailure();
 			}
-			if(propertyDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (PropertyDeclaration)d;
-			if (!IsMatch(propertyDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (propertyDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<propertyDeclaration.Attributes.Count;i++) {
-				AttributeSection o = propertyDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (propertyDeclaration.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<propertyDeclaration.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = propertyDeclaration.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (propertyDeclaration.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
-			for (int i=0; i<propertyDeclaration.InterfaceImplementations.Count;i++) {
-				InterfaceImplementation o = propertyDeclaration.InterfaceImplementations[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			propertyDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			propertyDeclaration.GetRegion.AcceptVisitor(this, data.GetRegion);
-			return propertyDeclaration.SetRegion.AcceptVisitor(this, data.SetRegion);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.InterfaceImplementations.Count == data.InterfaceImplementations.Count) {
+			for (int i=0; i<left.InterfaceImplementations.Count;i++) {
+				InterfaceImplementation o = left.InterfaceImplementations[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.InterfaceImplementations[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.GetRegion.AcceptVisitor(this, data.GetRegion);
+			return left.SetRegion.AcceptVisitor(this, data.SetRegion);
 		}
 		
-		public virtual bool VisitPropertyGetRegion(PropertyGetRegion propertyGetRegion, object d) {
-			if ((propertyGetRegion == null)) {
+		public virtual bool VisitPropertyGetRegion(PropertyGetRegion left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((propertyGetRegion.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((propertyGetRegion.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if(propertyGetRegion.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (PropertyGetRegion)d;
-			if (!IsMatch(propertyGetRegion, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (propertyGetRegion.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<propertyGetRegion.Attributes.Count;i++) {
-				AttributeSection o = propertyGetRegion.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return propertyGetRegion.Block.AcceptVisitor(this, data.Block);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.Block.AcceptVisitor(this, data.Block);
 		}
 		
-		public virtual bool VisitPropertySetRegion(PropertySetRegion propertySetRegion, object d) {
-			if ((propertySetRegion == null)) {
+		public virtual bool VisitPropertySetRegion(PropertySetRegion left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((propertySetRegion.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((propertySetRegion.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if ((propertySetRegion.Parameters == null)) {
+			if ((left.Parameters == null)) {
 				return SetFailure();
 			}
-			if(propertySetRegion.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (PropertySetRegion)d;
-			if (!IsMatch(propertySetRegion, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (propertySetRegion.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<propertySetRegion.Attributes.Count;i++) {
-				AttributeSection o = propertySetRegion.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			propertySetRegion.Block.AcceptVisitor(this, data.Block);
-			if (propertySetRegion.Parameters.Count == data.Parameters.Count) {
-			for (int i=0; i<propertySetRegion.Parameters.Count;i++) {
-				ParameterDeclarationExpression o = propertySetRegion.Parameters[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			left.Block.AcceptVisitor(this, data.Block);
+			if (left.Parameters.Count == data.Parameters.Count) {
+			for (int i=0; i<left.Parameters.Count;i++) {
+				ParameterDeclarationExpression o = left.Parameters[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Parameters[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpression(QueryExpression queryExpression, object d) {
-			if ((queryExpression == null)) {
+		public virtual bool VisitQueryExpression(QueryExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpression.FromClause == null)) {
+			if ((left.FromClause == null)) {
 				return SetFailure();
 			}
-			if ((queryExpression.MiddleClauses == null)) {
+			if ((left.MiddleClauses == null)) {
 				return SetFailure();
 			}
-			if ((queryExpression.SelectOrGroupClause == null)) {
+			if ((left.SelectOrGroupClause == null)) {
 				return SetFailure();
 			}
-			if(queryExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpression)d;
-			if (!IsMatch(queryExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpression.FromClause.AcceptVisitor(this, data.FromClause);
-			if (queryExpression.MiddleClauses.Count == data.MiddleClauses.Count) {
-			for (int i=0; i<queryExpression.MiddleClauses.Count;i++) {
-				QueryExpressionClause o = queryExpression.MiddleClauses[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.MiddleClauses[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return queryExpression.SelectOrGroupClause.AcceptVisitor(this, data.SelectOrGroupClause);
+			left.FromClause.AcceptVisitor(this, data.FromClause);
+			if (left.MiddleClauses.Count == data.MiddleClauses.Count) {
+			for (int i=0; i<left.MiddleClauses.Count;i++) {
+				QueryExpressionClause o = left.MiddleClauses[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.MiddleClauses[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.SelectOrGroupClause.AcceptVisitor(this, data.SelectOrGroupClause);
 		}
 		
-		public virtual bool VisitQueryExpressionAggregateClause(QueryExpressionAggregateClause queryExpressionAggregateClause, object d) {
-			if ((queryExpressionAggregateClause == null)) {
+		public virtual bool VisitQueryExpressionAggregateClause(QueryExpressionAggregateClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionAggregateClause.FromClause == null)) {
+			if ((left.FromClause == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionAggregateClause.MiddleClauses == null)) {
+			if ((left.MiddleClauses == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionAggregateClause.IntoVariables == null)) {
+			if ((left.IntoVariables == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionAggregateClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionAggregateClause)d;
-			if (!IsMatch(queryExpressionAggregateClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionAggregateClause.FromClause.AcceptVisitor(this, data.FromClause);
-			if (queryExpressionAggregateClause.MiddleClauses.Count == data.MiddleClauses.Count) {
-			for (int i=0; i<queryExpressionAggregateClause.MiddleClauses.Count;i++) {
-				QueryExpressionClause o = queryExpressionAggregateClause.MiddleClauses[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.MiddleClauses[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (queryExpressionAggregateClause.IntoVariables.Count == data.IntoVariables.Count) {
-			for (int i=0; i<queryExpressionAggregateClause.IntoVariables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionAggregateClause.IntoVariables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.FromClause.AcceptVisitor(this, data.FromClause);
+			if (left.MiddleClauses.Count == data.MiddleClauses.Count) {
+			for (int i=0; i<left.MiddleClauses.Count;i++) {
+				QueryExpressionClause o = left.MiddleClauses[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.MiddleClauses[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.IntoVariables.Count == data.IntoVariables.Count) {
+			for (int i=0; i<left.IntoVariables.Count;i++) {
+				ExpressionRangeVariable o = left.IntoVariables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionDistinctClause(QueryExpressionDistinctClause queryExpressionDistinctClause, object d) {
-			if ((queryExpressionDistinctClause == null)) {
+		public virtual bool VisitQueryExpressionDistinctClause(QueryExpressionDistinctClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionDistinctClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionDistinctClause)d;
-			if (!IsMatch(queryExpressionDistinctClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionFromClause(QueryExpressionFromClause queryExpressionFromClause, object d) {
-			if ((queryExpressionFromClause == null)) {
+		public virtual bool VisitQueryExpressionFromClause(QueryExpressionFromClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionFromClause.Type == null)) {
+			if ((left.Type == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionFromClause.InExpression == null)) {
+			if ((left.InExpression == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionFromClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionFromClause)d;
-			if (!IsMatch(queryExpressionFromClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionFromClause.Type.AcceptVisitor(this, data.Type);
-			return queryExpressionFromClause.InExpression.AcceptVisitor(this, data.InExpression);
+			left.Type.AcceptVisitor(this, data.Type);
+			return left.InExpression.AcceptVisitor(this, data.InExpression);
 		}
 		
-		public virtual bool VisitQueryExpressionGroupClause(QueryExpressionGroupClause queryExpressionGroupClause, object d) {
-			if ((queryExpressionGroupClause == null)) {
+		public virtual bool VisitQueryExpressionGroupClause(QueryExpressionGroupClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupClause.Projection == null)) {
+			if ((left.Projection == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupClause.GroupBy == null)) {
+			if ((left.GroupBy == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionGroupClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionGroupClause)d;
-			if (!IsMatch(queryExpressionGroupClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionGroupClause.Projection.AcceptVisitor(this, data.Projection);
-			return queryExpressionGroupClause.GroupBy.AcceptVisitor(this, data.GroupBy);
+			left.Projection.AcceptVisitor(this, data.Projection);
+			return left.GroupBy.AcceptVisitor(this, data.GroupBy);
 		}
 		
-		public virtual bool VisitQueryExpressionGroupJoinVBClause(QueryExpressionGroupJoinVBClause queryExpressionGroupJoinVBClause, object d) {
-			if ((queryExpressionGroupJoinVBClause == null)) {
+		public virtual bool VisitQueryExpressionGroupJoinVBClause(QueryExpressionGroupJoinVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupJoinVBClause.JoinClause == null)) {
+			if ((left.JoinClause == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupJoinVBClause.IntoVariables == null)) {
+			if ((left.IntoVariables == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionGroupJoinVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionGroupJoinVBClause)d;
-			if (!IsMatch(queryExpressionGroupJoinVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionGroupJoinVBClause.JoinClause.AcceptVisitor(this, data.JoinClause);
-			if (queryExpressionGroupJoinVBClause.IntoVariables.Count == data.IntoVariables.Count) {
-			for (int i=0; i<queryExpressionGroupJoinVBClause.IntoVariables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionGroupJoinVBClause.IntoVariables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.JoinClause.AcceptVisitor(this, data.JoinClause);
+			if (left.IntoVariables.Count == data.IntoVariables.Count) {
+			for (int i=0; i<left.IntoVariables.Count;i++) {
+				ExpressionRangeVariable o = left.IntoVariables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionGroupVBClause(QueryExpressionGroupVBClause queryExpressionGroupVBClause, object d) {
-			if ((queryExpressionGroupVBClause == null)) {
+		public virtual bool VisitQueryExpressionGroupVBClause(QueryExpressionGroupVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupVBClause.GroupVariables == null)) {
+			if ((left.GroupVariables == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupVBClause.ByVariables == null)) {
+			if ((left.ByVariables == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionGroupVBClause.IntoVariables == null)) {
+			if ((left.IntoVariables == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionGroupVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionGroupVBClause)d;
-			if (!IsMatch(queryExpressionGroupVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (queryExpressionGroupVBClause.GroupVariables.Count == data.GroupVariables.Count) {
-			for (int i=0; i<queryExpressionGroupVBClause.GroupVariables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionGroupVBClause.GroupVariables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.GroupVariables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (queryExpressionGroupVBClause.ByVariables.Count == data.ByVariables.Count) {
-			for (int i=0; i<queryExpressionGroupVBClause.ByVariables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionGroupVBClause.ByVariables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.ByVariables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (queryExpressionGroupVBClause.IntoVariables.Count == data.IntoVariables.Count) {
-			for (int i=0; i<queryExpressionGroupVBClause.IntoVariables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionGroupVBClause.IntoVariables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.GroupVariables.Count == data.GroupVariables.Count) {
+			for (int i=0; i<left.GroupVariables.Count;i++) {
+				ExpressionRangeVariable o = left.GroupVariables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.GroupVariables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.ByVariables.Count == data.ByVariables.Count) {
+			for (int i=0; i<left.ByVariables.Count;i++) {
+				ExpressionRangeVariable o = left.ByVariables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.ByVariables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.IntoVariables.Count == data.IntoVariables.Count) {
+			for (int i=0; i<left.IntoVariables.Count;i++) {
+				ExpressionRangeVariable o = left.IntoVariables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.IntoVariables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionJoinClause(QueryExpressionJoinClause queryExpressionJoinClause, object d) {
-			if ((queryExpressionJoinClause == null)) {
+		public virtual bool VisitQueryExpressionJoinClause(QueryExpressionJoinClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinClause.Type == null)) {
+			if ((left.Type == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinClause.InExpression == null)) {
+			if ((left.InExpression == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinClause.OnExpression == null)) {
+			if ((left.OnExpression == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinClause.EqualsExpression == null)) {
+			if ((left.EqualsExpression == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionJoinClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionJoinClause)d;
-			if (!IsMatch(queryExpressionJoinClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionJoinClause.Type.AcceptVisitor(this, data.Type);
-			queryExpressionJoinClause.InExpression.AcceptVisitor(this, data.InExpression);
-			queryExpressionJoinClause.OnExpression.AcceptVisitor(this, data.OnExpression);
-			return queryExpressionJoinClause.EqualsExpression.AcceptVisitor(this, data.EqualsExpression);
+			left.Type.AcceptVisitor(this, data.Type);
+			left.InExpression.AcceptVisitor(this, data.InExpression);
+			left.OnExpression.AcceptVisitor(this, data.OnExpression);
+			return left.EqualsExpression.AcceptVisitor(this, data.EqualsExpression);
 		}
 		
-		public virtual bool VisitQueryExpressionJoinConditionVB(QueryExpressionJoinConditionVB queryExpressionJoinConditionVB, object d) {
-			if ((queryExpressionJoinConditionVB == null)) {
+		public virtual bool VisitQueryExpressionJoinConditionVB(QueryExpressionJoinConditionVB left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinConditionVB.LeftSide == null)) {
+			if ((left.LeftSide == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinConditionVB.RightSide == null)) {
+			if ((left.RightSide == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionJoinConditionVB.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionJoinConditionVB)d;
-			if (!IsMatch(queryExpressionJoinConditionVB, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionJoinConditionVB.LeftSide.AcceptVisitor(this, data.LeftSide);
-			return queryExpressionJoinConditionVB.RightSide.AcceptVisitor(this, data.RightSide);
+			left.LeftSide.AcceptVisitor(this, data.LeftSide);
+			return left.RightSide.AcceptVisitor(this, data.RightSide);
 		}
 		
-		public virtual bool VisitQueryExpressionJoinVBClause(QueryExpressionJoinVBClause queryExpressionJoinVBClause, object d) {
-			if ((queryExpressionJoinVBClause == null)) {
+		public virtual bool VisitQueryExpressionJoinVBClause(QueryExpressionJoinVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinVBClause.JoinVariable == null)) {
+			if ((left.JoinVariable == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinVBClause.SubJoin == null)) {
+			if ((left.SubJoin == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionJoinVBClause.Conditions == null)) {
+			if ((left.Conditions == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionJoinVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionJoinVBClause)d;
-			if (!IsMatch(queryExpressionJoinVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			queryExpressionJoinVBClause.JoinVariable.AcceptVisitor(this, data.JoinVariable);
-			queryExpressionJoinVBClause.SubJoin.AcceptVisitor(this, data.SubJoin);
-			if (queryExpressionJoinVBClause.Conditions.Count == data.Conditions.Count) {
-			for (int i=0; i<queryExpressionJoinVBClause.Conditions.Count;i++) {
-				QueryExpressionJoinConditionVB o = queryExpressionJoinVBClause.Conditions[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Conditions[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.JoinVariable.AcceptVisitor(this, data.JoinVariable);
+			left.SubJoin.AcceptVisitor(this, data.SubJoin);
+			if (left.Conditions.Count == data.Conditions.Count) {
+			for (int i=0; i<left.Conditions.Count;i++) {
+				QueryExpressionJoinConditionVB o = left.Conditions[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Conditions[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionLetClause(QueryExpressionLetClause queryExpressionLetClause, object d) {
-			if ((queryExpressionLetClause == null)) {
+		public virtual bool VisitQueryExpressionLetClause(QueryExpressionLetClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionLetClause.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionLetClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionLetClause)d;
-			if (!IsMatch(queryExpressionLetClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return queryExpressionLetClause.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitQueryExpressionLetVBClause(QueryExpressionLetVBClause queryExpressionLetVBClause, object d) {
-			if ((queryExpressionLetVBClause == null)) {
+		public virtual bool VisitQueryExpressionLetVBClause(QueryExpressionLetVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionLetVBClause.Variables == null)) {
+			if ((left.Variables == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionLetVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionLetVBClause)d;
-			if (!IsMatch(queryExpressionLetVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (queryExpressionLetVBClause.Variables.Count == data.Variables.Count) {
-			for (int i=0; i<queryExpressionLetVBClause.Variables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionLetVBClause.Variables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Variables.Count == data.Variables.Count) {
+			for (int i=0; i<left.Variables.Count;i++) {
+				ExpressionRangeVariable o = left.Variables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionOrderClause(QueryExpressionOrderClause queryExpressionOrderClause, object d) {
-			if ((queryExpressionOrderClause == null)) {
+		public virtual bool VisitQueryExpressionOrderClause(QueryExpressionOrderClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionOrderClause.Orderings == null)) {
+			if ((left.Orderings == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionOrderClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionOrderClause)d;
-			if (!IsMatch(queryExpressionOrderClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (queryExpressionOrderClause.Orderings.Count == data.Orderings.Count) {
-			for (int i=0; i<queryExpressionOrderClause.Orderings.Count;i++) {
-				QueryExpressionOrdering o = queryExpressionOrderClause.Orderings[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Orderings[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Orderings.Count == data.Orderings.Count) {
+			for (int i=0; i<left.Orderings.Count;i++) {
+				QueryExpressionOrdering o = left.Orderings[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Orderings[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionOrdering(QueryExpressionOrdering queryExpressionOrdering, object d) {
-			if ((queryExpressionOrdering == null)) {
+		public virtual bool VisitQueryExpressionOrdering(QueryExpressionOrdering left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionOrdering.Criteria == null)) {
+			if ((left.Criteria == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionOrdering.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionOrdering)d;
-			if (!IsMatch(queryExpressionOrdering, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return queryExpressionOrdering.Criteria.AcceptVisitor(this, data.Criteria);
+			return left.Criteria.AcceptVisitor(this, data.Criteria);
 		}
 		
-		public virtual bool VisitQueryExpressionPartitionVBClause(QueryExpressionPartitionVBClause queryExpressionPartitionVBClause, object d) {
-			if ((queryExpressionPartitionVBClause == null)) {
+		public virtual bool VisitQueryExpressionPartitionVBClause(QueryExpressionPartitionVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionPartitionVBClause.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionPartitionVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionPartitionVBClause)d;
-			if (!IsMatch(queryExpressionPartitionVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return queryExpressionPartitionVBClause.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitQueryExpressionSelectClause(QueryExpressionSelectClause queryExpressionSelectClause, object d) {
-			if ((queryExpressionSelectClause == null)) {
+		public virtual bool VisitQueryExpressionSelectClause(QueryExpressionSelectClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionSelectClause.Projection == null)) {
+			if ((left.Projection == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionSelectClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionSelectClause)d;
-			if (!IsMatch(queryExpressionSelectClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return queryExpressionSelectClause.Projection.AcceptVisitor(this, data.Projection);
+			return left.Projection.AcceptVisitor(this, data.Projection);
 		}
 		
-		public virtual bool VisitQueryExpressionSelectVBClause(QueryExpressionSelectVBClause queryExpressionSelectVBClause, object d) {
-			if ((queryExpressionSelectVBClause == null)) {
+		public virtual bool VisitQueryExpressionSelectVBClause(QueryExpressionSelectVBClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionSelectVBClause.Variables == null)) {
+			if ((left.Variables == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionSelectVBClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionSelectVBClause)d;
-			if (!IsMatch(queryExpressionSelectVBClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (queryExpressionSelectVBClause.Variables.Count == data.Variables.Count) {
-			for (int i=0; i<queryExpressionSelectVBClause.Variables.Count;i++) {
-				ExpressionRangeVariable o = queryExpressionSelectVBClause.Variables[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Variables.Count == data.Variables.Count) {
+			for (int i=0; i<left.Variables.Count;i++) {
+				ExpressionRangeVariable o = left.Variables[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Variables[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitQueryExpressionWhereClause(QueryExpressionWhereClause queryExpressionWhereClause, object d) {
-			if ((queryExpressionWhereClause == null)) {
+		public virtual bool VisitQueryExpressionWhereClause(QueryExpressionWhereClause left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((queryExpressionWhereClause.Condition == null)) {
+			if ((left.Condition == null)) {
 				return SetFailure();
 			}
-			if(queryExpressionWhereClause.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (QueryExpressionWhereClause)d;
-			if (!IsMatch(queryExpressionWhereClause, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return queryExpressionWhereClause.Condition.AcceptVisitor(this, data.Condition);
+			return left.Condition.AcceptVisitor(this, data.Condition);
 		}
 		
-		public virtual bool VisitRaiseEventStatement(RaiseEventStatement raiseEventStatement, object d) {
-			if ((raiseEventStatement == null)) {
+		public virtual bool VisitRaiseEventStatement(RaiseEventStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((raiseEventStatement.Arguments == null)) {
+			if ((left.Arguments == null)) {
 				return SetFailure();
 			}
-			if(raiseEventStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (RaiseEventStatement)d;
-			if (!IsMatch(raiseEventStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (raiseEventStatement.Arguments.Count == data.Arguments.Count) {
-			for (int i=0; i<raiseEventStatement.Arguments.Count;i++) {
-				Expression o = raiseEventStatement.Arguments[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Arguments.Count == data.Arguments.Count) {
+			for (int i=0; i<left.Arguments.Count;i++) {
+				Expression o = left.Arguments[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Arguments[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitReDimStatement(ReDimStatement reDimStatement, object d) {
-			if ((reDimStatement == null)) {
+		public virtual bool VisitReDimStatement(ReDimStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((reDimStatement.ReDimClauses == null)) {
+			if ((left.ReDimClauses == null)) {
 				return SetFailure();
 			}
-			if(reDimStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ReDimStatement)d;
-			if (!IsMatch(reDimStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (reDimStatement.ReDimClauses.Count == data.ReDimClauses.Count) {
-			for (int i=0; i<reDimStatement.ReDimClauses.Count;i++) {
-				InvocationExpression o = reDimStatement.ReDimClauses[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.ReDimClauses[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.ReDimClauses.Count == data.ReDimClauses.Count) {
+			for (int i=0; i<left.ReDimClauses.Count;i++) {
+				InvocationExpression o = left.ReDimClauses[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.ReDimClauses[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitRemoveHandlerStatement(RemoveHandlerStatement removeHandlerStatement, object d) {
-			if ((removeHandlerStatement == null)) {
+		public virtual bool VisitRemoveHandlerStatement(RemoveHandlerStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((removeHandlerStatement.EventExpression == null)) {
+			if ((left.EventExpression == null)) {
 				return SetFailure();
 			}
-			if ((removeHandlerStatement.HandlerExpression == null)) {
+			if ((left.HandlerExpression == null)) {
 				return SetFailure();
 			}
-			if(removeHandlerStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (RemoveHandlerStatement)d;
-			if (!IsMatch(removeHandlerStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			removeHandlerStatement.EventExpression.AcceptVisitor(this, data.EventExpression);
-			return removeHandlerStatement.HandlerExpression.AcceptVisitor(this, data.HandlerExpression);
+			left.EventExpression.AcceptVisitor(this, data.EventExpression);
+			return left.HandlerExpression.AcceptVisitor(this, data.HandlerExpression);
 		}
 		
-		public virtual bool VisitResumeStatement(ResumeStatement resumeStatement, object d) {
-			if ((resumeStatement == null)) {
+		public virtual bool VisitResumeStatement(ResumeStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(resumeStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ResumeStatement)d;
-			if (!IsMatch(resumeStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitReturnStatement(ReturnStatement returnStatement, object d) {
-			if ((returnStatement == null)) {
+		public virtual bool VisitReturnStatement(ReturnStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((returnStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(returnStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ReturnStatement)d;
-			if (!IsMatch(returnStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return returnStatement.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitSizeOfExpression(SizeOfExpression sizeOfExpression, object d) {
-			if ((sizeOfExpression == null)) {
+		public virtual bool VisitSizeOfExpression(SizeOfExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((sizeOfExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(sizeOfExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (SizeOfExpression)d;
-			if (!IsMatch(sizeOfExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return sizeOfExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitStackAllocExpression(StackAllocExpression stackAllocExpression, object d) {
-			if ((stackAllocExpression == null)) {
+		public virtual bool VisitStackAllocExpression(StackAllocExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((stackAllocExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((stackAllocExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(stackAllocExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (StackAllocExpression)d;
-			if (!IsMatch(stackAllocExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			stackAllocExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
-			return stackAllocExpression.Expression.AcceptVisitor(this, data.Expression);
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitStopStatement(StopStatement stopStatement, object d) {
-			if ((stopStatement == null)) {
+		public virtual bool VisitStopStatement(StopStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(stopStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (StopStatement)d;
-			if (!IsMatch(stopStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitSwitchSection(SwitchSection switchSection, object d) {
-			if ((switchSection == null)) {
+		public virtual bool VisitSwitchSection(SwitchSection left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((switchSection.SwitchLabels == null)) {
+			if ((left.SwitchLabels == null)) {
 				return SetFailure();
 			}
-			if(switchSection.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (SwitchSection)d;
-			if (!IsMatch(switchSection, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (switchSection.SwitchLabels.Count == data.SwitchLabels.Count) {
-			for (int i=0; i<switchSection.SwitchLabels.Count;i++) {
-				CaseLabel o = switchSection.SwitchLabels[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.SwitchLabels[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return switchSection.AcceptChildren(this, d);
+			if (left.SwitchLabels.Count == data.SwitchLabels.Count) {
+			for (int i=0; i<left.SwitchLabels.Count;i++) {
+				CaseLabel o = left.SwitchLabels[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.SwitchLabels[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.AcceptChildren(this, d);
 		}
 		
-		public virtual bool VisitSwitchStatement(SwitchStatement switchStatement, object d) {
-			if ((switchStatement == null)) {
+		public virtual bool VisitSwitchStatement(SwitchStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((switchStatement.SwitchExpression == null)) {
+			if ((left.SwitchExpression == null)) {
 				return SetFailure();
 			}
-			if ((switchStatement.SwitchSections == null)) {
+			if ((left.SwitchSections == null)) {
 				return SetFailure();
 			}
-			if(switchStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (SwitchStatement)d;
-			if (!IsMatch(switchStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			switchStatement.SwitchExpression.AcceptVisitor(this, data.SwitchExpression);
-			if (switchStatement.SwitchSections.Count == data.SwitchSections.Count) {
-			for (int i=0; i<switchStatement.SwitchSections.Count;i++) {
-				SwitchSection o = switchStatement.SwitchSections[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.SwitchSections[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			left.SwitchExpression.AcceptVisitor(this, data.SwitchExpression);
+			if (left.SwitchSections.Count == data.SwitchSections.Count) {
+			for (int i=0; i<left.SwitchSections.Count;i++) {
+				SwitchSection o = left.SwitchSections[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.SwitchSections[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitTemplateDefinition(TemplateDefinition templateDefinition, object d) {
-			if ((templateDefinition == null)) {
+		public virtual bool VisitTemplateDefinition(TemplateDefinition left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((templateDefinition.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((templateDefinition.Bases == null)) {
+			if ((left.Bases == null)) {
 				return SetFailure();
 			}
-			if(templateDefinition.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TemplateDefinition)d;
-			if (!IsMatch(templateDefinition, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (templateDefinition.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<templateDefinition.Attributes.Count;i++) {
-				AttributeSection o = templateDefinition.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (templateDefinition.Bases.Count == data.Bases.Count) {
-			for (int i=0; i<templateDefinition.Bases.Count;i++) {
-				TypeReference o = templateDefinition.Bases[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Bases[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Bases.Count == data.Bases.Count) {
+			for (int i=0; i<left.Bases.Count;i++) {
+				TypeReference o = left.Bases[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Bases[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitThisReferenceExpression(ThisReferenceExpression thisReferenceExpression, object d) {
-			if ((thisReferenceExpression == null)) {
+		public virtual bool VisitThisReferenceExpression(ThisReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if(thisReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ThisReferenceExpression)d;
-			if (!IsMatch(thisReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
 			return true;
 		}
 		
-		public virtual bool VisitThrowStatement(ThrowStatement throwStatement, object d) {
-			if ((throwStatement == null)) {
+		public virtual bool VisitThrowStatement(ThrowStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((throwStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(throwStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (ThrowStatement)d;
-			if (!IsMatch(throwStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return throwStatement.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitTryCatchStatement(TryCatchStatement tryCatchStatement, object d) {
-			if ((tryCatchStatement == null)) {
+		public virtual bool VisitTryCatchStatement(TryCatchStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((tryCatchStatement.StatementBlock == null)) {
+			if ((left.StatementBlock == null)) {
 				return SetFailure();
 			}
-			if ((tryCatchStatement.CatchClauses == null)) {
+			if ((left.CatchClauses == null)) {
 				return SetFailure();
 			}
-			if ((tryCatchStatement.FinallyBlock == null)) {
+			if ((left.FinallyBlock == null)) {
 				return SetFailure();
 			}
-			if(tryCatchStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TryCatchStatement)d;
-			if (!IsMatch(tryCatchStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			tryCatchStatement.StatementBlock.AcceptVisitor(this, data.StatementBlock);
-			if (tryCatchStatement.CatchClauses.Count == data.CatchClauses.Count) {
-			for (int i=0; i<tryCatchStatement.CatchClauses.Count;i++) {
-				CatchClause o = tryCatchStatement.CatchClauses[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.CatchClauses[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return tryCatchStatement.FinallyBlock.AcceptVisitor(this, data.FinallyBlock);
+			left.StatementBlock.AcceptVisitor(this, data.StatementBlock);
+			if (left.CatchClauses.Count == data.CatchClauses.Count) {
+			for (int i=0; i<left.CatchClauses.Count;i++) {
+				CatchClause o = left.CatchClauses[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.CatchClauses[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.FinallyBlock.AcceptVisitor(this, data.FinallyBlock);
 		}
 		
-		public virtual bool VisitTypeDeclaration(TypeDeclaration typeDeclaration, object d) {
-			if ((typeDeclaration == null)) {
+		public virtual bool VisitTypeDeclaration(TypeDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((typeDeclaration.Attributes == null)) {
+			if ((left.Attributes == null)) {
 				return SetFailure();
 			}
-			if ((typeDeclaration.BaseTypes == null)) {
+			if ((left.BaseTypes == null)) {
 				return SetFailure();
 			}
-			if ((typeDeclaration.Templates == null)) {
+			if ((left.Templates == null)) {
 				return SetFailure();
 			}
-			if(typeDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TypeDeclaration)d;
-			if (!IsMatch(typeDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (typeDeclaration.Attributes.Count == data.Attributes.Count) {
-			for (int i=0; i<typeDeclaration.Attributes.Count;i++) {
-				AttributeSection o = typeDeclaration.Attributes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (typeDeclaration.BaseTypes.Count == data.BaseTypes.Count) {
-			for (int i=0; i<typeDeclaration.BaseTypes.Count;i++) {
-				TypeReference o = typeDeclaration.BaseTypes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.BaseTypes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			if (typeDeclaration.Templates.Count == data.Templates.Count) {
-			for (int i=0; i<typeDeclaration.Templates.Count;i++) {
-				TemplateDefinition o = typeDeclaration.Templates[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
-			return typeDeclaration.AcceptChildren(this, d);
+			if (left.Attributes.Count == data.Attributes.Count) {
+			for (int i=0; i<left.Attributes.Count;i++) {
+				AttributeSection o = left.Attributes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Attributes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.BaseTypes.Count == data.BaseTypes.Count) {
+			for (int i=0; i<left.BaseTypes.Count;i++) {
+				TypeReference o = left.BaseTypes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.BaseTypes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			if (left.Templates.Count == data.Templates.Count) {
+			for (int i=0; i<left.Templates.Count;i++) {
+				TemplateDefinition o = left.Templates[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Templates[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
+			return left.AcceptChildren(this, d);
 		}
 		
-		public virtual bool VisitTypeOfExpression(TypeOfExpression typeOfExpression, object d) {
-			if ((typeOfExpression == null)) {
+		public virtual bool VisitTypeOfExpression(TypeOfExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((typeOfExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(typeOfExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TypeOfExpression)d;
-			if (!IsMatch(typeOfExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return typeOfExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitTypeOfIsExpression(TypeOfIsExpression typeOfIsExpression, object d) {
-			if ((typeOfIsExpression == null)) {
+		public virtual bool VisitTypeOfIsExpression(TypeOfIsExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((typeOfIsExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if ((typeOfIsExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(typeOfIsExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TypeOfIsExpression)d;
-			if (!IsMatch(typeOfIsExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			typeOfIsExpression.Expression.AcceptVisitor(this, data.Expression);
-			return typeOfIsExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
+			left.Expression.AcceptVisitor(this, data.Expression);
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitTypeReference(TypeReference typeReference, object d) {
-			if ((typeReference == null)) {
+		public virtual bool VisitTypeReference(TypeReference left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((typeReference.GenericTypes == null)) {
+			if ((left.GenericTypes == null)) {
 				return SetFailure();
 			}
-			if(typeReference.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TypeReference)d;
-			if (!IsMatch(typeReference, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (typeReference.GenericTypes.Count == data.GenericTypes.Count) {
-			for (int i=0; i<typeReference.GenericTypes.Count;i++) {
-				TypeReference o = typeReference.GenericTypes[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.GenericTypes[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.GenericTypes.Count == data.GenericTypes.Count) {
+			for (int i=0; i<left.GenericTypes.Count;i++) {
+				TypeReference o = left.GenericTypes[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.GenericTypes[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitTypeReferenceExpression(TypeReferenceExpression typeReferenceExpression, object d) {
-			if ((typeReferenceExpression == null)) {
+		public virtual bool VisitTypeReferenceExpression(TypeReferenceExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((typeReferenceExpression.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if(typeReferenceExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (TypeReferenceExpression)d;
-			if (!IsMatch(typeReferenceExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return typeReferenceExpression.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.TypeReference.AcceptVisitor(this, data.TypeReference);
 		}
 		
-		public virtual bool VisitUnaryOperatorExpression(UnaryOperatorExpression unaryOperatorExpression, object d) {
-			if ((unaryOperatorExpression == null)) {
+		public virtual bool VisitUnaryOperatorExpression(UnaryOperatorExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((unaryOperatorExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(unaryOperatorExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UnaryOperatorExpression)d;
-			if (!IsMatch(unaryOperatorExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return unaryOperatorExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitUncheckedExpression(UncheckedExpression uncheckedExpression, object d) {
-			if ((uncheckedExpression == null)) {
+		public virtual bool VisitUncheckedExpression(UncheckedExpression left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((uncheckedExpression.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if(uncheckedExpression.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UncheckedExpression)d;
-			if (!IsMatch(uncheckedExpression, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return uncheckedExpression.Expression.AcceptVisitor(this, data.Expression);
+			return left.Expression.AcceptVisitor(this, data.Expression);
 		}
 		
-		public virtual bool VisitUncheckedStatement(UncheckedStatement uncheckedStatement, object d) {
-			if ((uncheckedStatement == null)) {
+		public virtual bool VisitUncheckedStatement(UncheckedStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((uncheckedStatement.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if(uncheckedStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UncheckedStatement)d;
-			if (!IsMatch(uncheckedStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return uncheckedStatement.Block.AcceptVisitor(this, data.Block);
+			return left.Block.AcceptVisitor(this, data.Block);
 		}
 		
-		public virtual bool VisitUnsafeStatement(UnsafeStatement unsafeStatement, object d) {
-			if ((unsafeStatement == null)) {
+		public virtual bool VisitUnsafeStatement(UnsafeStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((unsafeStatement.Block == null)) {
+			if ((left.Block == null)) {
 				return SetFailure();
 			}
-			if(unsafeStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UnsafeStatement)d;
-			if (!IsMatch(unsafeStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return unsafeStatement.Block.AcceptVisitor(this, data.Block);
+			return left.Block.AcceptVisitor(this, data.Block);
 		}
 		
-		public virtual bool VisitUsing(Using @using, object d) {
-			if ((@using == null)) {
+		public virtual bool VisitUsing(Using left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((@using.Alias == null)) {
+			if ((left.Alias == null)) {
 				return SetFailure();
 			}
-			if(@using.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (Using)d;
-			if (!IsMatch(@using, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return @using.Alias.AcceptVisitor(this, data.Alias);
+			return left.Alias.AcceptVisitor(this, data.Alias);
 		}
 		
-		public virtual bool VisitUsingDeclaration(UsingDeclaration usingDeclaration, object d) {
-			if ((usingDeclaration == null)) {
+		public virtual bool VisitUsingDeclaration(UsingDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((usingDeclaration.Usings == null)) {
+			if ((left.Usings == null)) {
 				return SetFailure();
 			}
-			if(usingDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UsingDeclaration)d;
-			if (!IsMatch(usingDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			if (usingDeclaration.Usings.Count == data.Usings.Count) {
-			for (int i=0; i<usingDeclaration.Usings.Count;i++) {
-				Using o = usingDeclaration.Usings[i];
-				if(o == null){return SetFailure();}
-				if((bool)o.AcceptVisitor(this, data.Usings[i]) == false) return SetFailure();
-			}			}			else { return SetFailure(); }
+			if (left.Usings.Count == data.Usings.Count) {
+			for (int i=0; i<left.Usings.Count;i++) {
+				Using o = left.Usings[i];
+				if(o == null){return SetFailure(left, d);}
+				if((bool)o.AcceptVisitor(this, data.Usings[i]) == false) return SetFailure(left, d);
+			}			}			else { return SetFailure(left, d); }
 			return true;
 		}
 		
-		public virtual bool VisitUsingStatement(UsingStatement usingStatement, object d) {
-			if ((usingStatement == null)) {
+		public virtual bool VisitUsingStatement(UsingStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((usingStatement.ResourceAcquisition == null)) {
+			if ((left.ResourceAcquisition == null)) {
 				return SetFailure();
 			}
-			if ((usingStatement.EmbeddedStatement == null)) {
+			if ((left.EmbeddedStatement == null)) {
 				return SetFailure();
 			}
-			if(usingStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (UsingStatement)d;
-			if (!IsMatch(usingStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			usingStatement.ResourceAcquisition.AcceptVisitor(this, data.ResourceAcquisition);
-			return usingStatement.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
+			left.ResourceAcquisition.AcceptVisitor(this, data.ResourceAcquisition);
+			return left.EmbeddedStatement.AcceptVisitor(this, data.EmbeddedStatement);
 		}
 		
-		public virtual bool VisitVariableDeclaration(VariableDeclaration variableDeclaration, object d) {
-			if ((variableDeclaration == null)) {
+		public virtual bool VisitVariableDeclaration(VariableDeclaration left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((variableDeclaration.Initializer == null)) {
+			if ((left.Initializer == null)) {
 				return SetFailure();
 			}
-			if ((variableDeclaration.TypeReference == null)) {
+			if ((left.TypeReference == null)) {
 				return SetFailure();
 			}
-			if ((variableDeclaration.FixedArrayInitialization == null)) {
+			if ((left.FixedArrayInitialization == null)) {
 				return SetFailure();
 			}
-			if(variableDeclaration.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (VariableDeclaration)d;
-			if (!IsMatch(variableDeclaration, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			variableDeclaration.Initializer.AcceptVisitor(this, data.Initializer);
-			variableDeclaration.TypeReference.AcceptVisitor(this, data.TypeReference);
-			return variableDeclaration.FixedArrayInitialization.AcceptVisitor(this, data.FixedArrayInitialization);
+			left.Initializer.AcceptVisitor(this, data.Initializer);
+			left.TypeReference.AcceptVisitor(this, data.TypeReference);
+			return left.FixedArrayInitialization.AcceptVisitor(this, data.FixedArrayInitialization);
 		}
 		
-		public virtual bool VisitWithStatement(WithStatement withStatement, object d) {
-			if ((withStatement == null)) {
+		public virtual bool VisitWithStatement(WithStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((withStatement.Expression == null)) {
+			if ((left.Expression == null)) {
 				return SetFailure();
 			}
-			if ((withStatement.Body == null)) {
+			if ((left.Body == null)) {
 				return SetFailure();
 			}
-			if(withStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (WithStatement)d;
-			if (!IsMatch(withStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			withStatement.Expression.AcceptVisitor(this, data.Expression);
-			return withStatement.Body.AcceptVisitor(this, data.Body);
+			left.Expression.AcceptVisitor(this, data.Expression);
+			return left.Body.AcceptVisitor(this, data.Body);
 		}
 		
-		public virtual bool VisitYieldStatement(YieldStatement yieldStatement, object d) {
-			if ((yieldStatement == null)) {
+		public virtual bool VisitYieldStatement(YieldStatement left, object d) {
+			if ((left == null)) {
 				return SetFailure();
 			}
 			if ((d == null)) {
 				return SetFailure();
 			}
-			if ((yieldStatement.Statement == null)) {
+			if ((left.Statement == null)) {
 				return SetFailure();
 			}
-			if(yieldStatement.GetType() != d.GetType()) {return SetFailure();}
+			if(left.GetType() != d.GetType()) {return SetFailure(left,d);}
 			var data = (YieldStatement)d;
-			if (!IsMatch(yieldStatement, data)) {
-				return SetFailure();
+			if (!IsMatch(left, data)) {
+				return SetFailure(left, d);
 			}
-			return yieldStatement.Statement.AcceptVisitor(this, data.Statement);
+			return left.Statement.AcceptVisitor(this, data.Statement);
 		}
 	}
 }
