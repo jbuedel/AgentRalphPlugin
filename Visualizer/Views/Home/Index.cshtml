@@ -20,7 +20,7 @@
             .size([height, width]);
 
         var diagonal = d3.svg.diagonal()
-            .projection(function(d) { return [d.y, d.x]; });
+            .projection(function(d) { return [d.x, d.y]; });
 
         var svg = d3.select("body").append("svg")
             .attr("width", width + margin.right + margin.left)
@@ -58,7 +58,7 @@
 
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
-                .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+                .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
                 .on("click", click);
 
             nodeEnter.append("circle")
@@ -73,7 +73,7 @@
                 .style("fill-opacity", 1e-6);
 
             var nodeUpdate = node.transition().duration(duration)
-                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
             nodeUpdate.select("circle")
                 .attr("r", 4.5)
@@ -84,7 +84,7 @@
 
             var nodeExit = node.exit().transition()
                 .duration(duration)
-                .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+                .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
                 .remove();
 
             nodeExit.select("circle")
