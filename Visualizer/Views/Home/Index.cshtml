@@ -51,10 +51,10 @@
             var nodes = tree.nodes(root).reverse(),
                 links = tree.links(nodes);
 
-            nodes.forEach(function(d) { d.y = d.depth * 180; });
+            nodes.forEach(function(d) { d.y = d.depth * 50; });
 
             var node = svg.selectAll("g.node")
-                .data(nodes, function(d) { return d.d || (d.id = ++i); });
+                .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
