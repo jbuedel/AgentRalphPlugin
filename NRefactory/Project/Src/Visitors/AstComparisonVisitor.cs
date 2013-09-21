@@ -19,6 +19,7 @@ namespace AgentRalph.Visitors
 
       private bool SetFailure(INode left, object right)
       {
+	if(left == right) throw new Exception();
         FailNodeLeft = left;
         FailNodeRight = (INode) right;
         return SetFailure();

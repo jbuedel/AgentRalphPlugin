@@ -23,9 +23,24 @@ namespace Visualizer.Controllers
 
       public JsonResult Data()
       {
-        string code = "2 + 3";
+        var code = "2 + 3 * (5-7)";
+        var code2 = "2+3 * (5+7)";
+
         var expr = AstMatchHelper.ParseToExpression(code);
-        return Json(expr.ToJson(), JsonRequestBehavior.AllowGet);
+        var expr2 = AstMatchHelper.ParseToExpression(code2);
+
+        var matchResult = AstMatchHelper.MatchesWithState(expr, expr2);
+
+        var r = new
+        {
+	  name="root",
+	  // mark the divergent node red, then assemble the two into a big tree.
+          children = new[] { new{name="left", children=new[]{matchResult.FailNodeLeft.ToJson()}},
+                             new{name="right", children=new[]{matchResult.FailNodeRight.ToJson()}},
+                             new{name="root", children=new[]{matchResult.Root.ToJson()}}
+          }
+        };
+        return Json(r, JsonRequestBehavior.AllowGet);
       }
 
     }
