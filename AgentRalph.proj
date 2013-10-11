@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <ProjectsToBuild Include="**\*.csproj" Exclude="**\Ralph.Test.Project.csproj;Libs\**"/>
+	<LastNuGetPkgArtifacts Include="*.nupkg" />
   </ItemGroup>
 
   <Target Name="SetVersion">
@@ -60,7 +61,7 @@
     <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Debug" />
     <MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" Properties="Configuration=Release" />
 
-    <Delete Files="*.nupkg" />
+    <Delete Files="@(LastNuGetPkgArtifacts)" />
   </Target>
 
 	<Target Name="Build" DependsOnTargets="$(BuildTargets)" />
