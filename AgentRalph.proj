@@ -7,8 +7,8 @@
     <BUILD_NUMBER Condition=" '$(BUILD_NUMBER)' == '' ">00000</BUILD_NUMBER>
     <AssemblyVersion>1.3.0.$(BUILD_NUMBER)</AssemblyVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <!-- This is the name the nuget.targets uses for the nuspec file. Lame. -->
     <ProjectPath>Ralph.nuspec</ProjectPath>
-
     <TestAssemblies>Bin\$(Configuration)\*Tests.dll</TestAssemblies>
 
   	<BuildTargets>
@@ -43,6 +43,9 @@
 
   <Target Name="SetVersion">
     <AssemblyInfo AssemblyVersion="$(AssemblyVersion)" CodeLanguage="CS" OutputFile="GlobalVersionInfo.cs"/>
+    <XmlUpdate XmlFileName="$(ProjectPath)"
+               XPath="//package/metadata/version"
+               Value="$(AssemblyVersion)"/><!--NOTE: When I put an xml namespace in here, the task can't find the node. -->
   </Target>
 
   <Target Name="AssertBuildNumber">
