@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using AgentRalph;
+using ICSharpCode.NRefactory.Ast;
 using Microsoft.Ajax.Utilities;
 
 namespace Visualizer.Controllers
@@ -21,6 +24,17 @@ namespace Visualizer.Controllers
             return View();
         }
 
+      private JNode build(JNode tree, int targetid, JNode addition)
+      {
+        if (tree.id == targetid)
+          return new JNode {name = "divergence", children = new[] {tree, addition}, id=0};
+
+        var children = new List<JNode>();
+        foreach (var v in tree.children)
+          children.Add(build(v, targetid, addition));
+        return new JNode{name=tree.name, data=tree.data, children=children, id=0};
+      }
+
       public JsonResult Data()
       {
         var code = "2 + 3 * (5-7)";
@@ -30,18 +44,11 @@ namespace Visualizer.Controllers
         var expr2 = AstMatchHelper.ParseToExpression(code2);
 
         var matchResult = AstMatchHelper.MatchesWithState(expr, expr2);
-
-        var r = new
-        {
-	  name="root",
-	  // mark the divergent node red, then assemble the two into a big tree.
-          children = new[] { new{name="left", children=new[]{matchResult.FailNodeLeft.ToJson()}},
-                             new{name="right", children=new[]{matchResult.FailNodeRight.ToJson()}},
-                             new{name="root", children=new[]{matchResult.Root.ToJson()}}
-          }
-        };
+        var r = build(matchResult.Root.ToJson(), 
+          matchResult.FailNodeLeft.ToJson().id,
+          matchResult.FailNodeRight.ToJson());
         return Json(r, JsonRequestBehavior.AllowGet);
       }
-
     }
 }
+

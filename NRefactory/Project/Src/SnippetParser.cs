@@ -130,9 +130,9 @@ namespace ICSharpCode.NRefactory
 			
 			public object UserData { get; set; }
 
-		  public object ToJson()
+		  public JNode ToJson()
 		  {
-		    return Chilluns.Select(c => c.ToJson());
+		    throw new NotImplementedException();
 		  }
 
 		  public object JsonData()

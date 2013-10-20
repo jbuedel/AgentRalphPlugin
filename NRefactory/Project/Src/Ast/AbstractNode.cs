@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using AgentRalph.Visitors;
@@ -29,8 +30,13 @@ namespace ICSharpCode.NRefactory.Ast
         return null;
       }
 
-      public virtual object ToJson() {
-        return new {name = GetType().Name, data = JsonData(), children = this.Chilluns.Select(c=>c.ToJson())};
+      public virtual JNode ToJson() {
+        var x = new JNode();
+        x.name  =  GetType().Name;
+        x.data = JsonData();
+        x.children = Chilluns.Select(c => c.ToJson());
+        x.id=GetHashCode();
+        return x;
       }
 		
         /// <summary>

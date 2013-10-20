@@ -41,10 +41,10 @@ namespace ICSharpCode.NRefactory.Ast
 			set;
 		}
 
-          /// <summary>
-          /// Return an object suitable for Json serialization.
-          /// </summary>
-	  object ToJson();
+	  /// <summary>
+	  /// Return an object suitable for Json serialization.
+	  /// </summary>
+	  JNode ToJson();	
 
 	  object JsonData();
 		
@@ -67,4 +67,12 @@ namespace ICSharpCode.NRefactory.Ast
         bool AcceptVisitor(AstComparisonVisitor visitor, object data);
 	  bool IsShallowMatch(INode right);
 	}
+  /// Used for converting to a json representation.
+  public class JNode
+  {
+    public string name;
+    public int id;
+    public object data;
+    public IEnumerable<JNode> children;
+  }
 }
