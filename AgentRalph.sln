@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Libs\Report By Class-2.xslt = Libs\Report By Class-2.xslt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactory", "NRefactory\Project\NRefactory.csproj", "{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.NRefactory", "NRefactory\Project\Ralph.NRefactory.csproj", "{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpRefactoring", "SharpRefactoring\SharpRefactoring.csproj", "{3CA90546-3B4C-4663-9445-C4E9371750A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.SharpRefactoring", "SharpRefactoring\Ralph.SharpRefactoring.csproj", "{3CA90546-3B4C-4663-9445-C4E9371750A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpDevelop.Dom", "ICSharpCode.SharpDevelop.Dom\ICSharpCode.SharpDevelop.Dom.csproj", "{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.ICSharpCode.SharpDevelop.Dom", "ICSharpCode.SharpDevelop.Dom\Ralph.ICSharpCode.SharpDevelop.Dom.csproj", "{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactoryTests", "NRefactory\Test\NRefactoryTests.csproj", "{870115DD-960A-4406-A6B9-600BCDC36A03}"
 EndProject

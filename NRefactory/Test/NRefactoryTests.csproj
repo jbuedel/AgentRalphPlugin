@@ -203,9 +203,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project\NRefactory.csproj">
+    <ProjectReference Include="..\Project\Ralph.NRefactory.csproj">
       <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
-      <Name>NRefactory</Name>
+      <Name>Ralph.NRefactory</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -105,9 +105,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NRefactory\Project\NRefactory.csproj">
+    <ProjectReference Include="..\NRefactory\Project\Ralph.NRefactory.csproj">
       <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
-      <Name>NRefactory</Name>
+      <Name>Ralph.NRefactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ralph.Core\Ralph.Core.csproj">
       <Project>{CA40C4FF-A47A-43D9-A429-CB212808F232}</Project>
