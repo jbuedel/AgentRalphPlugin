@@ -24,7 +24,9 @@ namespace AgentRalph.CloneDetection
                 // GetText gives the unsaved file contents, unlike file.ProjectFile.GetReadStream().
                 string codeText = myDaemonProcess.Document.GetText();
 
+		// I do not remember anymore why I created the Shallow version...
                 var cloneFinder = new MethodsOnASingleClassCloneFinder(new ShallowExpansionFactory());
+                //var cloneFinder = new MethodsOnASingleClassCloneFinder(new OscillatingExtractMethodExpansionFactory());
 
                 cloneFinder.AddRefactoring(new LiteralToParameterExpansion());
 
