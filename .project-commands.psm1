@@ -36,7 +36,7 @@ function rebuild_project {
 	write-host "*****************************************************************************"
 	write-host "***Rebuild actually builds for release including making the nuget package.***"
 	write-host "*****************************************************************************"
-	msbuild .\AgentRalph.proj /t:Release /p:BUILD_NUMBER=77 /p:Configuration=Release /v:detailed
+	msbuild .\AgentRalph.proj /t:Release /p:Configuration=Release /v:minimal /p:BUILD_NUMBER=1
 }
 function develop_project {
 	.\AgentRalph.sln
