@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>AgentRalph</id>
+    <version>1.3.00000</version>
+    <title>AgentRalph </title>
+    <authors>Josh Buedel</authors>
+    <owners>Josh Buedel</owners>
+    <summary>Code clone detection and repair plugin for ReSharper.</summary>
+    <description>Agent Ralph is primarily a code clone detection and repair tool for C#. Agent Ralph will scan your source code and attempt to identify statements that are functional duplicates of an existing method. Once a clone is identified Agent Ralph will prompt the user to replace that code with a call to it's clone.</description>
+    <releaseNotes>
+    </releaseNotes>
+    <projectUrl>https://github.com/jbuedel/AgentRalphPlugin</projectUrl>
+    <copyright>Copyright © 2013 Josh Buedel</copyright>
+    <tags>clone</tags>
+    <dependencies>
+      <dependency id="ReSharper" version="8.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Mono.Cecil.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Ralph.Core.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Ralph.ICSharpCode.NRefactory.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Ralph.ICSharpCode.SharpDevelop.Dom.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Ralph.Plugin.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Ralph.SharpRefactoring.dll" target="ReSharper\vAny\plugins" />
+  </files>
+</package>

@@ -10,7 +10,7 @@ using JetBrains.Application.PluginSupport;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Josh Buedel")]
 [assembly: AssemblyProduct("AgentRalph")]
-[assembly: AssemblyCopyright("Copyright © Josh Buedel, 2012")]
+[assembly: AssemblyCopyright("Copyright © Josh Buedel, 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

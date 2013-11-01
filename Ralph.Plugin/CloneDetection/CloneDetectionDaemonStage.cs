@@ -13,7 +13,7 @@ namespace AgentRalph.CloneDetection
 	/// because it's marked with the attribute.
 	/// </summary>
 	[DaemonStage]
-    public class CloneDetectionDaemonStage : CSharpDaemonStageBase // TODO: Change this to a CSharpDaemonStageBase, per http://codevanced.net/post/How-to-write-a-ReSharper-plugin.aspx
+    public class CloneDetectionDaemonStage : CSharpDaemonStageBase 
 	{
         /// <summary>
         /// This method provides a <see cref="IDaemonStageProcess"/> instance which is assigned to highlighting a single document.
