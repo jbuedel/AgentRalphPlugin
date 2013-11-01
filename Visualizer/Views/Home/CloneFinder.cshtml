@@ -1,0 +1,16 @@
+﻿@model Visualizer.Models.CloneFinderModel
+
+@{
+    ViewBag.Title = "CloneFinder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CloneFinder</h2>
+
+<pre>
+@Model.Code
+</pre>
+
+<div>
+    @Model.Largest 
+</div>

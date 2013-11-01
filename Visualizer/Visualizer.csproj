@@ -128,6 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CloneFinderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -231,10 +231,17 @@
       <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
       <Name>NRefactory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NRefactory\Test\NRefactoryTests.csproj">
+      <Project>{870115DD-960A-4406-A6B9-600BCDC36A03}</Project>
+      <Name>NRefactoryTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ralph.Core\Ralph.Core.csproj">
       <Project>{CA40C4FF-A47A-43D9-A429-CB212808F232}</Project>
       <Name>Ralph.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\CloneFinder.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
