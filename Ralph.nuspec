@@ -18,11 +18,11 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\Mono.Cecil.dll" target="ReSharper\vAny\plugins" />
-    <file src="bin\Release\Ralph.Core.dll" target="ReSharper\vAny\plugins" />
-    <file src="bin\Release\Ralph.ICSharpCode.NRefactory.dll" target="ReSharper\vAny\plugins" />
-    <file src="bin\Release\Ralph.ICSharpCode.SharpDevelop.Dom.dll" target="ReSharper\vAny\plugins" />
-    <file src="bin\Release\Ralph.Plugin.dll" target="ReSharper\vAny\plugins" />
-    <file src="bin\Release\Ralph.SharpRefactoring.dll" target="ReSharper\vAny\plugins" />
+    <file src="bin\Release\Mono.Cecil.dll" target="ReSharper\v8.0\plugins" />
+    <file src="bin\Release\Ralph.Core.dll" target="ReSharper\v8.0\plugins" />
+    <file src="bin\Release\Ralph.ICSharpCode.NRefactory.dll" target="ReSharper\v8.0\plugins" />
+    <file src="bin\Release\Ralph.ICSharpCode.SharpDevelop.Dom.dll" target="ReSharper\v8.0\plugins" />
+    <file src="bin\Release\Ralph.Plugin.dll" target="ReSharper\v8.0\plugins" />
+    <file src="bin\Release\Ralph.SharpRefactoring.dll" target="ReSharper\v8.0\plugins" />
   </files>
 </package>
