@@ -20,7 +20,6 @@ namespace Visualizer.Controllers
         {
 //          var file = System.IO.Directory.EnumerateFiles(@"C:\Users\jbuedel\Projects\agentralphplugin\bin\", "*.json").First();
 //          var json = System.IO.File.ReadAllText(file);
-          var model = "";
             return View();
         }
 
@@ -29,9 +28,7 @@ namespace Visualizer.Controllers
         if (tree.id == targetid)
           return new JNode {name = "divergence", children = new[] {tree, addition}, id=0};
 
-        var children = new List<JNode>();
-        foreach (var v in tree.children)
-          children.Add(build(v, targetid, addition));
+        var children = tree.children.Select(v => build(v, targetid, addition)).ToList();
         return new JNode{name=tree.name, data=tree.data, children=children, id=0};
       }
 
