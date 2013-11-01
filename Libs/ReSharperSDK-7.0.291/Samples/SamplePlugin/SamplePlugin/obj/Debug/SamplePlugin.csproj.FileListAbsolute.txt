@@ -1,8 +1,0 @@
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\bin\JetBrains.ReSharper.SamplePlugin.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\bin\JetBrains.ReSharper.SamplePlugin.pdb
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\SamplePluginIcons\ThemedIcons.SamplePlugin.Generated.baml
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\JetBrains.ReSharper.SamplePlugin_MarkupCompile.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\JetBrains.ReSharper.SamplePlugin.g.resources
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\JetBrains.ReSharper.SamplePlugin.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\SamplePlugin\SamplePlugin\obj\Debug\JetBrains.ReSharper.SamplePlugin.pdb

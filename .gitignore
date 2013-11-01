@@ -58,3 +58,4 @@ packages/
 
 # Agent Ralph specific files
 GlobalVersionInfo.cs
+AgentRalph*.nupkg

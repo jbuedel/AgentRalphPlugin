@@ -1,5 +1,0 @@
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\GenerateDispose\bin\Debug\GenerateDispose.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\GenerateDispose\bin\Debug\GenerateDispose.pdb
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\GenerateDispose\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\GenerateDispose\obj\Debug\GenerateDispose.dll
-C:\Users\jbuedel\Projects\agentralphplugin\Libs\ReSharperSDK-7.0.291\Samples\GenerateDispose\obj\Debug\GenerateDispose.pdb

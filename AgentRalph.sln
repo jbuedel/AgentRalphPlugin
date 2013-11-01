@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5606B313-638C-4F5E-A4FB-79B456F6492D}"
 	ProjectSection(SolutionItems) = preProject
+		.project-commands.psm1 = .project-commands.psm1
 		AgentRalph.proj = AgentRalph.proj
+		Ralph.nuspec = Ralph.nuspec
 		Libs\Report By Assembly.xslt = Libs\Report By Assembly.xslt
 		Libs\Report By Class .xslt = Libs\Report By Class .xslt
 		Libs\Report By Class-2.xslt = Libs\Report By Class-2.xslt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactory", "NRefactory\Project\NRefactory.csproj", "{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.NRefactory", "NRefactory\Project\Ralph.NRefactory.csproj", "{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpRefactoring", "SharpRefactoring\SharpRefactoring.csproj", "{3CA90546-3B4C-4663-9445-C4E9371750A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.SharpRefactoring", "SharpRefactoring\Ralph.SharpRefactoring.csproj", "{3CA90546-3B4C-4663-9445-C4E9371750A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpDevelop.Dom", "ICSharpCode.SharpDevelop.Dom\ICSharpCode.SharpDevelop.Dom.csproj", "{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.ICSharpCode.SharpDevelop.Dom", "ICSharpCode.SharpDevelop.Dom\Ralph.ICSharpCode.SharpDevelop.Dom.csproj", "{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactoryTests", "NRefactory\Test\NRefactoryTests.csproj", "{870115DD-960A-4406-A6B9-600BCDC36A03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRefactoryASTGenerator", "NRefactory\NRefactoryASTGenerator\NRefactoryASTGenerator.csproj", "{B22522AA-B5BF-4A58-AC6D-D4B45805521F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Process", "Ralph.Process\Ralph.Process.csproj", "{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Core", "Ralph.Core\Ralph.Core.csproj", "{CA40C4FF-A47A-43D9-A429-CB212808F232}"
 EndProject
@@ -95,16 +95,6 @@ Global
 		{B22522AA-B5BF-4A58-AC6D-D4B45805521F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B22522AA-B5BF-4A58-AC6D-D4B45805521F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B22522AA-B5BF-4A58-AC6D-D4B45805521F}.Release|x86.ActiveCfg = Release|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2A36CA2B-16A2-4BC3-86D4-0921ECDB3DD3}.Release|x86.ActiveCfg = Release|Any CPU
 		{CA40C4FF-A47A-43D9-A429-CB212808F232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA40C4FF-A47A-43D9-A429-CB212808F232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA40C4FF-A47A-43D9-A429-CB212808F232}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

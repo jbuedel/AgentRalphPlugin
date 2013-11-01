@@ -81,9 +81,9 @@
     <Compile Include="AST\GlobalLevel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ICSharpCode.SharpDevelop.Dom\ICSharpCode.SharpDevelop.Dom.csproj">
+    <ProjectReference Include="..\..\ICSharpCode.SharpDevelop.Dom\Ralph.ICSharpCode.SharpDevelop.Dom.csproj">
       <Project>{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}</Project>
-      <Name>ICSharpCode.SharpDevelop.Dom</Name>
+      <Name>Ralph.ICSharpCode.SharpDevelop.Dom</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
