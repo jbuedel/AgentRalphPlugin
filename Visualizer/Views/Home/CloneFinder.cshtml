@@ -1,4 +1,5 @@
-﻿@model Visualizer.Models.CloneFinderModel
+﻿@using ICSharpCode.NRefactory
+@model Visualizer.Models.CloneFinderModel
 
 @{
     ViewBag.Title = "CloneFinder";
@@ -6,7 +7,7 @@
 }
 
 <h2>CloneFinder</h2>
-
+<h4>The test case.</h4>
 <pre>
 @for (int i = 0; i < Model.Code.Length; i++)
 {
@@ -14,6 +15,16 @@
 }
 </pre>
 
-<div>
-    @Model.Largest.
-</div>
+<h4>Largest extracted method within BEGIN/END.</h4>
+<pre>
+@Model.Largest.PermutatedMethod.Print()
+</pre>
+
+@if (Model.ExpectedCallText != null)
+{
+    <h4>Expected and actual calls to the clone</h4>
+    <pre>
+Expected: @Model.ExpectedCallText.Print()
+Actual:   @Model.ActualCallText.Print()
+</pre>
+}

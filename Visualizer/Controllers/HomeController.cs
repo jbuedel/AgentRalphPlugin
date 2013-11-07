@@ -52,6 +52,11 @@ namespace Visualizer.Controllers
         return Json(r, JsonRequestBehavior.AllowGet);
       }
 
+      // This represents teh CloneCandidateDetectionTests, which seem to be a 10000 foot view.  That is,
+      // it tests from the file level, all the way down through classes, extracting permutations and matching
+      // against existing methods on the class.
+      // I may want to start with something more specific, for this visualization.  Or maybe, really my problem is
+      // often bad extract method operations.   I should set this up to inspect that perhaps?
       public ActionResult CloneFinder()
       {
         var model = new CloneFinderModel();
@@ -83,40 +88,37 @@ namespace Visualizer.Controllers
 
         MethodsOnASingleClassCloneFinder cloneFinder = new MethodsOnASingleClassCloneFinder(new OscillatingExtractMethodExpansionFactory());
 
-        CloneDesc largest = null;
-
+	// Find the 'largest' clone that falls within the comment markers.
         cloneFinder.OnExtractedCandidate += (finder, args) =>
         {
-          if (largest == null)
-            largest = args.Candidate;
+          if (model.Largest == null)
+            model.Largest = args.Candidate;
           else if (args.Candidate.ReplacementInvocationInfo.ReplacementSectionStartLine >= begin_comment.StartPosition.Line
                && args.Candidate.ReplacementInvocationInfo.ReplacementSectionEndLine <= end_comment.EndPosition.Line
-              && args.Candidate.PermutatedMethod.CountNodes() > largest.PermutatedMethod.CountNodes())
-            largest = args.Candidate;
+              && args.Candidate.PermutatedMethod.CountNodes() > model.Largest.PermutatedMethod.CountNodes())
+            model.Largest = args.Candidate;
 
         };
 
-
         var replacements = cloneFinder.GetCloneReplacements(parser.CompilationUnit);
 
-        int clone_count = replacements.Clones.Count;
-
-        model.CloneCount = clone_count;
+        model.CloneCount = replacements.Clones.Count;
         for (int i = 0; i < replacements.Clones.Count; i++) {
           //TestLog.EmbedPlainText("   ***** Clone #" + i + " *****", replacements.Clones[i].ToString());
         }
 
-        model.Largest = largest;
 
-        var quickFixInfos = replacements.Clones.Where(Predicate(begin_comment, end_comment));
+        var quickFixInfos = replacements.Clones.Where(IsBetween(begin_comment, end_comment));
 
-	if(quickFixInfos.Count() > 0)
-          ModelState.AddModelError("", "None of the clones found (there were " + clone_count + ") fell inbetween the BEGIN/END markers.");
+	if(quickFixInfos.Any())
+          ModelState.AddModelError("", "None of the clones found (there were " + replacements.Clones.Count + ") fell inbetween the BEGIN/END markers.");
 
         var expected_call_snippet = begin_comment.CommentText.Substring(begin_comment.CommentText.IndexOf("BEGIN") + 5).Trim();
         if (!string.IsNullOrEmpty(expected_call_snippet)) {
           var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
+          model.ExpectedCallText = expected_call;
           var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
+          model.ActualCallText = actual_cal;
           if (expected_call.MatchesPrint(actual_cal)) {
             ModelState.AddModelError("", "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
           }
@@ -125,7 +127,7 @@ namespace Visualizer.Controllers
         return View(model);
       }
 
-      private Func<QuickFixInfo, bool> Predicate(Comment begin_comment, Comment end_comment)
+      private Func<QuickFixInfo, bool> IsBetween(Comment begin_comment, Comment end_comment)
       {
         return x =>
                x.ReplacementSectionStartLine > begin_comment.StartPosition.Line &&

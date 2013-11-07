@@ -49,12 +49,9 @@ namespace AgentRalph.CloneCandidateDetection
 
         public ScanResult GetCloneReplacements(CompilationUnit unit)
         {
-
-
             var instances = (from typeDec1 in unit.FindAllClasses()
                              from inf1 in ScanForClones(typeDec1)
                              select inf1).ToArray();
-
 
             return new ScanResult(instances);
         }
