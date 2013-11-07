@@ -57,7 +57,7 @@ namespace Visualizer.Controllers
         var model = new CloneFinderModel();
 
         string codeText = System.IO.File.ReadAllText(@"C:\Users\jbuedel\Projects\agentralphplugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\CloneInDoWhileBlock.cs");
-        model.Code = codeText;
+        model.Code = codeText.Split(new[] { System.Environment.NewLine }, StringSplitOptions.None);
 
         //            System.Diagnostics.Debugger.Break();
 

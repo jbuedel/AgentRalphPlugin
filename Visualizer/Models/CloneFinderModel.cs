@@ -8,7 +8,7 @@ namespace Visualizer.Models
 {
   public class CloneFinderModel
   {
-    public string Code { get; set; }
+    public string[] Code { get; set; }
     public string Errors { get; set; }
     public int CloneCount { get; set; }
     public CloneDesc Largest { get; set; }
