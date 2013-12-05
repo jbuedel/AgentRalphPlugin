@@ -9,10 +9,11 @@ namespace Visualizer.Models
 {
   public class CloneFinderModel
   {
-    public string[] Code { get; set; }
+    public string[] TestCaseCode { get; set; }
     public string Errors { get; set; }
     public int CloneCount { get; set; }
     public CloneDesc Largest { get; set; }
+    public CloneDesc ExpectedMatchingMethod { get; set; }
     public Statement ExpectedCallText { get; set; }
     public Statement ActualCallText { get; set; }
   }

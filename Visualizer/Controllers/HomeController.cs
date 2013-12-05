@@ -52,7 +52,7 @@ namespace Visualizer.Controllers
         return Json(r, JsonRequestBehavior.AllowGet);
       }
 
-      // This represents teh CloneCandidateDetectionTests, which seem to be a 10000 foot view.  That is,
+      // This represents the CloneCandidateDetectionTests, which seem to be a 10000 foot view.  That is,
       // it tests from the file level, all the way down through classes, extracting permutations and matching
       // against existing methods on the class.
       // I may want to start with something more specific, for this visualization.  Or maybe, really my problem is
@@ -61,8 +61,8 @@ namespace Visualizer.Controllers
       {
         var model = new CloneFinderModel();
 
-        string codeText = System.IO.File.ReadAllText(@"C:\Users\jbuedel\Projects\agentralphplugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\CloneInDoWhileBlock.cs");
-        model.Code = codeText.Split(new[] { System.Environment.NewLine }, StringSplitOptions.None);
+        string codeText = System.IO.File.ReadAllText(@"D:\Projects\AgentRalph\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\MenuTest.cs");
+        model.TestCaseCode = codeText.Split(new[] { System.Environment.NewLine }, StringSplitOptions.None);
 
         //            System.Diagnostics.Debugger.Break();
 
@@ -88,7 +88,7 @@ namespace Visualizer.Controllers
 
         MethodsOnASingleClassCloneFinder cloneFinder = new MethodsOnASingleClassCloneFinder(new OscillatingExtractMethodExpansionFactory());
 
-	// Find the 'largest' clone that falls within the comment markers.
+	    // Find the 'largest' extracted method that falls within the comment markers.
         cloneFinder.OnExtractedCandidate += (finder, args) =>
         {
           if (model.Largest == null)
@@ -97,7 +97,6 @@ namespace Visualizer.Controllers
                && args.Candidate.ReplacementInvocationInfo.ReplacementSectionEndLine <= end_comment.EndPosition.Line
               && args.Candidate.PermutatedMethod.CountNodes() > model.Largest.PermutatedMethod.CountNodes())
             model.Largest = args.Candidate;
-
         };
 
         var replacements = cloneFinder.GetCloneReplacements(parser.CompilationUnit);
@@ -110,19 +109,25 @@ namespace Visualizer.Controllers
 
         var quickFixInfos = replacements.Clones.Where(IsBetween(begin_comment, end_comment));
 
-	if(quickFixInfos.Any())
-          ModelState.AddModelError("", "None of the clones found (there were " + replacements.Clones.Count + ") fell inbetween the BEGIN/END markers.");
-
-        var expected_call_snippet = begin_comment.CommentText.Substring(begin_comment.CommentText.IndexOf("BEGIN") + 5).Trim();
-        if (!string.IsNullOrEmpty(expected_call_snippet)) {
-          var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
-          model.ExpectedCallText = expected_call;
-          var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
-          model.ActualCallText = actual_cal;
-          if (expected_call.MatchesPrint(actual_cal)) {
-            ModelState.AddModelError("", "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
+          if (!quickFixInfos.Any())
+          {
+              ModelState.AddModelError("", "None of the clones found (there were " + replacements.Clones.Count + ") fell inbetween the BEGIN/END markers.");
+              // so in this case, match the largest permutation against the Expected or Foo method and print the tree(s)
           }
-        }
+          else {
+          var expected_call_snippet = begin_comment.CommentText.Substring(begin_comment.CommentText.IndexOf("BEGIN") + 5).Trim();
+              if (!string.IsNullOrEmpty(expected_call_snippet))
+              {
+                  var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
+                  model.ExpectedCallText = expected_call;
+                  var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
+                  model.ActualCallText = actual_cal;
+                  if (expected_call.MatchesPrint(actual_cal))
+                  {
+                      ModelState.AddModelError("", "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
+                  }
+              }
+          }
 
         return View(model);
       }
