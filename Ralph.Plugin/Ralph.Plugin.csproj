@@ -53,6 +53,13 @@
     <Compile Include="CloneDetection\CloneDetectionHighlighting.cs" />
     <Compile Include="CloneDetection\CloneDetectionQuickFix.cs" />
     <Compile Include="CloneDetection\CloneDetectionDaemonStage.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeBulbItem.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeDaemonStage.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeDaemonStageProcess.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeFinderElementProcessor.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeQuickFix.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MakeEnumComparisonTypeSafeWarningHighlight.cs" />
+    <Compile Include="MakeEnumComparisonTypeSafe\MyIsExpressionStringCallsOnAnEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AboutAction.cs" />
     <Compile Include="ReverseStringAction.cs" />

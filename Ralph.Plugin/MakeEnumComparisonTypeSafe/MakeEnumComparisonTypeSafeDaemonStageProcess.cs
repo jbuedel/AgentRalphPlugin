@@ -1,11 +1,43 @@
 ﻿using System;
 using JetBrains.Application.Progress;
+using JetBrains.Decompiler.Ast;
 using JetBrains.ReSharper.Daemon;
+using JetBrains.ReSharper.Daemon.Stages;
+using JetBrains.ReSharper.Daemon.Stages.Dispatcher;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Impl;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 
+
+public class BadEnumProblemAnalyzer : ElementProblemAnalyzer<ITreeNode>
+{
+  private class bADeNUMHighligh : IHighlighting
+  {
+    public bADeNUMHighligh(string toolTip, string errorStripeToolTip)
+    {
+      ToolTip = toolTip;
+      ErrorStripeToolTip = errorStripeToolTip;
+      NavigationOffsetPatch = 0;
+    }
+
+    public bool IsValid()
+    {
+      return true;
+    }
+
+    public string ToolTip { get; private set; }
+    public string ErrorStripeToolTip { get; private set; }
+    public int NavigationOffsetPatch { get; private set; }
+  }
+  protected override void Run(ITreeNode element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+  {
+    var h = new bADeNUMHighligh("Josh", "Josh strine tooltip");
+    var r = element.GetHighlightingRange();
+    consumer.AddHighlighting(h, r);
+  }
+}
 namespace AgentRalph.MakeEnumComparisonTypeSafe
 {
     public class MakeEnumComparisonTypeSafeDaemonStageProcess: IDaemonStageProcess

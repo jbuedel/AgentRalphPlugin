@@ -1,103 +1,104 @@
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Resolve;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.ReSharper.Psi.DeclaredElements;
+//using JetBrains.ReSharper.Psi.DeclaredElements;
+using JetBrains.ReSharper.Psi.ExtensionsAPI.Resolve;
 using JetBrains.ReSharper.Psi.Resolve;
 using System.Collections.Generic;
 
 namespace AgentRalph.MakeEnumComparisonTypeSafe
 {
-    /// <summary>
-    /// Scans invocation expressions looking for enum.ToString() calls.
-    /// </summary>
-    internal class MyIsExpressionStringCallsOnAnEnum : TreeNodeVisitor
+  /// <summary>
+  /// Scans invocation expressions looking for enum.ToString() calls.
+  /// </summary>
+  internal class MyIsExpressionStringCallsOnAnEnum : TreeNodeVisitor
+  {
+    // This will be called multiple times in the case of chained method calls.  
+    public override void VisitInvocationExpression(IInvocationExpression invocationExpressionParam)
     {
-        // This will be called multiple times in the case of chained method calls.  
-    	public override void VisitInvocationExpression(IInvocationExpression invocationExpressionParam)
-        {
-    		// TODO: Loop through here somehow and work up through the string calls like ToLower().ToUpper() et et.
-            //do
+      // TODO: Loop through here somehow and work up through the string calls like ToLower().ToUpper() et et.
+      //do
 //    	    {
-				IReferenceExpression expression = invocationExpressionParam.InvokedExpression as IReferenceExpression;
-    	        if (expression == null)
-    	            return;
+      IReferenceExpression expression = invocationExpressionParam.InvokedExpression as IReferenceExpression;
+      if (expression == null)
+        return;
 
-    	        // As I understand it this takes the abstract syntax element that is e.ToString() and resolves it such that
-    	        // we know it's the System.Enum.ToString() method call.
-    	        IResolveResult resolveResult = expression.Reference.Resolve();
+      // As I understand it this takes the abstract syntax element that is e.ToString() and resolves it such that
+      // we know it's the System.Enum.ToString() method call.
+      ResolveResultWithInfo resolveResult = expression.Reference.Resolve();
 
-    	        IDeclaredElement e = resolveResult.DeclaredElement;
+      IDeclaredElement e = resolveResult.DeclaredElement;
 
-    	        if (e == null)
-    	            return;
+      if (e == null)
+        return;
 
-    	        ITypeElement containingType = e.GetContainingType();
+      DeclaredElementType containingType = e.GetElementType();
 
 
-    	        // work up through the string calls 
-                //invocationExpressionParam = invocationExpressionParam.InvocationExpressionReference as IInvocationExpression;
-                //var allowed = new[] { "ToUpper", "ToLower", "ToString" };
-                //if (!new List<string>(allowed).Contains(e.ShortName))
-                //    return;
+      // work up through the string calls 
+      //invocationExpressionParam = invocationExpressionParam.InvocationExpressionReference as IInvocationExpression;
+      //var allowed = new[] { "ToUpper", "ToLower", "ToString" };
+      //if (!new List<string>(allowed).Contains(e.ShortName))
+      //    return;
 //    	    }
-            //while (containingType != null && containingType.CLRName == "System.String");
+      //while (containingType != null && containingType.CLRName == "System.String");
 
-            if(containingType == null)
-                return;
- 
-            if(containingType.CLRName == "System.Enum" && e.ShortName == "ToString")
-            {
-            	Found = true;
+      if (containingType == null)
+        return;
 
-            	// Save the enum declaration so we can implement the fix.
-            	this.FoundEnumReference = invocationExpressionParam.Reference;
-            	this.EnumReferenceName = expression.QualifierExpression.GetText();
+      if (containingType.PresentableName == "System.Enum" && e.ShortName == "ToString")
+      {
+        Found = true;
 
-				IExpressionType qe = expression.QualifierExpression.GetExpressionType();
-				this.EnumDeclaredName = ((IDeclaredType)qe).GetPresentableName(PsiLanguageType.GetByProjectFile(invocationExpressionParam.GetProjectFile()));
-            }
-        }
+        // Save the enum declaration so we can implement the fix.
+        this.FoundEnumReference = invocationExpressionParam.Reference;
+        this.EnumReferenceName = expression.QualifierExpression.GetText();
 
-    	public string EnumDeclaredName { get; set; }
-
-    	public string EnumReferenceName { get; set; }
-
-        public ICSharpInvocationReference FoundEnumReference { get; set; }
-
-        public bool Found { get; set; }
+        IExpressionType qe = expression.QualifierExpression.GetExpressionType();
+//        this.EnumDeclaredName = ((IDeclaredType) qe).GetPresentableName(new PsiLanguageType());
+      }
     }
 
-    internal class MyFilter : ISymbolFilter
+    public string EnumDeclaredName { get; set; }
+
+    public string EnumReferenceName { get; set; }
+
+    public ICSharpInvocationReference FoundEnumReference { get; set; }
+
+    public bool Found { get; set; }
+  }
+
+  internal class MyFilter : ISymbolFilter
+  {
+    public IList<ISymbolInfo> FilterArray(IList<ISymbolInfo> data)
     {
-        public IList<ISymbolInfo> FilterArray(IList<ISymbolInfo> data)
-        {
-            return new List<ISymbolInfo>(Filter(data));
-        }
-
-        private IEnumerable<ISymbolInfo> Filter(IList<ISymbolInfo> data)
-        {
-            foreach (ISymbolInfo info in data)
-            {
-                if (info.GetDeclaredElement().GetElementType() == CLRDeclaredElementType.ENUM_MEMBER)
-                {
-                    yield return info;
-                }
-            }
-        }
-
-        public ResolveErrorType ErrorType
-        {
-            get { return ResolveErrorType.OK; }
-        }
-
-        public FilterRunType RunType
-        {
-            get { return FilterRunType.REGULAR; }
-        }
-
-        public bool MustRun
-        {
-            get { return true; }
-        }
+      return new List<ISymbolInfo>(Filter(data));
     }
+
+    private IEnumerable<ISymbolInfo> Filter(IList<ISymbolInfo> data)
+    {
+      foreach (ISymbolInfo info in data)
+      {
+        if (info.GetDeclaredElement().GetElementType() == CLRDeclaredElementType.ENUM_MEMBER)
+        {
+          yield return info;
+        }
+      }
+    }
+
+    public ResolveErrorType ErrorType
+    {
+      get { return ResolveErrorType.OK; }
+    }
+
+    public FilterRunType RunType
+    {
+      get { return FilterRunType.REGULAR; }
+    }
+
+    public bool MustRun
+    {
+      get { return true; }
+    }
+  }
 }
