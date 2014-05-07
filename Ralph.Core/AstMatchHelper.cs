@@ -204,7 +204,16 @@ namespace AgentRalph
 
             return (T)parser.CompilationUnit.CurrentBock;
         }
+        public static T ParseToE<T>(string codeText) where T : Expression
+        {
+          IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(codeText));
+          parser.Parse();
 
+          if (parser.Errors.Count != 0)
+            throw new ApplicationException(string.Format("Expected no errors in the input code. Code was: {0} ErrorOutput: {1}", codeText, parser.Errors.ErrorOutput));
+
+          return (T)parser.CompilationUnit.CurrentBock;
+        }
         public static IList<PrimitiveExpression> AllPrimitiveExpressions(this MethodDeclaration md)
         {
             PrimitiveExpressionFinderVisitor pefv = new PrimitiveExpressionFinderVisitor();
