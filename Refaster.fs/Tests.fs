@@ -1,4 +1,4 @@
-﻿module Refaster.Tests
+﻿module Tests
 open NUnit.Framework
 open FsUnit
 open ICSharpCode.NRefactory.Ast
