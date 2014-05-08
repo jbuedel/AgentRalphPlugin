@@ -2,15 +2,10 @@
 open NUnit.Framework
 open FsUnit
 open ICSharpCode.NRefactory.Ast
-
-type Pattern =
-  member this.X = "F#"
- 
-type Match =
-  | Match of (string*Expression) list
+open Refaster
 
 let toPattern (md:MethodDeclaration) : Pattern option =
-  None
+  Refaster.toPattern md
 
 let getPattern pat = 
   match pat with 
