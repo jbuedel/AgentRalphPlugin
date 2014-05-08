@@ -7,13 +7,14 @@ type Pattern =
   member this.X = "F#"
  
 type Match =
-  member this.X = "F#"
+  | Match of (string*Expression) list
 
 let toPattern (md:MethodDeclaration) : Pattern option =
   None
+
 let getPattern pat = 
   match pat with 
-  |Some(p) -> p 
+  | Some(p) -> p 
   | None -> failwith "Must be a pattern"
 
 let applyPattern (pat:Pattern) exp : Match option =
@@ -35,6 +36,9 @@ type Class1() =
     AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
   let toMethod code =
     AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
+
+  let print (expr:Expression) = 
+    ICSharpCode.NRefactory.INodeExt.Print(expr)
    
   [<Test>]
   member this.MethodDeclarationsBecomePatterns() =
@@ -55,19 +59,43 @@ type Class1() =
     let test patText exprText note = 
       let mtch = doMatch patText exprText note
       match mtch with
-      | Some(m) -> Assert.Pass("Got a match")
-      | None    -> Assert.Fail()
+      | Some(m) -> m
+      | None    -> failwith "Expected a match"
 
 
 
-    test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" "Simplest case"
-    test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" "parameters can match expressions"
-    test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" "multiple parameters match multiple expressions"
+    let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" "Simplest case"
+    match result with
+    | Match([]) -> () 
+    | _ -> Assert.Fail("Expected a match")
+
+    let result = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" "parameters can match expressions"
+    match result with
+    | Match((name,exp) :: []) -> name |> should equal "x"
+                                 exp |> print |> should equal "13" 
+    | _ -> Assert.Fail("Expected a match")
+
+    let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" "multiple parameters match multiple expressions"
+    match result with
+    | Match((name1,expr1) :: (name2,expr2) :: []) -> name1 |> should equal "x"
+                                                     expr1 |> print |> should equal "13" 
+                                                     name2 |> should equal "y"
+                                                     expr2 |> print |> should equal "\"string\"" 
+    | _ -> Assert.Fail("Expected a match")
+
     testF "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(\"string\")" "parameter types must be compatible with the type of expression they match"
-    test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" "not all parameters need match"
 
-    test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" "parameters can match multiple expressions, but all matching expressions must be identical"
-    testF "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 14)" "parameters can match multiple expressions, but all matching expressions must be identical"
+    let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" "parameters that do not match are not included in the result"
+    match result with
+    | Match((name,exp) :: []) -> name |> should equal "x"
+                                 exp |> print |> should equal "13" 
+    | _ -> Assert.Fail("Expected a match")
 
+    let result = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" "a single parameter can match multiple expressions"
+    match result with
+    | Match((name,expr) :: []) -> name |> should equal "x"
+                                  expr |> print |> should equal "13"
+    | _ -> Assert.Fail("Expected a match")
 
-    // Now I need tests against matches. Assert I have all the parts to make a replacement. 
+    testF "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 14)" "a single parameter can match multiple expressions, but the expressions must be identical"
+
