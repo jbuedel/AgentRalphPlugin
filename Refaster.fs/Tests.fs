@@ -75,37 +75,37 @@ type RefasterTests() =
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
-  member this.``parameters can match expressions``() =
+  member this.``parameters are capture groups and can match expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" 
     match result with
-    | Match((name,exp) :: []) -> name |> should equal "x"
-                                 exp |> print |> should equal "13" 
+    | Match((name,cap) :: []) -> name |> should equal "x"
+                                 cap |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
-  member this.``multiple parameters match multiple expressions``() =
+  member this.``multiple capture groups match multiple expressions``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
     match result with // This test depends on the order, and should not.
-    | Match((name1,expr1) :: (name2,expr2) :: []) -> name1 |> should equal "x"
-                                                     expr1 |> print |> should equal "13" 
+    | Match((name1,capt1) :: (name2,capt2) :: []) -> name1 |> should equal "x"
+                                                     capt1 |> print |> should equal "13" 
                                                      name2 |> should equal "y"
-                                                     expr2 |> print |> should equal "\"string\"" 
-    | _ -> Assert.Fail("Expected a match")
+                                                     capt2 |> print |> should equal "\"string\"" 
+    | _ -> Assert.Fail("Expected a match with two captures")
 
   [<Test>]
-  member this.``parameter types must be compatible with the type of expression they match``() =
+  member this.``capture group type must be compatible with the type of expression it matches``() =
     testF "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(\"string\")" 
 
   [<Test>]
-  member this.``parameters that do not match are not included in the result``() =
+  member this.``capture groups that do not match are not included in the result``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" 
     match result with
-    | Match((name,exp) :: []) -> name |> should equal "x"
-                                 exp |> print |> should equal "13" 
+    | Match((name,cap) :: []) -> name |> should equal "x"
+                                 cap |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
-  member this.``a single parameter can match multiple expressions``() =
+  member this.``a single capture group can match multiple expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     match result with
     | Match((name,expr) :: []) -> name |> should equal "x"
@@ -113,6 +113,6 @@ type RefasterTests() =
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
-  member this.``a single parameter can match multiple expressions, but the expressions must be identical``() =
+  member this.``a single capture group can match multiple expressions, but the expressions must be identical``() =
     testF "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 14)" 
 
