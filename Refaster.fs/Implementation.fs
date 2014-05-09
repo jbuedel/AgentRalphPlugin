@@ -12,11 +12,14 @@ type Match =
 type PatternMatchVisitor(parms : string list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
   let mutable stuff : (string*INode) list = []
+  let isIdentical cap (node:INode) = AgentRalph.AstMatchHelper.Matches(cap,node)
   member public this.CaptureGroups = stuff |> List.rev // the rev allows tests to depend on order.
-  override this.VisitIdentifierExpression(pat, obj) = printfn "%A" pat
+  override this.VisitIdentifierExpression(pat, obj) = let obj = obj :?> INode
                                                       match List.tryFind (fun p -> p = pat.Identifier) parms with
-                                                      | Some(p) -> stuff <- List.append [(p, obj:?>INode)] stuff
-                                                                   true
+                                                      | Some(p) -> match stuff |> List.tryFind (fun (name,cap) -> name = pat.Identifier) with
+                                                                   | Some(name,cap) -> isIdentical cap obj
+                                                                   | None           -> stuff <- List.append [(p, obj)] stuff 
+                                                                                       true
                                                       | None -> base.VisitIdentifierExpression(pat,obj)
 
 let toPattern (md:MethodDeclaration) : Pattern option =
