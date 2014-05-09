@@ -13,7 +13,7 @@ let getPattern pat =
   | None -> failwith "Must be a pattern"
 
 let applyPattern (pat:Pattern) exp : Match option =
-  None
+  Refaster.applyPattern pat exp
 
 [<TestFixture>]
 type RefasterTests() = 
@@ -32,11 +32,23 @@ type RefasterTests() =
   let toMethod code =
     AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
 
-  let print (expr:Expression) = 
+  let print (expr:INode) = 
     ICSharpCode.NRefactory.INodeExt.Print(expr)
 
   let doMatch patText exprText =
-    toMethod patText |> toPattern |> getPattern |> applyPattern <| toExpr exprText
+    printfn "Pattern text %A" patText
+    printfn "Target  text %A" exprText
+    
+    let pat = toMethod patText |> toPattern |> getPattern 
+    let expr = toExpr exprText
+
+    printfn "Pattern expr: %A" (print pat.Expr)
+    printfn "Target  expr: %A " (print expr)
+
+    printfn "Pattern AST: %A" pat.Expr
+    printfn "Expr    AST: %A" expr
+    
+    pat |> applyPattern <| expr
 
   let testF patText exprText = 
     let mtch = doMatch patText exprText 

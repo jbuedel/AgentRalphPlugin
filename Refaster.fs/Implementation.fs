@@ -15,11 +15,12 @@ type PatternMatchVisitor(parms : string list) =
 
 let toPattern (md:MethodDeclaration) : Pattern option =
   let expr = md.Body.Children.[0]
+  let expr = (expr :?> ExpressionStatement).Expression
   Some(Pattern(expr))
   
 let applyPattern (pat:Pattern) exp : Match option =
   let visitor = new PatternMatchVisitor(pat.Params)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if success then
-    None
+    Some(Match([]))
   else None

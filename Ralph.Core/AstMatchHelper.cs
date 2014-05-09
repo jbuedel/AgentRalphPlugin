@@ -206,13 +206,17 @@ namespace AgentRalph
         }
         public static T ParseToE<T>(string codeText) where T : Expression
         {
-          IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(codeText));
-          parser.Parse();
+//          var statement = AstMatchHelper.ParseToMethodDeclaration("void pat(){" +codeText+ ";}").Body.Children[0];
+//          return (T) ((ExpressionStatement)statement).Expression;
 
-          if (parser.Errors.Count != 0)
-            throw new ApplicationException(string.Format("Expected no errors in the input code. Code was: {0} ErrorOutput: {1}", codeText, parser.Errors.ErrorOutput));
+          // SEMICOLON HACK : without a trailing semicolon, parsing expressions does not work correctly
+          IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(codeText + ";"));
+          object parsedExpression = parser.ParseExpression();
 
-          return (T)parser.CompilationUnit.CurrentBock;
+          if (parser.Errors.Count > 0)
+            throw new ApplicationException("Unable to parse the expression.  Parse errors:" + parser.Errors.ErrorOutput);
+
+          return (T) parsedExpression;
         }
         public static IList<PrimitiveExpression> AllPrimitiveExpressions(this MethodDeclaration md)
         {
