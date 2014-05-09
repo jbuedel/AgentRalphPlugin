@@ -85,7 +85,7 @@ type RefasterTests() =
   [<Test>]
   member this.``multiple parameters match multiple expressions``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
-    match result with
+    match result with // This test depends on the order, and should not.
     | Match((name1,expr1) :: (name2,expr2) :: []) -> name1 |> should equal "x"
                                                      expr1 |> print |> should equal "13" 
                                                      name2 |> should equal "y"

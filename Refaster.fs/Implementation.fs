@@ -12,7 +12,7 @@ type Match =
 type PatternMatchVisitor(parms : string list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
   let mutable stuff : (string*INode) list = []
-  member public this.Locations = stuff
+  member public this.Locations = stuff |> List.rev // the rev allows tests to depend on order.
   override this.VisitIdentifierExpression(pat, obj) = printfn "%A" pat
                                                       match List.tryFind (fun p -> p = pat.Identifier) parms with
                                                       | Some(p) -> stuff <- List.append [(p, obj:?>INode)] stuff
