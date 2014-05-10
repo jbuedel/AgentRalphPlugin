@@ -2,9 +2,9 @@
 open System.Collections.Generic
 open ICSharpCode.NRefactory.Ast
 
-type Pattern(Expr, Params) =
+type Pattern(Expr, CaptureGroups) =
   member this.Expr = Expr
-  member this.Params = Params
+  member this.CaptureGroups = CaptureGroups
 
 type Match =
 | Match of (string*INode) list
@@ -13,7 +13,7 @@ type PatternMatchVisitor(parms : (string*string) list) =
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
   let mutable stuff : (string*INode) list = []
   let isIdentical cap (node:INode) = AgentRalph.AstMatchHelper.Matches(cap,node)
-  member public this.CaptureGroups = stuff |> List.rev // the rev allows tests to depend on order.
+  member public this.Captures = stuff |> List.rev // the rev allows tests to depend on order.
   override this.VisitIdentifierExpression(pat, obj) = let obj = obj :?> INode
                                                       match List.tryFind (fun (pname,_) -> pname = pat.Identifier) parms with
                                                       | Some((pname,_)) -> match stuff |> List.tryFind (fun (name,cap) -> name = pat.Identifier) with
@@ -29,9 +29,9 @@ let toPattern (md:MethodDeclaration) : Pattern option =
   Some(Pattern(expr, capgrps))
   
 let applyPattern (pat:Pattern) exp : Match option =
-  let visitor = new PatternMatchVisitor(pat.Params)
+  let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if success then
-    let locations = visitor.CaptureGroups 
+    let locations = visitor.Captures 
     Some(Match(locations))
   else None
