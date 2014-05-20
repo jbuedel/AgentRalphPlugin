@@ -116,3 +116,13 @@ type RefasterTests() =
   member this.``a single capture group can match multiple expressions, but the expressions must be identical``() =
     testF "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 14)" 
 
+  [<Test>]
+  member this.``replacement expression is a call to the method that the pattern drew from``() =
+    let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
+    let replacement = Refaster.toReplacement result
+    assertMatch replacement "pat()"
+  [<Test>]
+  member this.``replacement expression is a call to the method that the pattern drew from``() =
+    let result = test "void foo(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
+    let replacement = Refaster.toReplacement result
+    assertMatch replacement "pat(13)"

@@ -16,7 +16,7 @@ type PatternMatchVisitor(parms : (string*string) list) =
   member public this.Captures = stuff |> List.rev // the rev allows tests to depend on order.
   override this.VisitIdentifierExpression(pat, obj) = let obj = obj :?> INode
                                                       match parms |> List.tryFind (fun (pname,_) -> pname = pat.Identifier) with
-                                                      | Some((pname,_)) -> match stuff |> List.tryFind (fun (name,cap) -> name = pat.Identifier) with
+                                                      | Some((pname,_)) -> match stuff |> List.tryFind (fun (name,_) -> name = pat.Identifier) with
                                                                            | Some(name,cap) -> isIdentical cap obj
                                                                            | None           -> stuff <- List.append [(pname, obj)] stuff 
                                                                                                true
@@ -35,3 +35,6 @@ let applyPattern (pat:Pattern) exp : Match option =
     let locations = visitor.Captures 
     Some(Match(locations))
   else None
+
+let toReplacement mtch =
+  // convert Match to a function call.  Like foo()
