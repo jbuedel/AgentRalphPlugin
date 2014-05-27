@@ -35,6 +35,10 @@ type RefasterTests() =
   let print (expr:INode) = 
     ICSharpCode.NRefactory.INodeExt.Print(expr)
 
+  let assertMatch node1 strnode2 =   
+    let strnode1 = print node1
+    Assert.That(strnode1, Is.EqualTo(strnode2))
+
   let doMatch patText exprText =
     printfn "Pattern text %A" patText
     printfn "Target  text %A" exprText
@@ -120,9 +124,10 @@ type RefasterTests() =
   member this.``replacement expression is a call to the method that the pattern drew from``() =
     let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
     let replacement = Refaster.toReplacement result
-    assertMatch replacement "pat()"
+    Assert.That(replacement, Is.EqualTo "pat()")
+
   [<Test>]
-  member this.``replacement expression is a call to the method that the pattern drew from``() =
+  member this.``replacement expression is a call to the method that the pattern drew from (with parameters)``() =
     let result = test "void foo(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     let replacement = Refaster.toReplacement result
-    assertMatch replacement "pat(13)"
+    Assert.That(replacement, Is.EqualTo "pat(13)")

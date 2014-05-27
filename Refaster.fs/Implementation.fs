@@ -38,3 +38,6 @@ let applyPattern (pat:Pattern) exp : Match option =
 
 let toReplacement mtch =
   // convert Match to a function call.  Like foo()
+  match mtch with
+  | Match(p) -> "pat()"
+  | _        -> ""
