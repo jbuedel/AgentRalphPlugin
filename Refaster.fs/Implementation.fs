@@ -37,7 +37,10 @@ let applyPattern (pat:Pattern) exp : Match option =
   else None
 
 let toReplacement mtch =
+  let print (expr:INode) = 
+    ICSharpCode.NRefactory.INodeExt.Print(expr)
+
   // convert Match to a function call.  Like foo()
   match mtch with
-  | Match(p) -> "pat()"
-  | _        -> ""
+  | Match(p) -> "pat(" + (p |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
+  | _        -> "" // not really sure what this should do...
