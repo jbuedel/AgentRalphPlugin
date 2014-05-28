@@ -75,25 +75,25 @@ type RefasterTests() =
   member this.``simplest case``() =
     let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
     match result with
-    | Match([]) -> () 
+    | Match(_, []) -> () 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``parameters are capture groups and can match expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" 
     match result with
-    | Match((name,cap) :: []) -> name |> should equal "x"
-                                 cap |> print |> should equal "13" 
+    | Match(_,(name,cap) :: []) -> name |> should equal "x"
+                                   cap |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``multiple capture groups match multiple expressions``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
     match result with // This test depends on the order, and should not.
-    | Match((name1,capt1) :: (name2,capt2) :: []) -> name1 |> should equal "x"
-                                                     capt1 |> print |> should equal "13" 
-                                                     name2 |> should equal "y"
-                                                     capt2 |> print |> should equal "\"string\"" 
+    | Match(_, (name1,capt1) :: (name2,capt2) :: []) -> name1 |> should equal "x"
+                                                        capt1 |> print |> should equal "13" 
+                                                        name2 |> should equal "y"
+                                                        capt2 |> print |> should equal "\"string\"" 
     | _ -> Assert.Fail("Expected a match with two captures")
 
   [<Test>][<Ignore("The parser does not supply type information.")>]
@@ -104,16 +104,16 @@ type RefasterTests() =
   member this.``capture groups that do not match are not included in the result``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" 
     match result with
-    | Match((name,cap) :: []) -> name |> should equal "x"
-                                 cap |> print |> should equal "13" 
+    | Match(_,(name,cap) :: []) -> name |> should equal "x"
+                                   cap |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``a single capture group can match multiple expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     match result with
-    | Match((name,expr) :: []) -> name |> should equal "x"
-                                  expr |> print |> should equal "13"
+    | Match(_,(name,expr) :: []) -> name |> should equal "x"
+                                    expr |> print |> should equal "13"
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
@@ -130,4 +130,4 @@ type RefasterTests() =
   member this.``replacement expression is a call to the method that the pattern drew from (with parameters)``() =
     let result = test "void foo(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     let replacement = Refaster.toReplacement result
-    Assert.That(replacement, Is.EqualTo "pat(13)")
+    Assert.That(replacement, Is.EqualTo "foo(13)")
