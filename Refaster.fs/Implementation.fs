@@ -3,7 +3,9 @@ open System.Collections.Generic
 open ICSharpCode.NRefactory.Ast
 
 type Pattern(Expr, CaptureGroups) =
+  /// The ast of the expression to match against. Derived from the body of the pattern function.
   member this.Expr = Expr
+  /// A name and type define a CaptureGroup. Derived from the parameters of the pattern function.
   member this.CaptureGroups = CaptureGroups
 
 type Match =
@@ -13,7 +15,7 @@ type PatternMatchVisitor(parms : (string*string) list) =
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
   let mutable stuff : (string*INode) list = []
   let isIdentical cap (node:INode) = AgentRalph.AstMatchHelper.Matches(cap,node)
-  member public this.Captures = stuff |> List.rev // the rev allows tests to depend on order.
+  member public this.CaptureGroups = stuff |> List.rev // the rev allows tests to depend on order.
   override this.VisitIdentifierExpression(pat, obj) = let obj = obj :?> INode
                                                       match parms |> List.tryFind (fun (pname,_) -> pname = pat.Identifier) with
                                                       | Some((pname,_)) -> match stuff |> List.tryFind (fun (name,_) -> name = pat.Identifier) with
@@ -32,8 +34,7 @@ let applyPattern (pat:Pattern) exp : Match option =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if success then
-    let locations = visitor.Captures 
-    Some(Match(locations))
+    Some(Match(visitor.CaptureGroups))
   else None
 
 let toReplacement mtch =
@@ -42,5 +43,5 @@ let toReplacement mtch =
 
   // convert Match to a function call.  Like foo()
   match mtch with
-  | Match(p) -> "pat(" + (p |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
+  | Match(captureGroups) -> "pat(" + (captureGroups |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
   | _        -> "" // not really sure what this should do...
