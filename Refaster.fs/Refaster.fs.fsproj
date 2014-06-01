@@ -64,6 +64,11 @@
       <Project>{3a9ae6aa-bc07-4a2f-972c-581e3ae2f195}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\NRefactory\Test\NRefactoryTests.csproj">
+      <Name>NRefactoryTests</Name>
+      <Project>{870115dd-960a-4406-a6b9-600bcdc36a03}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ralph.Core\Ralph.Core.csproj">
       <Name>Ralph.Core</Name>
       <Project>{ca40c4ff-a47a-43d9-a429-cb212808f232}</Project>

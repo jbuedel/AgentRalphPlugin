@@ -1,6 +1,8 @@
 ﻿module Refaster
 open System.Collections.Generic
 open ICSharpCode.NRefactory.Ast
+open AgentRalph
+
 
 type Pattern(Name, Expr, CaptureGroups) =
   /// The name of the pattern. Always the pattern function name.
@@ -32,6 +34,10 @@ let toPattern (md:MethodDeclaration) : Pattern option =
   let capgrps = md.Parameters |> Seq.toList|> List.map (fun p -> p.ParameterName, p.TypeReference.ToString()) // ToString() does a decent job of getting a full type name
   let name = md.Name
   Some(Pattern(name, expr, capgrps))
+
+let toPatterns (typeDef:TypeDeclaration) =
+  let patterns = typeDef.FindAllMethods() |> Seq.map toPattern 
+  seq { for p in patterns do match p with | Some(q) -> yield q | None -> () }
   
 let applyPattern (pat:Pattern) exp : Match option =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)

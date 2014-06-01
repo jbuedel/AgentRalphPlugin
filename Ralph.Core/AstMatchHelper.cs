@@ -271,6 +271,11 @@ namespace AgentRalph
             return (MethodDeclaration)td.Children[0];
         }
 
+      public static MethodDeclaration ParseToTypeDeclaration(string codeText)
+      {
+        throw new NotImplementedException();
+      }
+
         public static int CountNodes(this INode ast)
         {
             var visitor = new NodeCountingVisitor();

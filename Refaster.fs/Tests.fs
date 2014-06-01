@@ -15,6 +15,16 @@ let getPattern pat =
 let applyPattern (pat:Pattern) exp : Match option =
   Refaster.applyPattern pat exp
 
+let toTypeDef code =
+  ICSharpCode.NRefactory.Tests.Ast.ParseUtilCSharp.ParseGlobal<TypeDeclaration>(code)
+
+let toExpr code =
+  AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
+let toMethod code =
+  AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
+let print (expr:INode) = 
+  ICSharpCode.NRefactory.INodeExt.Print(expr)
+
 [<TestFixture>]
 type RefasterTests() = 
   let isSome fopt md =
@@ -26,14 +36,6 @@ type RefasterTests() =
     match fopt md with
     | Some(p) -> Assert.Fail()
     | None    -> Assert.Pass()
-
-  let toExpr code =
-    AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
-  let toMethod code =
-    AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
-
-  let print (expr:INode) = 
-    ICSharpCode.NRefactory.INodeExt.Print(expr)
 
   let assertMatch node1 strnode2 =   
     let strnode1 = print node1
@@ -131,3 +133,13 @@ type RefasterTests() =
     let result = test "void foo(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     let replacement = Refaster.toReplacement result
     Assert.That(replacement, Is.EqualTo "foo(13)")
+
+[<TestFixture>] 
+type PatternNormalizationTests() =
+  [<Test>]
+  member this.``'this' references are added to all member references``() =
+    let patternClass = "class PatternClass { int IntMeth() {return 1;} void pat() { IntMeth(); }}" |> toTypeDef 
+    // There will be two patterns as there is two methods, but we only care about the one.
+    let pat = Refaster.toPatterns patternClass |> Seq.find (fun p -> p.Name = "pat") 
+    // now assert that the pattern's expression matches this.IntMethod()
+    Assert.That(print pat.Expr, Is.EqualTo("this.IntMethod()"))
