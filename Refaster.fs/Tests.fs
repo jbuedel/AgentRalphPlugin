@@ -15,13 +15,13 @@ let getPattern pat =
 let applyPattern (pat:Pattern) exp : Match option =
   Refaster.applyPattern pat exp
 
-let toTypeDef code =
-  ICSharpCode.NRefactory.Tests.Ast.ParseUtilCSharp.ParseGlobal<TypeDeclaration>(code)
-
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
 let toMethod code =
   AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
+let toTypeDef code =
+  ICSharpCode.NRefactory.Tests.Ast.ParseUtilCSharp.ParseGlobal<TypeDeclaration>(code)
+
 let print (expr:INode) = 
   ICSharpCode.NRefactory.INodeExt.Print(expr)
 
@@ -68,6 +68,15 @@ type RefasterTests() =
     | Some(Match(name, captures)) -> for (cname,cnode) in captures do printfn "'%s' => %s" cname (print cnode)
                                      Match(name,captures)
     | None    -> failwith "Expected a match"
+    
+  // Expects there to be exactly one match
+  let doApplyPatternToClass pat classText = 
+    let clazz = toTypeDef classText
+    let result = applyPattern pat clazz
+    match result with
+    | Some(_) -> result
+    | _       -> printfn "pattern %A not found in class %A" pat clazz
+                 failwith "Fail" 
   
   [<Test>]
   member this.``MethodDeclarations become patterns``() =
@@ -136,6 +145,15 @@ type RefasterTests() =
     let replacement = Refaster.toReplacement result
     printfn "Replacement: %s" replacement
     Assert.That(replacement, Is.EqualTo "foo(13)")
+    
+  [<Test>]
+  member this.``find clone in class``() =
+    let classCode = "class foo { public void bar() {Console.WriteLine(13);}}"
+    let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [])
+    let result = doApplyPatternToClass pattern classCode 
+    match result with
+    | Some(Match(name, captures)) -> Assert.Pass()
+    | _ -> Assert.Fail()
 
 [<TestFixture>] 
 type PatternNormalizationTests() =
