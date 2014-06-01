@@ -41,15 +41,15 @@ type RefasterTests() =
     let strnode1 = print node1
     Assert.That(strnode1, Is.EqualTo(strnode2))
 
-  let doMatch patText exprText =
-    printfn "Pattern text %A" patText
-    printfn "Target  text %A" exprText
-    
+  let doMatch patText targetText =
     let pat = toMethod patText |> toPattern |> getPattern 
-    let expr = toExpr exprText
-
-    printfn "Pattern expr: %A" (print pat.Expr)
-    printfn "Target  expr: %A " (print expr)
+    
+    printfn "Pattern text %A" patText
+    printfn "\texpr : %A" (print pat.Expr)
+    for (nm,tipe) in pat.CaptureGroups do printfn "\t '%s' : %s" nm tipe
+   
+    let expr = toExpr targetText
+    printfn "Target expr: %s" (print expr)
 
     printfn "Pattern AST: %A" pat.Expr
     printfn "Expr    AST: %A" expr
@@ -65,7 +65,8 @@ type RefasterTests() =
   let test patText exprText = 
     let mtch = doMatch patText exprText 
     match mtch with
-    | Some(m) -> m
+    | Some(Match(name, captures)) -> for (cname,cnode) in captures do printfn "'%s' => %s" cname (print cnode)
+                                     Match(name,captures)
     | None    -> failwith "Expected a match"
   
   [<Test>]
@@ -126,12 +127,14 @@ type RefasterTests() =
   member this.``replacement expression is a call to the method that the pattern drew from``() =
     let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
     let replacement = Refaster.toReplacement result
+    printfn "Replacement: %s" replacement
     Assert.That(replacement, Is.EqualTo "pat()")
 
   [<Test>]
   member this.``replacement expression is a call to the method that the pattern drew from (with parameters)``() =
     let result = test "void foo(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     let replacement = Refaster.toReplacement result
+    printfn "Replacement: %s" replacement
     Assert.That(replacement, Is.EqualTo "foo(13)")
 
 [<TestFixture>] 
