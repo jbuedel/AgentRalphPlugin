@@ -137,9 +137,11 @@ type RefasterTests() =
 [<TestFixture>] 
 type PatternNormalizationTests() =
   [<Test>]
-  member this.``'this' references are added to all member references``() =
+  member this.``'this' references are added to all member references in a pattern``() =
     let patternClass = "class PatternClass { int IntMeth() {return 1;} void pat() { IntMeth(); }}" |> toTypeDef 
     // There will be two patterns as there is two methods, but we only care about the one.
     let pat = Refaster.toPatterns patternClass |> Seq.find (fun p -> p.Name = "pat") 
     // now assert that the pattern's expression matches this.IntMethod()
     Assert.That(print pat.Expr, Is.EqualTo("this.IntMethod()"))
+    // TODO: Create a AddThisToAllMemberReferencesVisitor(), and use it here.  Any further unit tests concerning 
+    // different kinds of members ought to be against that directly.

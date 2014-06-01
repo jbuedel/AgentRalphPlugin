@@ -30,7 +30,10 @@ type PatternMatchVisitor(parms : (string*string) list) =
 
 let toPattern (md:MethodDeclaration) : Pattern option =
   let expr = md.Body.Children.[0]
-  let expr = (expr :?> ExpressionStatement).Expression
+  let expr = match expr with 
+             | :? ExpressionStatement as expr -> expr.Expression
+             | :? ReturnStatement as stmt -> stmt.Expression
+
   let capgrps = md.Parameters |> Seq.toList|> List.map (fun p -> p.ParameterName, p.TypeReference.ToString()) // ToString() does a decent job of getting a full type name
   let name = md.Name
   Some(Pattern(name, expr, capgrps))
