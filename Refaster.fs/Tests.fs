@@ -75,11 +75,10 @@ type RefasterTests() =
   // Expects there to be exactly one match
   let doApplyPatternToClass pat classText = 
     let clazz = toTypeDef classText
-    let result = applyPatternG pat clazz |> Seq.toList
-    match result with
-    | m :: [] -> m
-    | _       -> printfn "pattern %A \nnot found in target class \n%A" pat (print clazz)
-                 failwith "Fail" 
+    let result = applyPatternG pat clazz
+    if Seq.length result > 0 then result 
+    else printfn "pattern %A \nnot found in target class \n%A" pat (print clazz)
+         failwith "Fail" 
   
   [<Test>]
   member this.``MethodDeclarations become patterns``() =
@@ -150,13 +149,25 @@ type RefasterTests() =
     Assert.That(replacement, Is.EqualTo "foo(13)")
     
   [<Test>]
-  member this.``find a clone in class``() =
+  member this.``basic find a pattern in a class``() =
     let classCode = "class foo { public void bar() {Console.WriteLine(13);}}"
     let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [("x","string")])
     let result = doApplyPatternToClass pattern classCode 
-    match result with
-    | Match(name, captures) -> Assert.Pass()
-    | _ -> Assert.Fail()
+    if Seq.length result <> 1 then Assert.Fail "Expected exactly one match."
+
+  [<Test>]
+  member this.``basic find a pattern twice in a class``() =
+    let classCode = "class foo { public void bar() {Console.WriteLine(13);} private void foo() {Console.WriteLine(19);}}"
+    let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [("x","string")])
+    let result = doApplyPatternToClass pattern classCode  
+    if Seq.length result <> 2 then Assert.Fail "Expected exactly two matches"
+
+  [<Test>]
+  member this.``basic find a pattern in a class that is not in the topmost block of a method``() =
+    let classCode = "class foo { public void bar() { if(true) { Console.WriteLine(13); } }}"
+    let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [("x","string")])
+    let result = doApplyPatternToClass pattern classCode 
+    if Seq.length result <> 1 then Assert.Fail "Expected exactly one match."
 
 [<TestFixture>] 
 type PatternNormalizationTests() =
