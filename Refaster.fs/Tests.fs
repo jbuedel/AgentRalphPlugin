@@ -15,6 +15,9 @@ let getPattern pat =
 let applyPattern (pat:Pattern) exp : Match option =
   Refaster.applyPattern pat exp
 
+let applyPatternG (pat:Pattern) exp : Match seq =
+  Refaster.applyPatternG pat exp
+
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
 let toMethod code =
@@ -72,10 +75,10 @@ type RefasterTests() =
   // Expects there to be exactly one match
   let doApplyPatternToClass pat classText = 
     let clazz = toTypeDef classText
-    let result = applyPattern pat clazz
+    let result = applyPatternG pat clazz |> Seq.toList
     match result with
-    | Some(_) -> result
-    | _       -> printfn "pattern %A not found in class %A" pat clazz
+    | m :: [] -> m
+    | _       -> printfn "pattern %A \nnot found in target class \n%A" pat (print clazz)
                  failwith "Fail" 
   
   [<Test>]
@@ -147,12 +150,12 @@ type RefasterTests() =
     Assert.That(replacement, Is.EqualTo "foo(13)")
     
   [<Test>]
-  member this.``find clone in class``() =
+  member this.``find a clone in class``() =
     let classCode = "class foo { public void bar() {Console.WriteLine(13);}}"
-    let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [])
+    let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [("x","string")])
     let result = doApplyPatternToClass pattern classCode 
     match result with
-    | Some(Match(name, captures)) -> Assert.Pass()
+    | Match(name, captures) -> Assert.Pass()
     | _ -> Assert.Fail()
 
 [<TestFixture>] 

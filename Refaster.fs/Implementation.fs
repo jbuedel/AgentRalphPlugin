@@ -3,6 +3,9 @@ open System.Collections.Generic
 open ICSharpCode.NRefactory.Ast
 open AgentRalph
 
+let print (expr:INode) = 
+  ICSharpCode.NRefactory.INodeExt.Print(expr)
+
 
 type Pattern(Name, Expr, CaptureGroups) =
   /// The name of the pattern. Always the pattern function name.
@@ -11,6 +14,7 @@ type Pattern(Name, Expr, CaptureGroups) =
   member this.Expr = Expr
   /// A name and type define a CaptureGroup. Derived from the parameters of the pattern function.
   member this.CaptureGroups = CaptureGroups
+  override this.ToString() = sprintf "Name: %s \n Expr : %s" Name (print Expr)
 
 type Match =
 | Match of string * (string*INode) list
@@ -45,14 +49,24 @@ let toPatterns (typeDef:TypeDeclaration) =
 let applyPattern (pat:Pattern) exp : Match option =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
-  if success then
+  if visitor.Match then
     Some(Match(pat.Name, visitor.CaptureGroups))
   else None
 
-let toReplacement mtch =
-  let print (expr:INode) = 
-    ICSharpCode.NRefactory.INodeExt.Print(expr)
+let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
+  let rec apply (node:INode) = 
+    seq {
+      for node in node.Chilluns do
+        match applyPattern pat node with
+        | Some(m) -> yield m
+        | None -> for m in apply node do yield m
+    }
+  seq {
+    for m in AstMatchHelper.FindAllMethods clazz do
+      for m in apply m do yield m
+  }
 
+let toReplacement mtch =
   // convert Match to a function call.  Like foo()
   match mtch with
   | Match(name, captureGroups) -> name + "(" + (captureGroups |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
