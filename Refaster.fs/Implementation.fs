@@ -54,16 +54,16 @@ let applyPattern (pat:Pattern) exp : Match option =
   else None
 
 let allSubNodes (clazz:TypeDeclaration) =
-  let rec getAll node =
+  let rec getAll (node:INode) =
     seq { 
       yield node    
       for node in node.Chilluns do 
         for n in getAll node do yield n
     }
-  getAll node
+  getAll clazz
 
 let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
-  allSubNodes clazz |> Seq.map (applyPattern pat)
+  allSubNodes clazz |> Seq.map (applyPattern pat) |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
 
 let toReplacement mtch =
   // convert Match to a function call.  Like foo()

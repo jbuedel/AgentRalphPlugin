@@ -39,7 +39,8 @@ function rebuild_project {
 	msbuild .\AgentRalph.proj /t:Release /p:Configuration=Release /v:minimal /p:BUILD_NUMBER=3
 }
 function develop_project {
-	.\AgentRalph.sln
+	vs2013
+	devenv .\AgentRalph.sln
 }
 function pushenv_project {
 	"The 'pushenv' command has not been created.  Edit your project-stuff.psm1 file and add your project specific command(s) to the pushenv_project function."
