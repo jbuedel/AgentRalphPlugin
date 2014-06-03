@@ -53,14 +53,12 @@ let applyPattern (pat:Pattern) exp : Match option =
     Some(Match(pat.Name, visitor.CaptureGroups))
   else None
 
-let allSubNodes (clazz:TypeDeclaration) =
-  let rec getAll (node:INode) =
+let rec allSubNodes (node:INode) =
     seq { 
       yield node    
       for node in node.Chilluns do 
-        for n in getAll node do yield n
+        for n in allSubNodes node do yield n
     }
-  getAll clazz
 
 let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
   allSubNodes clazz |> Seq.map (applyPattern pat) |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
