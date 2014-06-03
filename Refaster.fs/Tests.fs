@@ -169,6 +169,13 @@ type RefasterTests() =
     let result = doApplyPatternToClass pattern classCode 
     if Seq.length result <> 1 then Assert.Fail "Expected exactly one match."
 
+  [<Test>]
+  member this.``list all children``() =
+    let classCode = "class foo { public void bar() { if(true) { Console.WriteLine(13); } }}"
+    let x = toTypeDef classCode |> Refaster.allSubNodes 
+    x |> Seq.map print |> Seq.iter (printfn "%A")
+    Seq.length x |> should greaterThan 5
+
 [<TestFixture>] 
 type PatternNormalizationTests() =
   [<Test>]
