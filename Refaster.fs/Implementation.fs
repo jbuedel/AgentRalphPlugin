@@ -53,18 +53,17 @@ let applyPattern (pat:Pattern) exp : Match option =
     Some(Match(pat.Name, visitor.CaptureGroups))
   else None
 
-let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
-  let rec apply (node:INode) = 
-    seq {
-      for node in node.Chilluns do
-        match applyPattern pat node with
-        | Some(m) -> yield m
-        | None -> for m in apply node do yield m
+let allSubNodes (clazz:TypeDeclaration) =
+  let rec getAll node =
+    seq { 
+      yield node    
+      for node in node.Chilluns do 
+        for n in getAll node do yield n
     }
-  seq {
-    for m in AstMatchHelper.FindAllMethods clazz do
-      for m in apply m do yield m
-  }
+  getAll node
+
+let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
+  allSubNodes clazz |> Seq.map (applyPattern pat)
 
 let toReplacement mtch =
   // convert Match to a function call.  Like foo()
