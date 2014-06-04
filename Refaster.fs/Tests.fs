@@ -1,6 +1,7 @@
 ﻿module Tests
 open NUnit.Framework
 open FsUnit
+open ICSharpCode.NRefactory
 open ICSharpCode.NRefactory.Ast
 open Refaster
 
@@ -24,6 +25,16 @@ let toMethod code =
   AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
 let toTypeDef code =
   ICSharpCode.NRefactory.Tests.Ast.ParseUtilCSharp.ParseGlobal<TypeDeclaration>(code)
+
+/// Visits all nodes in the INode tree, and returns all MethodDeclarations found.
+let getMethods (node:INode) =
+  let visitor = new AgentRalph.AllMethodsFinderVisitor()
+  node.AcceptVisitor(visitor, null) |> ignore
+  visitor.AllMethods 
+
+/// Returns the first method with a given name, or throws an error.
+let getMethod name (node:INode) =
+  getMethods node |> Seq.find (fun m -> m.Name = name)
 
 let print (expr:INode) = 
   ICSharpCode.NRefactory.INodeExt.Print(expr)
@@ -168,6 +179,26 @@ type RefasterTests() =
     let pattern = Pattern("pat", toExpr "Console.WriteLine(x)", [("x","string")])
     let result = doApplyPatternToClass pattern classCode 
     if Seq.length result <> 1 then Assert.Fail "Expected exactly one match."
+
+  [<Test>]
+  member this.``INodes can be converted to coordinates``() =
+    let assertCoords exptdStart exptdEnd node =
+      let coords = Refaster.getCoordinates node 
+      Assert.That(coords.Start, Is.EqualTo(exptdStart), sprintf "Start location of \n%A was wrong" (print node))
+      Assert.That(coords.End, Is.EqualTo(exptdEnd), sprintf "End location of \n%A was wrong" (print node))
+      
+    let clazz = 
+       "class foo { 
+           public void bar() { 
+	      if(true) { 
+	         Console.WriteLine(13); 
+	      } 
+	   }
+	}" |> toTypeDef
+
+    assertCoords (Location(1,1)) (Location(2,7)) <| clazz
+    assertCoords (Location(12,2)) (Location(29,2)) <| getMethod "bar" clazz
+    assertCoords (Location(8,3)) (Location(9,5)) <| (Refaster.allSubNodes clazz |> Seq.find (fun n -> n.GetType().Name = "IfElseStatement"))
 
   [<Test>]
   member this.``allSubNodes follows expected paths (aka test INode.Chilluns)``() =

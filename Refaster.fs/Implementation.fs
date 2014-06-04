@@ -16,8 +16,17 @@ type Pattern(Name, Expr, CaptureGroups) =
   member this.CaptureGroups = CaptureGroups
   override this.ToString() = sprintf "Name: %s \n Expr : %s" Name (print Expr)
 
+type Coord(p1, p2) =
+  member this.Start = p1
+  member this.End = p2
+
 type Match =
 | Match of string * (string*INode) list
+
+(*type Match(name, grps, coord) =
+  member this.Name = name
+  member this.CaptureGroups = grps
+  member this.RepairCoords = coord*)
 
 type PatternMatchVisitor(parms : (string*string) list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
@@ -68,3 +77,17 @@ let toReplacement mtch =
   match mtch with
   | Match(name, captureGroups) -> name + "(" + (captureGroups |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
   | _        -> "" // not really sure what this should do...
+
+
+  (* Next up I need tests that show Match objects return repair coordinates. 
+  Then I may have everything necessary to start running against CloneCandidateDetectionTests.
+
+  But first, CloneCandidateDetectionTests needs fixed up. 
+	* Define the pattern method explicitly. (like require the method to have the name 'pattern').
+	* Require the repair text to be defined, every time.
+	* 
+  
+  *)
+
+let getCoordinates (node:INode) =
+  Coord(node.StartLocation, node.EndLocation)
