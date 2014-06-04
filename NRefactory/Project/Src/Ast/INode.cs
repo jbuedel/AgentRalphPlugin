@@ -24,6 +24,11 @@ namespace ICSharpCode.NRefactory.Ast
 			get;
 		}
 
+    /// <summary>
+    /// A silly name, but the Children property is not always populated. Implementing it this way 
+    /// provides a way to customize the implementation of getting all the children.
+    /// Note that not all INode inheritors implement this properly.
+    /// </summary>
         IEnumerable<INode> Chilluns { get; }
 
 		Location StartLocation {
