@@ -123,6 +123,9 @@
     <Folder Include="ShallowCloneFinderTests\TestCases\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AstCompareTests\readme.md" />
+    <None Include="CloneCandidateDetectionTests\readme.md" />
+    <None Include="ExtractMethodTests\readme.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

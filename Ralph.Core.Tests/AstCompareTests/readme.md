@@ -1,0 +1,1 @@
+﻿AstCompareTests are basically just tests of AstComparisonVisitor (via AstMatchHelper.Matches).
