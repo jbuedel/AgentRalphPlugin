@@ -170,11 +170,11 @@ type RefasterTests() =
     if Seq.length result <> 1 then Assert.Fail "Expected exactly one match."
 
   [<Test>]
-  member this.``list all children``() =
+  member this.``allSubNodes follows expected paths (aka test INode.Chilluns)``() =
     let classCode = "class foo { public void bar() { if(true) { Console.WriteLine(13); } }}"
     let x = toTypeDef classCode |> Refaster.allSubNodes 
-    x |> Seq.map print |> Seq.iter (printfn "%A")
-    Seq.length x |> should greaterThan 5
+    x |> Seq.iter (fun n -> printfn "%s: %A" (n.GetType().Name) (print n))
+    x |> Seq.map print |> should contain "Console.WriteLine(13)"
 
 [<TestFixture>] 
 type PatternNormalizationTests() =
