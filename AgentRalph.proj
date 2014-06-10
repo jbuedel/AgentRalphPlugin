@@ -81,7 +81,7 @@
       <Output ItemName="TestAssembliesItem" TaskParameter="Include"/>
     </CreateItem>
     
-    <NUnit Assemblies="@(TestAssembliesItem)" ToolPath="packages\NUnit.2.5.10.11092\tools"/>
+    <NUnit Assemblies="@(TestAssembliesItem)" ToolPath="packages\NUnit.Runners.2.6.3\tools"/>
   </Target>
 
   <!-- Note that we actually don't want to run this target on the TeamCity server.  Instead we call out
