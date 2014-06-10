@@ -25,7 +25,8 @@ function build_project {
 	msbuild .\AgentRalph.proj /v:minimal
 }
 function test_project {
-   &"c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" Ralph.Test.Project\Ralph.Test.Project.sln /ReSharper.Plugin Bin\Debug\Ralph.Plugin.dll
+   msbuild .\AgentRalph.proj /t:runtests
+#   &"c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" Ralph.Test.Project\Ralph.Test.Project.sln /ReSharper.Plugin Bin\Debug\Ralph.Plugin.dll
 }
 function clean_project {
 	msbuild .\AgentRalph.proj /t:Clean /v:minimal
