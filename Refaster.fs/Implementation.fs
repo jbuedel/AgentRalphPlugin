@@ -82,11 +82,6 @@ let toReplacement mtch =
   (* Next up I need tests that show Match objects return repair coordinates. 
   Then I may have everything necessary to start running against CloneCandidateDetectionTests.
 
-  But first, CloneCandidateDetectionTests needs fixed up. 
-	* Define the pattern method explicitly. (like require the method to have the name 'pattern').
-	* Require the repair text to be defined, every time.
-	* 
-  
   *)
 
 let getCoordinates (node:INode) =
