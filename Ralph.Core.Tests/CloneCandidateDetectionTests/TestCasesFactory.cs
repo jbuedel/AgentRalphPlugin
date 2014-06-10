@@ -116,6 +116,7 @@ namespace AgentRalph.Tests.CloneCandidateDetectionTests
             if(!string.IsNullOrEmpty(expected_call_snippet))
             {
                 var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
+                Assert.That(expected_call_snippet, Is.StringContaining("pattern("), "The pattern (replacement) function must be named 'pattern'");
                 var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
                 Assert.IsTrue(expected_call.MatchesPrint(actual_cal), "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
             }

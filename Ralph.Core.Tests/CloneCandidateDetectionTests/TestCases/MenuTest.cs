@@ -6,7 +6,7 @@ namespace AgentRalph.Tests.CloneCandidateDetectionTests.TestCases
     {
         private Menu[] Target(Menu[] menu)
         {
-            /* BEGIN return Expected(menu, "the name", "description");*/
+            /* BEGIN return pattern(menu, "the name", "description");*/
             if (menu == null)
             {
                 menu = new Menu[1];
@@ -25,7 +25,7 @@ namespace AgentRalph.Tests.CloneCandidateDetectionTests.TestCases
             /* END */
         }
 
-        private Menu[] Expected(Menu[] menu, string name, string desc)
+        private Menu[] pattern(Menu[] menu, string name, string desc)
         {
             if (menu == null)
             {
