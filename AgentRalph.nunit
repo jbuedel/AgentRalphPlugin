@@ -1,8 +1,9 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
+  <Settings activeconfig="Debug" processModel="Default" domainUsage="Default" />
   <Config name="Debug" binpathtype="Auto">
     <assembly path="Bin\Debug\ICSharpCode.NRefactory.Tests.dll" />
     <assembly path="Bin\Debug\Ralph.Core.Tests.dll" />
+    <assembly path="bin\Debug\Refaster.fs.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto" />
 </NUnitProject>
