@@ -9,7 +9,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <!-- This is the name the nuget.targets uses for the nuspec file. Lame. -->
     <ProjectPath>Ralph.nuspec</ProjectPath>
-    <TestAssemblies>Bin\$(Configuration)\*Tests.dll</TestAssemblies>
+    <TestAssemblies>Bin\$(Configuration)\*Tests.dll;Bin\$(Configuration)\Refaster.fs.dll</TestAssemblies>
 
   	<BuildTargets>
       SetVersion;
@@ -37,7 +37,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectsToBuild Include="**\*.csproj" Exclude="**\Ralph.Test.Project.csproj;Libs\**"/>
+    <ProjectsToBuild Include="**\*.csproj;**\*.fsproj" Exclude="**\Ralph.Test.Project.csproj;Libs\**"/>
 	<LastNuGetPkgArtifacts Include="*.nupkg" />
   </ItemGroup>
 
