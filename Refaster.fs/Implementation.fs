@@ -46,7 +46,7 @@ let toPattern (md:MethodDeclaration) : Pattern option =
   let expr = match expr with 
              | :? ExpressionStatement as expr -> expr.Expression
              | :? ReturnStatement as stmt -> stmt.Expression
-             | _                          -> failwithf "Unexpected first child of type %A" (expr.GetType())
+             | _                          -> failwithf "Patterns created from type %A are not supported." (expr.GetType())
 
   let capgrps = md.Parameters |> Seq.toList|> List.map (fun p -> p.ParameterName, p.TypeReference.ToString()) // ToString() does a decent job of getting a full type name
   let name = md.Name
