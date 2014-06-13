@@ -236,11 +236,11 @@ type CloneCandidateDetectionTests() =
   
   [<Test>][<TestCaseSource("LoadInputFiles")>]
   member this.``Do a clone candidate test``(testCodeFile) =
-    let codetext = System.IO.File.ReadAllText(testCodeFile)
+    let codelines = System.IO.File.ReadAllLines(testCodeFile)
 
-    if codetext.Contains("Ignore") then Assert.Ignore()
+    if (Seq.head codelines).Contains("Ignore") then Assert.Ignore((Seq.head codelines).Trim('/').Trim().Substring(6))
 
-    let ast = toCompilationUnit codetext
+    let ast = toCompilationUnit (String.concat "\r\n" codelines)
 
     let firstClass = getClasses ast |> Seq.head
     let methods = firstClass |> getMethods
