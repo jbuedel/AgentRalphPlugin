@@ -25,6 +25,9 @@ let toMethod code =
   AgentRalph.AstMatchHelper.ParseToMethodDeclaration(code)
 let toTypeDef code =
   ICSharpCode.NRefactory.Tests.Ast.ParseUtilCSharp.ParseGlobal<TypeDeclaration>(code)
+let toCompilationUnit code =
+  AgentRalph.AstMatchHelper.ParseToCompilationUnit(code)
+
 
 /// Visits all nodes in the INode tree, and returns all MethodDeclarations found.
 let getMethods (node:INode) =
@@ -35,6 +38,10 @@ let getMethods (node:INode) =
 /// Returns the first method with a given name, or throws an error.
 let getMethod name (node:INode) =
   getMethods node |> Seq.find (fun m -> m.Name = name)
+
+let getClasses cu =
+  AgentRalph.AstMatchHelper.FindAllClasses(cu)
+
 
 let print (expr:INode) = 
   ICSharpCode.NRefactory.INodeExt.Print(expr)
@@ -218,3 +225,26 @@ type PatternNormalizationTests() =
     Assert.That(print pat.Expr, Is.EqualTo("this.IntMethod()"))
     // TODO: Create a AddThisToAllMemberReferencesVisitor(), and use it here.  Any further unit tests concerning 
     // different kinds of members ought to be against that directly.
+
+[<TestFixture>]
+type CloneCandidateDetectionTests() =
+  static member LoadInputFiles() =
+    System.IO.Directory.GetFiles(@"..\..\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases", "*.cs");
+  
+  [<Test>][<TestCaseSource("LoadInputFiles")>]
+  member this.``Do a clone candidate test``(testCodeFile) =
+    let codetext = System.IO.File.ReadAllText(testCodeFile)
+
+    if codetext.Contains("Ignore") then Assert.Ignore()
+
+    let ast = toCompilationUnit codetext
+
+    let firstClass = getClasses ast |> Seq.head
+    let methods = firstClass |> getMethods
+    let pattern = match methods |> Seq.find (fun m -> m.Name = "pattern") |> toPattern with
+                  | Some(mtch) -> mtch
+                  | None       -> failwith "unable to convert to a pattern" 
+
+    let matches =  applyPatternG pattern firstClass
+    Assert.That(Seq.length matches, Is.GreaterThan(0))
+    matches |> Seq.iter (printf "%A")

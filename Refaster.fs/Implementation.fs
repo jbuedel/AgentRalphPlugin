@@ -46,6 +46,7 @@ let toPattern (md:MethodDeclaration) : Pattern option =
   let expr = match expr with 
              | :? ExpressionStatement as expr -> expr.Expression
              | :? ReturnStatement as stmt -> stmt.Expression
+             | _                          -> failwithf "Unexpected first child of type %A" (expr.GetType())
 
   let capgrps = md.Parameters |> Seq.toList|> List.map (fun p -> p.ParameterName, p.TypeReference.ToString()) // ToString() does a decent job of getting a full type name
   let name = md.Name
@@ -55,6 +56,7 @@ let toPatterns (typeDef:TypeDeclaration) =
   let patterns = typeDef.FindAllMethods() |> Seq.map toPattern 
   seq { for p in patterns do match p with | Some(q) -> yield q | None -> () }
   
+/// Applies the pattern against this single node. 
 let applyPattern (pat:Pattern) exp : Match option =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
@@ -69,6 +71,7 @@ let rec allSubNodes (node:INode) =
         for n in allSubNodes node do yield n
     }
 
+/// Applies the pattern against this node and all subnodes.
 let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
   allSubNodes clazz |> Seq.map (applyPattern pat) |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
 
