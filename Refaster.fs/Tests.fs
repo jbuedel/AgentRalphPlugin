@@ -229,7 +229,10 @@ type PatternNormalizationTests() =
 [<TestFixture>]
 type CloneCandidateDetectionTests() =
   static member LoadInputFiles() =
-    System.IO.Directory.GetFiles(@"..\..\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases", "*.cs");
+    System.IO.Directory.GetFiles(@"..\..\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases", "*.cs") 
+      |> Seq.map (fun file -> let tcd = new TestCaseData(file)
+                              tcd.SetName(System.IO.Path.GetFileName(file))
+      )
   
   [<Test>][<TestCaseSource("LoadInputFiles")>]
   member this.``Do a clone candidate test``(testCodeFile) =
