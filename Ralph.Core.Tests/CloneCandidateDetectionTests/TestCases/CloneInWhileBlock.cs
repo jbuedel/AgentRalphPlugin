@@ -8,13 +8,13 @@ namespace AgentRalph.CloneCandidateDetectionTestData
         {
             while (DateTime.Now < DateTime.Today)
             {
-                /* BEGIN */
+                /* BEGIN pattern();*/
                 Console.WriteLine(7);
                 /* END */
             }
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }

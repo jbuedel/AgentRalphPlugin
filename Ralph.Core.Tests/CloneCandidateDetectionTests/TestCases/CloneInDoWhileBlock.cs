@@ -4,18 +4,18 @@ namespace AgentRalph.CloneCandidateDetectionTestData
 {
     public class CloneInDoWhileBlock
     {
-        void Foo()
+        void Target()
         {
             do
             {
-                /* BEGIN */
+                /* BEGIN pattern(); */
                 Console.WriteLine(7);
                 /* END */
             }
             while (DateTime.Now < DateTime.Today);
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }

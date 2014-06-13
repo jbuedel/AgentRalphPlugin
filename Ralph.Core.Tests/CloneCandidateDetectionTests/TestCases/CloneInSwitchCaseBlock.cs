@@ -9,14 +9,14 @@ namespace AgentRalph.CloneCandidateDetectionTestData
             switch (DateTime.Today.Hour)
             {
                 case 1:
-                    /* BEGIN */
+                    /* BEGIN pattern();*/
                     Console.WriteLine(7);
                     /* END */
                     break;
             }
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }
