@@ -47,6 +47,9 @@ PrecompileWeb/
 # Aptana
 .project
 
+# NUnit
+*.VisualState.xml
+
 source/Gemfile.lock
 
 #NuGet directory
