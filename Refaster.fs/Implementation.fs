@@ -14,7 +14,7 @@ type Pattern(Name, Expr, CaptureGroups) =
   member this.Expr = Expr
   /// A name and type define a CaptureGroup. Derived from the parameters of the pattern function.
   member this.CaptureGroups = CaptureGroups
-  override this.ToString() = sprintf "Name: %s \n Expr : %s" Name (print Expr)
+  override this.ToString() = sprintf "Name: %s \nExpr : %s" Name (print Expr)
 
 type Coord(p1, p2) =
   member this.Start = p1
@@ -72,8 +72,8 @@ let rec allSubNodes (node:INode) =
     }
 
 /// Applies the pattern against this node and all subnodes.
-let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match seq =
-  allSubNodes clazz |> Seq.map (applyPattern pat) |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
+let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match option seq =
+  allSubNodes clazz |> Seq.map (applyPattern pat) 
 
 let toReplacement mtch =
   // convert Match to a function call.  Like foo()

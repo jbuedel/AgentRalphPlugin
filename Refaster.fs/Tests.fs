@@ -1,4 +1,4 @@
-﻿module Tests
+﻿module RefasterTests
 open NUnit.Framework
 open FsUnit
 open ICSharpCode.NRefactory
@@ -17,7 +17,7 @@ let applyPattern (pat:Pattern) exp : Match option =
   Refaster.applyPattern pat exp
 
 let applyPatternG (pat:Pattern) exp : Match seq =
-  Refaster.applyPatternG pat exp
+  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
 
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
@@ -251,3 +251,26 @@ type CloneCandidateDetectionTests() =
     let matches =  applyPatternG pattern firstClass
     Assert.That(Seq.length matches, Is.GreaterThan(0))
     matches |> Seq.iter (printf "%A")
+
+type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern}
+  
+
+
+let public DoCloneCandidateTest testCodeFile =
+  let codelines = System.IO.File.ReadAllLines(@"c:\users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\" + testCodeFile + ".cs")
+
+  if (Seq.head codelines).Contains("Ignore") then Assert.Ignore((Seq.head codelines).Trim('/').Trim().Substring(6))
+
+  let ast = toCompilationUnit (String.concat "\r\n" codelines)
+
+  let firstClass = getClasses ast |> Seq.head
+  let methods = firstClass |> getMethods
+  let pattern = match methods |> Seq.find (fun m -> m.Name = "pattern") |> toPattern with
+                | Some(mtch) -> mtch
+                | None       -> failwith "unable to convert to a pattern" 
+
+  let matches =  applyPatternG pattern firstClass
+  Assert.That(Seq.length matches, Is.GreaterThan(0))
+  matches |> Seq.iter (printf "%A")
+  {Name = testCodeFile; CodeLines = codelines; Pattern = pattern}
+

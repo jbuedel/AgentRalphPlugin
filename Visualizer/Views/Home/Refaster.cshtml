@@ -1,0 +1,16 @@
+﻿@model RefasterTests.CloneCandidateTestViewModel
+	
+
+<h2>@Model.Name</h2>
+
+<pre>
+@for (int i = 0; i < Model.CodeLines.Length; i++)
+{
+<span>@i</span><span>@Model.CodeLines[i]</span>
+}
+</pre>
+
+<h2>Pattern</h2>
+<pre>
+@Model.Pattern
+</pre>
