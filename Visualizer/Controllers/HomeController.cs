@@ -138,6 +138,10 @@ namespace Visualizer.Controllers
                x.ReplacementSectionStartLine > begin_comment.StartPosition.Line &&
                x.ReplacementSectionEndLine < end_comment.EndPosition.Line;
       }
+      public ActionResult Prototype()
+      {
+        return View();
+      }
     }
 }
 

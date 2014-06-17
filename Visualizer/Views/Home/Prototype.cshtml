@@ -1,0 +1,88 @@
+﻿@model dynamic
+
+@{
+}
+<style>
+   .expected-clone {background-color: lightblue} 
+</style>
+<h2>Test definition</h2>
+<pre>
+    <span>0</span><span>using System;</span>
+    <span>1</span><span></span>
+    <span>2</span><span>namespace AgentRalph.Tests.CloneCandidateDetectionTests.TestCases</span>
+    <span>3</span><span>{</span>
+    <span>4</span><span>    public class Menus</span>
+    <span>5</span><span>    {</span>
+    <span>6</span><span>        private Menu[] Target(Menu[] menu)</span>
+    <span>7</span><span>        {</span>
+    <span>8</span><span>            /* BEGIN return Expected(menu, &quot;the name&quot;, &quot;description&quot;);*/</span>
+    <span>9</span><span class="expected-clone">            if (menu == null)</span>
+    <span>10</span><span class="expected-clone">            {</span>
+    <span>11</span><span class="expected-clone">                menu = new Menu[1];</span>
+    <span>12</span><span class="expected-clone">                menu[0].name = &quot;the name&quot;;</span>
+    <span>13</span><span class="expected-clone">                menu[0].description = &quot;description&quot;;</span>
+    <span>14</span><span class="expected-clone">            }</span>
+    <span>15</span><span class="expected-clone">            else</span>
+    <span>16</span><span class="expected-clone">            {</span>
+    <span>17</span><span class="expected-clone">                Menu[] temp = new Menu[3];</span>
+    <span>18</span><span class="expected-clone">                Array.Copy(menu, 0, temp, 0, 2);</span>
+    <span>19</span><span class="expected-clone">                temp[2].name = &quot;the name&quot;;</span>
+    <span>20</span><span class="expected-clone">                temp[2].description = &quot;description&quot;;</span>
+    <span>21</span><span class="expected-clone">                menu = temp;</span>
+    <span>22</span><span class="expected-clone">            }</span>
+    <span>23</span><span class="expected-clone">            return menu;</span>
+    <span>24</span><span>            /* END */</span>
+    <span>25</span><span>        }</span>
+    <span>26</span><span></span>
+    <span>27</span><span>        private Menu[] Expected(Menu[] menu, string name, string desc)</span>
+    <span>28</span><span>        {</span>
+    <span>29</span><span>            if (menu == null)</span>
+    <span>30</span><span>            {</span>
+    <span>31</span><span>                menu = new Menu[1];</span>
+    <span>32</span><span>                menu[0].name = name;</span>
+    <span>33</span><span>                menu[0].description = desc;</span>
+    <span>34</span><span>            }</span>
+    <span>35</span><span>            else</span>
+    <span>36</span><span>            {</span>
+    <span>37</span><span>                Menu[] temp = new Menu[3];</span>
+    <span>38</span><span>                Array.Copy(menu, 0, temp, 0, 2);</span>
+    <span>39</span><span>                temp[2].name = name;</span>
+    <span>40</span><span>                temp[2].description = desc;</span>
+    <span>41</span><span>                menu = temp;</span>
+    <span>42</span><span>            }</span>
+    <span>43</span><span>            return menu;</span>
+    <span>44</span><span>        }</span>
+    <span>45</span><span></span>
+    <span>46</span><span>        class Menu</span>
+    <span>47</span><span>        {</span>
+    <span>48</span><span>            public string description;</span>
+    <span>49</span><span>            public string name;</span>
+    <span>50</span><span>        }</span>
+    <span>51</span><span>    }</span>
+    <span>52</span><span>}</span>
+</pre>
+<h2>Pattern</h2><pre>
+                if ($menu == null)
+                {
+                    $menu = new Menu[1];
+                    $menu[0].name = $name;
+                    $menu[0].description = $desc;
+                }
+                else
+                {
+                    Menu[] temp = new Menu[3];
+                    Array.Copy($menu, 0, $temp, 0, 2);
+                    temp[2].name = $name;
+                    temp[2].description = $desc;
+                    $menu = temp;
+                }
+                return $menu;
+
+            Menu[] $menu
+	    string $name
+	    string $desc
+</pre>
+        <div>
+
+              
+        </div>
