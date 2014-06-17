@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ralph.Plugin", "Ralph.Plugi
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Refaster.fs", "Refaster.fs\Refaster.fs.fsproj", "{297D9627-E72E-4C89-9D1E-4C9FF37ABAE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{23A80FA4-A3E5-4907-B806-69E845D616F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,16 @@ Global
 		{297D9627-E72E-4C89-9D1E-4C9FF37ABAE7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{297D9627-E72E-4C89-9D1E-4C9FF37ABAE7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{297D9627-E72E-4C89-9D1E-4C9FF37ABAE7}.Release|x86.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{23A80FA4-A3E5-4907-B806-69E845D616F6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
