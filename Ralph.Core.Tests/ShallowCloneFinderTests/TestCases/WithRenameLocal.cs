@@ -5,7 +5,7 @@ namespace AgentRalph.Tests.ShallowCloneFinderTests.TestCases
 {
     public class WithRenameLocal
     {
-        /* BEGIN Expected(); */
+        /* BEGIN pattern(); */
         private void Target()
         {
             Console.WriteLine();
@@ -14,7 +14,7 @@ namespace AgentRalph.Tests.ShallowCloneFinderTests.TestCases
         }
         /* END */
 
-        private void Expected()
+        private void pattern()
         {
             Console.WriteLine();
             string bar_str = "zippy";

@@ -8,7 +8,7 @@ namespace AgentRalph.CloneCandidateDetectionTestData
         {
             try
             {
-                /* BEGIN */
+                /* BEGIN pattern();*/
                 Console.WriteLine(7);
                 /* END */
             }
@@ -17,7 +17,7 @@ namespace AgentRalph.CloneCandidateDetectionTestData
             }
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }

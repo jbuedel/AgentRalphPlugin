@@ -8,8 +8,8 @@ namespace AgentRalph.ExtractMethodTests.TestCases
         private void Target()
         {
             Console.WriteLine("Before");
-            
-            /* BEGIN Expected(); */
+
+            /* BEGIN pattern(); */
             Console.WriteLine();// At the time this test was created, this statement was necessary to work around a different bug involving extracted method params.
             string foo_str = "zippy";
             Console.Write(foo_str);
@@ -18,7 +18,7 @@ namespace AgentRalph.ExtractMethodTests.TestCases
             Console.WriteLine("After");
         }
 
-        private void Expected()
+        private void pattern()
         {
             Console.WriteLine();
             string bar_str = "zippy";

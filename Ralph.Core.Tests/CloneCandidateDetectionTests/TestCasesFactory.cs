@@ -113,12 +113,13 @@ namespace AgentRalph.Tests.CloneCandidateDetectionTests
             Assert.IsTrue(quickFixInfos.Count() > 0, "None of the clones found (there were " + clone_count + ") fell inbetween the BEGIN/END markers.");
 
             var expected_call_snippet = begin_comment.CommentText.Substring(begin_comment.CommentText.IndexOf("BEGIN")+5).Trim();
-            if(!string.IsNullOrEmpty(expected_call_snippet))
-            {
-                var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
-                var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
-                Assert.IsTrue(expected_call.MatchesPrint(actual_cal), "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
-            }
+            Assert.That(expected_call_snippet, Is.Not.Null.Or.Empty, "The repair code must be defined (it goes inside the /* BEGIN */ block).");
+            
+            var expected_call = ParseUtilCSharp.ParseStatement<Statement>(expected_call_snippet);
+            Assert.That(expected_call_snippet, Is.StringContaining("pattern("), "The pattern (replacement) function must be named 'pattern'");
+            var actual_cal = ParseUtilCSharp.ParseStatement<Statement>(quickFixInfos.First().TextForACallToJanga);
+            Assert.IsTrue(expected_call.MatchesPrint(actual_cal), "The expected call did not match the actual call.  \n\tExpected Call: " + expected_call.Print() + "\n\t" + "Actual Call: " + actual_cal.Print());
+
         }
 
         private Func<QuickFixInfo, bool> Predicate(Comment begin_comment, Comment end_comment)

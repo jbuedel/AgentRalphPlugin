@@ -2892,7 +2892,11 @@ namespace ICSharpCode.NRefactory.Ast {
 		
 		public override IEnumerable<INode> Chilluns {
 			get {
-					yield return condition;
+			  yield return condition;
+			  foreach (var statement in trueStatement)
+			    yield return statement;
+			  foreach (var statement in falseStatement)
+			    yield return statement;
 			}
 		}
 		
@@ -6044,9 +6048,7 @@ public Location ExtendedEndLocation { get; set; }
 		}
 		
 		public override IEnumerable<INode> Chilluns {
-			get {
-					yield break;
-			}
+			get { return Children; }
 		}
 		
 		public override string ToString() {

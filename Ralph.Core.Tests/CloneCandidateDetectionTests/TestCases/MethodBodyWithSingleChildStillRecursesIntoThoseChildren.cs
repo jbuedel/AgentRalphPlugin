@@ -8,13 +8,13 @@ namespace AgentRalph.CloneCandidateDetectionTests.TestCases
         {
             if (DateTime.Now.Day == 3)
             {
-                /* BEGIN Bar(); */
+                /* BEGIN pattern(); */
                 Console.WriteLine(7);
                 /* END */
             }
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }

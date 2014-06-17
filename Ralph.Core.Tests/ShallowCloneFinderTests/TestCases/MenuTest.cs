@@ -4,7 +4,7 @@ namespace AgentRalph.Tests.ShallowCloneFinderTests.TestCases
 {
     public class Menus
     {
-        /* BEGIN return Expected(menu, "the name", "description");*/
+        /* BEGIN return pattern(menu, "the name", "description");*/
         private Menu[] Target(Menu[] menu)
         {
             if (menu == null)
@@ -26,7 +26,7 @@ namespace AgentRalph.Tests.ShallowCloneFinderTests.TestCases
         }
         /* END */
 
-        private Menu[] Expected(Menu[] menu, string name, string desc)
+        private Menu[] pattern(Menu[] menu, string name, string desc)
         {
             if (menu == null)
             {

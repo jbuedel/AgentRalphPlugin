@@ -25,7 +25,8 @@ function build_project {
 	msbuild .\AgentRalph.proj /v:minimal
 }
 function test_project {
-   &"c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" Ralph.Test.Project\Ralph.Test.Project.sln /ReSharper.Plugin Bin\Debug\Ralph.Plugin.dll
+   msbuild .\AgentRalph.proj /t:runtests
+#   &"c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" Ralph.Test.Project\Ralph.Test.Project.sln /ReSharper.Plugin Bin\Debug\Ralph.Plugin.dll
 }
 function clean_project {
 	msbuild .\AgentRalph.proj /t:Clean /v:minimal
@@ -36,10 +37,11 @@ function rebuild_project {
 	write-host "*****************************************************************************"
 	write-host "***Rebuild actually builds for release including making the nuget package.***"
 	write-host "*****************************************************************************"
-	msbuild .\AgentRalph.proj /t:Release /p:Configuration=Release /v:minimal /p:BUILD_NUMBER=2
+	msbuild .\AgentRalph.proj /t:Release /p:Configuration=Release /v:minimal /p:BUILD_NUMBER=3
 }
 function develop_project {
-	.\AgentRalph.sln
+	vs2013
+	devenv .\AgentRalph.sln
 }
 function pushenv_project {
 	"The 'pushenv' command has not been created.  Edit your project-stuff.psm1 file and add your project specific command(s) to the pushenv_project function."

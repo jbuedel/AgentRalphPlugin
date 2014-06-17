@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using ICSharpCode.NRefactory.Ast;
 using NUnit.Framework;
 
 namespace AgentRalph.Tests.AstCompareTests
@@ -28,4 +30,22 @@ namespace AgentRalph.Tests.AstCompareTests
         }
 
     }
+
+  [TestFixture]
+  public class AstMatchHelperTests
+  {
+    [Test]
+    public void Test()
+    {
+      var statement = AstMatchHelper.ParseToMethodDeclaration("void pat(){Console.WriteLine(13);}").Body.Children[0];
+      statement = ((ExpressionStatement) statement).Expression;
+      var expression = AstMatchHelper.ParseToE<Expression>("Console.WriteLine(13)");
+
+      Console.WriteLine(statement);
+      Console.WriteLine();
+      Console.WriteLine(expression);
+
+      statement.MatchesPrint(expression);
+    }
+  }
 }

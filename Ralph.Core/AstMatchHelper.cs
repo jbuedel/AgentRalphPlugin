@@ -224,7 +224,20 @@ namespace AgentRalph
 
             return (T)parser.CompilationUnit.CurrentBock;
         }
+        public static T ParseToE<T>(string codeText) where T : Expression
+        {
+//          var statement = AstMatchHelper.ParseToMethodDeclaration("void pat(){" +codeText+ ";}").Body.Children[0];
+//          return (T) ((ExpressionStatement)statement).Expression;
 
+          // SEMICOLON HACK : without a trailing semicolon, parsing expressions does not work correctly
+          IParser parser = ParserFactory.CreateParser(SupportedLanguage.CSharp, new StringReader(codeText + ";"));
+          object parsedExpression = parser.ParseExpression();
+
+          if (parser.Errors.Count > 0)
+            throw new ApplicationException("Unable to parse the expression.  Parse errors:" + parser.Errors.ErrorOutput);
+
+          return (T) parsedExpression;
+        }
         public static IList<PrimitiveExpression> AllPrimitiveExpressions(this MethodDeclaration md)
         {
             PrimitiveExpressionFinderVisitor pefv = new PrimitiveExpressionFinderVisitor();
@@ -285,6 +298,11 @@ namespace AgentRalph
 
             return (MethodDeclaration)td.Children[0];
         }
+
+      public static MethodDeclaration ParseToTypeDeclaration(string codeText)
+      {
+        throw new NotImplementedException();
+      }
 
         public static int CountNodes(this INode ast)
         {

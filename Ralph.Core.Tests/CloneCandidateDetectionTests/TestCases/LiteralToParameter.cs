@@ -7,13 +7,13 @@ namespace AgentRalph.CloneCandidateDetectionTests.TestCases
         private void Target()
         {
             Console.WriteLine("stuff");
-            /* BEGIN Expected(7);*/
+            /* BEGIN pattern(7);*/
             int j = 7 + 7;
             /* END */
             Console.WriteLine("more stuff");
         }
 
-        private void Expected(int i)
+        private void pattern(int i)
         {
             int j = i + i;
         }

@@ -4,17 +4,17 @@ namespace AgentRalph.CloneCandidateDetectionTestData
 {
     public class CloneInForBlock
     {
-        void Foo()
+        void Target()
         {
             for (int i = 0; i < 10; i++)
             {
-                /* BEGIN Bar();*/
+                /* BEGIN pattern();*/
                 Console.WriteLine(7);
                 /* END */
             }
         }
 
-        private void Bar()
+        private void pattern()
         {
             Console.WriteLine(7);
         }
