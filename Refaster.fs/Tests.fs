@@ -257,7 +257,7 @@ type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; P
 
 
 let public DoCloneCandidateTest testCodeFile =
-  let codelines = System.IO.File.ReadAllLines(@"c:\users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\" + testCodeFile + ".cs")
+  let codelines = System.IO.File.ReadAllLines(testCodeFile)
 
   if (Seq.head codelines).Contains("Ignore") then Assert.Ignore((Seq.head codelines).Trim('/').Trim().Substring(6))
 
@@ -272,5 +272,5 @@ let public DoCloneCandidateTest testCodeFile =
   let matches =  applyPatternG pattern firstClass
   Assert.That(Seq.length matches, Is.GreaterThan(0))
   matches |> Seq.iter (printf "%A")
-  {Name = testCodeFile; CodeLines = codelines; Pattern = pattern}
+  {Name = System.IO.Path.GetFileNameWithoutExtension(testCodeFile); CodeLines = codelines; Pattern = pattern}
 

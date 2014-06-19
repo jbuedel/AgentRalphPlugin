@@ -23,7 +23,7 @@ namespace Visualizer.Controllers
       if (string.IsNullOrEmpty(testname))
         return View("UnknownTest");
 
-      var model = RefasterTests.DoCloneCandidateTest(testname);
+      var model = RefasterTests.DoCloneCandidateTest(@"C:\Users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\" + testname + ".cs");
       if(model == null) throw new Exception();
       return View(model);
     }
