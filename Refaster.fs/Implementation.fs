@@ -20,13 +20,13 @@ type Coord(p1, p2) =
   member this.Start = p1
   member this.End = p2
 
-type Match =
-| Match of string * (string*INode) list
-
-(*type Match(name, grps, coord) =
+type MatchT(name, captures) =
   member this.Name = name
-  member this.CaptureGroups = grps
-  member this.RepairCoords = coord*)
+  member this.Captures = captures
+//  member this.RepairCoords = coord
+
+type MatchAttempt =
+| Match of MatchT 
 
 type PatternMatchVisitor(parms : (string*string) list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
@@ -57,11 +57,11 @@ let toPatterns (typeDef:TypeDeclaration) =
   seq { for p in patterns do match p with | Some(q) -> yield q | None -> () }
   
 /// Applies the pattern against this single node. 
-let applyPattern (pat:Pattern) exp : Match option =
+let applyPattern (pat:Pattern) exp : MatchAttempt option =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if visitor.Match then
-    Some(Match(pat.Name, visitor.CaptureGroups))
+    Some(Match(MatchT(pat.Name, visitor.CaptureGroups)))
   else None
 
 let rec allSubNodes (node:INode) =
@@ -72,13 +72,13 @@ let rec allSubNodes (node:INode) =
     }
 
 /// Applies the pattern against this node and all subnodes.
-let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : Match option seq =
+let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : MatchAttempt option seq =
   allSubNodes clazz |> Seq.map (applyPattern pat) 
 
 let toReplacement mtch =
   // convert Match to a function call.  Like foo()
   match mtch with
-  | Match(name, captureGroups) -> name + "(" + (captureGroups |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
+  | Match(m) -> m.Name + "(" + (m.Captures |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
   | _        -> "" // not really sure what this should do...
 
 

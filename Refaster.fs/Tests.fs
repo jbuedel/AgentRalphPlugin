@@ -13,10 +13,10 @@ let getPattern pat =
   | Some(p) -> p 
   | None -> failwith "Must be a pattern"
 
-let applyPattern (pat:Pattern) exp : Match option =
+let applyPattern (pat:Pattern) exp : MatchAttempt option =
   Refaster.applyPattern pat exp
 
-let applyPatternG (pat:Pattern) exp : Match seq =
+let applyPatternG (pat:Pattern) exp : MatchAttempt seq =
   Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
 
 let toExpr code =
@@ -86,8 +86,8 @@ type RefasterTests() =
   let test patText exprText = 
     let mtch = doMatch patText exprText 
     match mtch with
-    | Some(Match(name, captures)) -> for (cname,cnode) in captures do printfn "'%s' => %s" cname (print cnode)
-                                     Match(name,captures)
+    | Some(Match(m)) -> for (cname,cnode) in m.Captures do printfn "'%s' => %s" cname (print cnode)
+                        Match(m)
     | None    -> failwith "Expected a match"
     
   // Expects there to be exactly one match
@@ -107,25 +107,27 @@ type RefasterTests() =
   member this.``simplest case``() =
     let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
     match result with
-    | Match(_, []) -> () 
+    | Match(m) -> () 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``parameters are capture groups and can match expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" 
     match result with
-    | Match(_,(name,cap) :: []) -> name |> should equal "x"
-                                   cap |> print |> should equal "13" 
+    | Match(m) -> let cname,cexpr = Seq.head m.Captures
+                  cname |> should equal "x"
+                  cexpr |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``multiple capture groups match multiple expressions``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
     match result with // This test depends on the order, and should not.
-    | Match(_, (name1,capt1) :: (name2,capt2) :: []) -> name1 |> should equal "x"
-                                                        capt1 |> print |> should equal "13" 
-                                                        name2 |> should equal "y"
-                                                        capt2 |> print |> should equal "\"string\"" 
+    | Match(m) -> let ((name1,expr1) :: (name2, expr2) :: []) = m.Captures
+                  name1 |> should equal "x"
+                  expr1 |> print |> should equal "13" 
+                  name2 |> should equal "y"
+                  expr2 |> print |> should equal "\"string\"" 
     | _ -> Assert.Fail("Expected a match with two captures")
 
   [<Test>][<Ignore("The parser does not supply type information.")>]
@@ -136,16 +138,18 @@ type RefasterTests() =
   member this.``capture groups that do not match are not included in the result``() =
     let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" 
     match result with
-    | Match(_,(name,cap) :: []) -> name |> should equal "x"
-                                   cap |> print |> should equal "13" 
+    | Match(m) -> let (name,expr) :: [] = m.Captures
+                  name |> should equal "x"
+                  expr |> print |> should equal "13" 
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
   member this.``a single capture group can match multiple expressions``() =
     let result = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
     match result with
-    | Match(_,(name,expr) :: []) -> name |> should equal "x"
-                                    expr |> print |> should equal "13"
+    | Match(m) -> let (name,expr) :: [] = m.Captures
+                  name |> should equal "x"
+                  expr |> print |> should equal "13"
     | _ -> Assert.Fail("Expected a match")
 
   [<Test>]
@@ -252,7 +256,7 @@ type CloneCandidateDetectionTests() =
     Assert.That(Seq.length matches, Is.GreaterThan(0))
     matches |> Seq.iter (printf "%A")
 
-type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern; MatchAttempts: Match option seq}
+type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern; MatchAttempts: MatchAttempt option seq}
 
 let public DoCloneCandidateTest testCodeFile =
   let codelines = System.IO.File.ReadAllLines(testCodeFile)
