@@ -252,9 +252,7 @@ type CloneCandidateDetectionTests() =
     Assert.That(Seq.length matches, Is.GreaterThan(0))
     matches |> Seq.iter (printf "%A")
 
-type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern}
-  
-
+type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern; MatchAttempts: Match option seq}
 
 let public DoCloneCandidateTest testCodeFile =
   let codelines = System.IO.File.ReadAllLines(testCodeFile)
@@ -269,8 +267,8 @@ let public DoCloneCandidateTest testCodeFile =
                 | Some(mtch) -> mtch
                 | None       -> failwith "unable to convert to a pattern" 
 
-  let matches =  applyPatternG pattern firstClass
+  let matches =  Refaster.applyPatternG pattern firstClass
   Assert.That(Seq.length matches, Is.GreaterThan(0))
   matches |> Seq.iter (printf "%A")
-  {Name = System.IO.Path.GetFileNameWithoutExtension(testCodeFile); CodeLines = codelines; Pattern = pattern}
+  {Name = System.IO.Path.GetFileNameWithoutExtension(testCodeFile); CodeLines = codelines; Pattern = pattern; MatchAttempts = matches}
 
