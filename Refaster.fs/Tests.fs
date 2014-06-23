@@ -13,11 +13,11 @@ let getPattern pat =
   | Some(p) -> p 
   | None -> failwith "Must be a pattern"
 
-let applyPattern (pat:Pattern) exp : MatchAttempt option =
+let applyPattern (pat:Pattern) exp : MatchAttempt =
   Refaster.applyPattern pat exp
 
 let applyPatternG (pat:Pattern) exp : MatchAttempt seq =
-  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Some(m) -> Some(m) | None -> None)
+  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Match(m) -> Some(Match(m)) | NotMatch -> None)
 
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
@@ -80,15 +80,15 @@ type RefasterTests() =
   let testF patText exprText = 
     let mtch = doMatch patText exprText 
     match mtch with
-    | Some(m) -> Assert.Fail("Got a match")
-    | None    -> Assert.Pass()
+    | Match(m) -> Assert.Fail("Got a match")
+    | NotMatch -> Assert.Pass()
 
   let test patText exprText = 
     let mtch = doMatch patText exprText 
     match mtch with
-    | Some(Match(m)) -> for (cname,cnode) in m.Captures do printfn "'%s' => %s" cname (print cnode)
-                        Match(m)
-    | None    -> failwith "Expected a match"
+    | Match(m) -> for (cname,cnode) in m.Captures do printfn "'%s' => %s" cname (print cnode)
+                  m
+    | NotMatch    -> failwith "Expected a match"
     
   // Expects there to be exactly one match
   let doApplyPatternToClass pat classText = 
@@ -105,30 +105,23 @@ type RefasterTests() =
 
   [<Test>]
   member this.``simplest case``() =
-    let result = test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
-    match result with
-    | Match(m) -> () 
-    | _ -> Assert.Fail("Expected a match")
+    test "void pat(){Console.WriteLine(13);}" "Console.WriteLine(13)" 
 
   [<Test>]
   member this.``parameters are capture groups and can match expressions``() =
-    let result = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" 
-    match result with
-    | Match(m) -> let cname,cexpr = Seq.head m.Captures
-                  cname |> should equal "x"
-                  cexpr |> print |> should equal "13" 
-    | _ -> Assert.Fail("Expected a match")
+    let m = test "void pat(int x){Console.WriteLine(x);}" "Console.WriteLine(13)" 
+    let cname,cexpr = Seq.head m.Captures
+    cname |> should equal "x"
+    cexpr |> print |> should equal "13" 
 
   [<Test>]
   member this.``multiple capture groups match multiple expressions``() =
-    let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
-    match result with // This test depends on the order, and should not.
-    | Match(m) -> let ((name1,expr1) :: (name2, expr2) :: []) = m.Captures
-                  name1 |> should equal "x"
-                  expr1 |> print |> should equal "13" 
-                  name2 |> should equal "y"
-                  expr2 |> print |> should equal "\"string\"" 
-    | _ -> Assert.Fail("Expected a match with two captures")
+    let m = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13, \"string\")" 
+    let ((name1,expr1) :: (name2, expr2) :: []) = m.Captures
+    name1 |> should equal "x"
+    expr1 |> print |> should equal "13" 
+    name2 |> should equal "y"
+    expr2 |> print |> should equal "\"string\"" 
 
   [<Test>][<Ignore("The parser does not supply type information.")>]
   member this.``capture group type must be compatible with the type of expression it matches``() =
@@ -136,21 +129,17 @@ type RefasterTests() =
 
   [<Test>][<Ignore("Not sure we need to bother to filter out the unused capture groups.")>]
   member this.``capture groups that do not match are not included in the result``() =
-    let result = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" 
-    match result with
-    | Match(m) -> let (name,expr) :: [] = m.Captures
-                  name |> should equal "x"
-                  expr |> print |> should equal "13" 
-    | _ -> Assert.Fail("Expected a match")
+    let m = test "void pat(int x, string y){Console.WriteLine(x,y);}" "Console.WriteLine(13)" 
+    let (name,expr) :: [] = m.Captures
+    name |> should equal "x"
+    expr |> print |> should equal "13" 
 
   [<Test>]
   member this.``a single capture group can match multiple expressions``() =
-    let result = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
-    match result with
-    | Match(m) -> let (name,expr) :: [] = m.Captures
-                  name |> should equal "x"
-                  expr |> print |> should equal "13"
-    | _ -> Assert.Fail("Expected a match")
+    let m = test "void pat(int x){Console.WriteLine(x, x);}" "Console.WriteLine(13, 13)" 
+    let (name,expr) :: [] = m.Captures
+    name |> should equal "x"
+    expr |> print |> should equal "13"
 
   [<Test>]
   member this.``a single capture group can match multiple expressions, but the expressions must be identical``() =
@@ -201,15 +190,15 @@ type RefasterTests() =
     let clazz = 
        "class foo { 
            public void bar() { 
-	      if(true) { 
-	         Console.WriteLine(13); 
-	      } 
-	   }
-	}" |> toTypeDef
+        if(true) { 
+           Console.WriteLine(13); 
+        } 
+     }
+  }" |> toTypeDef
 
-    assertCoords (Location(1,1)) (Location(2,7)) <| clazz
+    assertCoords (Location(1,1)) (Location(3,7)) <| clazz
     assertCoords (Location(12,2)) (Location(29,2)) <| getMethod "bar" clazz
-    assertCoords (Location(8,3)) (Location(9,5)) <| (Refaster.allSubNodes clazz |> Seq.find (fun n -> n.GetType().Name = "IfElseStatement"))
+    assertCoords (Location(9,3)) (Location(10,5)) <| (Refaster.allSubNodes clazz |> Seq.find (fun n -> n.GetType().Name = "IfElseStatement"))
 
   [<Test>]
   member this.``allSubNodes follows expected paths (aka test INode.Chilluns)``() =
@@ -256,7 +245,7 @@ type CloneCandidateDetectionTests() =
     Assert.That(Seq.length matches, Is.GreaterThan(0))
     matches |> Seq.iter (printf "%A")
 
-type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern; MatchAttempts: MatchAttempt option seq}
+type public CloneCandidateTestViewModel = {Name: string; CodeLines: string []; Pattern: Pattern; MatchAttempts: MatchAttempt seq}
 
 let public DoCloneCandidateTest testCodeFile =
   let codelines = System.IO.File.ReadAllLines(testCodeFile)

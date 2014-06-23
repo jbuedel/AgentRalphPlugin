@@ -27,6 +27,7 @@ type MatchT(name, captures) =
 
 type MatchAttempt =
 | Match of MatchT 
+| NotMatch
 
 type PatternMatchVisitor(parms : (string*string) list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
@@ -57,12 +58,12 @@ let toPatterns (typeDef:TypeDeclaration) =
   seq { for p in patterns do match p with | Some(q) -> yield q | None -> () }
   
 /// Applies the pattern against this single node. 
-let applyPattern (pat:Pattern) exp : MatchAttempt option =
+let applyPattern (pat:Pattern) exp : MatchAttempt =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if visitor.Match then
-    Some(Match(MatchT(pat.Name, visitor.CaptureGroups)))
-  else None
+    Match(MatchT(pat.Name, visitor.CaptureGroups))
+  else NotMatch
 
 let rec allSubNodes (node:INode) =
     seq { 
@@ -72,14 +73,13 @@ let rec allSubNodes (node:INode) =
     }
 
 /// Applies the pattern against this node and all subnodes.
-let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : MatchAttempt option seq =
+let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : MatchAttempt seq =
   allSubNodes clazz |> Seq.map (applyPattern pat) 
 
-let toReplacement mtch =
+let toReplacement (mtch:MatchT) =
   // convert Match to a function call.  Like foo()
-  match mtch with
-  | Match(m) -> m.Name + "(" + (m.Captures |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
-  | _        -> "" // not really sure what this should do...
+  let m = mtch
+  m.Name + "(" + (m.Captures |> List.map (fun (_,y) -> print y) |> String.concat ",") + ")"
 
 
   (* Next up I need tests that show Match objects return repair coordinates. 
