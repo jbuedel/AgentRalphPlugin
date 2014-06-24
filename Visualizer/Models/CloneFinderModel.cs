@@ -17,4 +17,23 @@ namespace Visualizer.Models
     public Statement ExpectedCallText { get; set; }
     public Statement ActualCallText { get; set; }
   }
+
+  public class CloneCandidateTestViewModel
+  {
+    public CloneCandidateTestViewModel(RefasterTests.CloneCandidateTestViewModel model)
+    {
+      this.Name = model.Name;
+      this.CodeLines = model.CodeLines;
+      this.MatchAttempts = model.MatchAttempts.ToList();
+      this.Pattern = model.Pattern;
+    }
+
+    public Refaster.Pattern Pattern { get; set; }
+
+    public List<Refaster.MatchAttempt> MatchAttempts { get; set; }
+
+    public string[] CodeLines { get; set; }
+
+    public string Name { get; set; }
+  }
 }

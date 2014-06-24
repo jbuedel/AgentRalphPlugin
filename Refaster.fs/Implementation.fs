@@ -24,10 +24,14 @@ type MatchT(name, captures) =
   member this.Name = name
   member this.Captures = captures
 //  member this.RepairCoords = coord
+type FailT(expr, failNodePattern, failNodeExpr) =
+  member this.FailNodePattern = failNodePattern
+  member this.FailNodeExpr = failNodeExpr
+  member this.ExprRootNode = expr
 
 type MatchAttempt =
 | Match of MatchT 
-| NotMatch
+| NotMatch of FailT
 
 type PatternMatchVisitor(parms : (string*string) list) = 
   inherit AgentRalph.Visitors.AstComparisonVisitor() 
@@ -63,7 +67,7 @@ let applyPattern (pat:Pattern) exp : MatchAttempt =
   let success = pat.Expr.AcceptVisitor(visitor, exp)
   if visitor.Match then
     Match(MatchT(pat.Name, visitor.CaptureGroups))
-  else NotMatch
+  else NotMatch(FailT(exp, visitor.FailNodeLeft, visitor.FailNodeRight))
 
 let rec allSubNodes (node:INode) =
     seq { 

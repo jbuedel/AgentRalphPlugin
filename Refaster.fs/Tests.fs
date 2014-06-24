@@ -17,7 +17,7 @@ let applyPattern (pat:Pattern) exp : MatchAttempt =
   Refaster.applyPattern pat exp
 
 let applyPatternG (pat:Pattern) exp : MatchAttempt seq =
-  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Match(m) -> Some(Match(m)) | NotMatch -> None)
+  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Match(m) -> Some(Match(m)) | NotMatch(f) -> None)
 
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
@@ -81,14 +81,14 @@ type RefasterTests() =
     let mtch = doMatch patText exprText 
     match mtch with
     | Match(m) -> Assert.Fail("Got a match")
-    | NotMatch -> Assert.Pass()
+    | NotMatch(f) -> Assert.Pass()
 
   let test patText exprText = 
     let mtch = doMatch patText exprText 
     match mtch with
     | Match(m) -> for (cname,cnode) in m.Captures do printfn "'%s' => %s" cname (print cnode)
                   m
-    | NotMatch    -> failwith "Expected a match"
+    | NotMatch(f)    -> failwith "Expected a match"
     
   // Expects there to be exactly one match
   let doApplyPatternToClass pat classText = 

@@ -25,7 +25,9 @@ namespace Visualizer.Controllers
 
       var model = RefasterTests.DoCloneCandidateTest(@"C:\Users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\" + testname + ".cs");
       if(model == null) throw new Exception();
-      return View(model);
+
+
+      return View(new CloneCandidateTestViewModel(model));
     }
 
     public ActionResult Index()
@@ -35,7 +37,7 @@ namespace Visualizer.Controllers
       return View();
     }
 
-    private JNode build(JNode tree, int targetid, JNode addition)
+    public static JNode build(JNode tree, int targetid, JNode addition)
     {
       if (tree.id == targetid)
         return new JNode {name = "divergence", children = new[] {tree, addition}, id = 0};
