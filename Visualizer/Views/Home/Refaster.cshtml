@@ -27,13 +27,15 @@
   <div>
     @if (attempt.IsMatch)
     {
+      <h2>Match success (@i)</h2>
       var match = ((Refaster.MatchAttempt.Match) attempt).Item;
-      <text>Match</text>
+      <text>@match</text>
     }
     else
     {
+      <h2>Match failure (@i)</h2>
     var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-      <div id="tree-@i">Tree goes here.</div>
+      <div id="tree-@i"></div>
     }
   </div>
 }
@@ -178,7 +180,7 @@
       if (attempt.IsNotMatch)
       {
         var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-        @:var json_@i=@Html.Raw(JsonConvert.SerializeObject(HomeController.build(nm.ExprRootNode.ToJson(), nm.FailNodePattern.ToJson().id, nm.FailNodeExpr.ToJson())))
+        @:var json_@i=@Html.Raw(JsonConvert.SerializeObject(HomeController.build(nm.ExprRootNode.ToJson(), nm.FailNodeExpr.ToJson().id, nm.FailNodePattern.ToJson())))
         @:drawFailTree("#tree-@i", json_@i);
       }
     }

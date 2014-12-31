@@ -42,6 +42,11 @@ namespace Visualizer.Controllers
       return View();
     }
 
+    /// <summary>
+    /// Convert 'tree' into a json data structure, until you hit the 'targetid' node.
+    /// Then create the 'divergent' node, which simply contains two children, the first
+    /// being the remainder of 'tree' and the second being 'addition'.
+    /// </summary>
     public static JNode build(JNode tree, int targetid, JNode addition)
     {
       if (tree.id == targetid)

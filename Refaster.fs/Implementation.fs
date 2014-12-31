@@ -24,6 +24,7 @@ type MatchT(name, captures) =
   member this.Name = name
   member this.Captures = captures
 //  member this.RepairCoords = coord
+
 type FailT(expr, failNodePattern, failNodeExpr) =
   member this.FailNodePattern = failNodePattern
   member this.FailNodeExpr = failNodeExpr
