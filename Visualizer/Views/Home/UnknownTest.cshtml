@@ -1,3 +1,12 @@
-﻿@model dynamic
+﻿@model Visualizer.Models.UnknownTestViewModel
 
 <div>'testname' is required</div>
+
+
+<ul>
+  @foreach (var testname in Model.Tests)
+  {
+    <li><a href="@Url.Action("Refaster", new{testname})">@testname</a></li>
+  }
+    
+</ul>

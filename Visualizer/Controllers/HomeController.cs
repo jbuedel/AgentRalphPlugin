@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,10 +19,16 @@ namespace Visualizer.Controllers
   {
     public ActionResult Refaster(string testname)
     {
+      var testCaseDir = @"C:\Users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\";
       if (string.IsNullOrEmpty(testname))
-        return View("UnknownTest");
+      {
+        var m = new UnknownTestViewModel {
+          Tests = Directory.GetFiles(testCaseDir).Select(Path.GetFileNameWithoutExtension).ToList()
+        };
+        return View("UnknownTest", m);
+      }
 
-      var model = RefasterTests.DoCloneCandidateTest(@"C:\Users\jbuedel\Projects\AgentRalphPlugin\Ralph.Core.Tests\CloneCandidateDetectionTests\TestCases\" + testname + ".cs");
+      var model = RefasterTests.DoCloneCandidateTest(testCaseDir + testname + ".cs");
       if(model == null) throw new Exception();
 
 

@@ -215,7 +215,7 @@ type PatternNormalizationTests() =
     // There will be two patterns as there is two methods, but we only care about the one.
     let pat = Refaster.toPatterns patternClass |> Seq.find (fun p -> p.Name = "pat") 
     // now assert that the pattern's expression matches this.IntMethod()
-    Assert.That(print pat.Expr, Is.EqualTo("this.IntMethod()"))
+    Assert.That(print pat.Expr, Is.EqualTo("this.IntMeth()"))
     // TODO: Create a AddThisToAllMemberReferencesVisitor(), and use it here.  Any further unit tests concerning 
     // different kinds of members ought to be against that directly.
 

@@ -8,6 +8,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+  <ul>
+    <li><a href="@Url.Action("Refaster", "Home")">Refaster</a></li>
+    <li><a href="@Url.Action("CloneFinder", "Home")">CloneFinder</a></li>
+    <li><a href="@Url.Action("Prototype", "Home")">Prototype</a></li>
+  </ul>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
