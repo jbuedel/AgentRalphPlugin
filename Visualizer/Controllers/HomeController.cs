@@ -11,6 +11,7 @@ using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Tests.Ast;
 using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using Visualizer.Models;
 
 namespace Visualizer.Controllers
@@ -172,6 +173,12 @@ namespace Visualizer.Controllers
     public ActionResult Prototype()
     {
       return View();
+    }
+
+    public static string MakeTree(Refaster.FailT nm)
+    {
+      return JsonConvert.SerializeObject(build(nm.TargetRootNode.ToJson(), nm.TargetFailNode.ToJson().id,
+        nm.FailNodePattern.ToJson()));
     }
   }
 }

@@ -26,9 +26,12 @@ type MatchT(name, captures) =
 //  member this.RepairCoords = coord
 
 type FailT(expr, failNodePattern, failNodeExpr) =
+  /// The node in the pattern where the pattern stopped matching
   member this.FailNodePattern = failNodePattern
-  member this.FailNodeExpr = failNodeExpr
-  member this.ExprRootNode = expr
+  /// The node in the target where the pattern stopped matching
+  member this.TargetFailNode = failNodeExpr
+  /// The node the pattern was applied to
+  member this.TargetRootNode = expr
 
 type MatchAttempt =
 | Match of MatchT 

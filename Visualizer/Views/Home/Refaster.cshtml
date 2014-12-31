@@ -180,7 +180,7 @@
       if (attempt.IsNotMatch)
       {
         var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-        @:var json_@i=@Html.Raw(JsonConvert.SerializeObject(HomeController.build(nm.ExprRootNode.ToJson(), nm.FailNodeExpr.ToJson().id, nm.FailNodePattern.ToJson())))
+        @:var json_@i=@Html.Raw(HomeController.MakeTree(nm))
         @:drawFailTree("#tree-@i", json_@i);
       }
     }
