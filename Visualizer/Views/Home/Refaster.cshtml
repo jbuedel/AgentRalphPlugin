@@ -178,9 +178,9 @@
       if (attempt.IsNotMatch)
       {
         var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-    @:var json=@Html.Raw(JsonConvert.SerializeObject(HomeController.build(nm.ExprRootNode.ToJson(), nm.FailNodePattern.ToJson().id, nm.FailNodeExpr.ToJson())))
-        @:drawFailTree("#tree-@i", json);
-              }
+        @:var json_@i=@Html.Raw(JsonConvert.SerializeObject(HomeController.build(nm.ExprRootNode.ToJson(), nm.FailNodePattern.ToJson().id, nm.FailNodeExpr.ToJson())))
+        @:drawFailTree("#tree-@i", json_@i);
+      }
     }
   </script>
 }
