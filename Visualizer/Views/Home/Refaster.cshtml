@@ -1,4 +1,5 @@
-﻿@using ICSharpCode.NRefactory.Ast
+﻿@using ICSharpCode.NRefactory
+@using ICSharpCode.NRefactory.Ast
 @using Newtonsoft.Json
 @using Visualizer.Controllers
 @model Visualizer.Models.CloneCandidateTestViewModel
@@ -35,10 +36,10 @@
     transition: all linear 0.15s;
   }
 
-  .tab-links a:hover {
-    background: #a7cce5;
-    text-decoration: none;
-  }
+    .tab-links a:hover {
+      background: #a7cce5;
+      text-decoration: none;
+    }
 
   li.active a, li.active a:hover {
     background: #fff;
@@ -57,13 +58,15 @@
     display: none;
   }
 
-  .tab.active {
-    display: block;
-  }
+    .tab.active {
+      display: block;
+    }
 </style>
 
 <style>
-  li.match-success a:before {content: "☆ "}
+  li.match-success a:before {
+    content: "☆ ";
+  }
 </style>
 
 
@@ -77,9 +80,10 @@
 </pre>
 
 <h2>Pattern</h2>
-<pre>
-@Model.Pattern
-</pre>
+Name: @Model.Pattern.Name<br/>
+Capture Groups: not done<br/>
+<div id="pattern-tree"><pre>@Model.Pattern.Expr.Print()</pre></div>
+
 
 <div class="tabs">
   <h2>Match Attempts</h2>
@@ -90,24 +94,24 @@
     }
   </ul>
   <div class="tab-content">
-      @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
-      {
-        var attempt = Model.MatchAttempts[i];
-        <div id="match-attempt-@i" class="tab @(i == 0 ? "active" : "")">
-          @if (attempt.IsMatch)
-          {
-            <h2>Match success (@i)</h2>
-            var match = ((Refaster.MatchAttempt.Match) attempt).Item;
-            <text>@match</text>
-          }
-          else
-          {
-            <h2>Match failure (@i)</h2>
-            var nm = ((Refaster.MatchAttempt.NotMatch) attempt).Item;
-            <div id="tree-@i"></div>
-          }
-        </div>
-      }
+    @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
+    {
+      var attempt = Model.MatchAttempts[i];
+      <div id="match-attempt-@i" class="tab @(i == 0 ? "active" : "")">
+        @if (attempt.IsMatch)
+        {
+          <h2>Match success (@i)</h2>
+          var match = ((Refaster.MatchAttempt.Match)attempt).Item;
+          <text>@match</text>
+        }
+        else
+        {
+          <h2>Match failure (@i)</h2>
+          var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
+          <div id="tree-@i"></div>
+        }
+      </div>
+    }
   </div>
 </div>
 
@@ -131,24 +135,24 @@
   <script type="text/javascript">
     var drawFailTree = function (selector, json) {
       var margin = { top: 20, right: 120, bottom: 20, left: 120 },
-      width = 900 - margin.right - margin.left,
-      height = 800 - margin.top - margin.bottom;
+        width = 900 - margin.right - margin.left,
+        height = 800 - margin.top - margin.bottom;
 
       var i = 0,
-      duration = 750,
-      root;
+        duration = 750,
+        root;
 
       var tree = d3.layout.tree()
-      .size([height, width]);
+        .size([height, width]);
 
       var diagonal = d3.svg.diagonal()
-      .projection(function (d) { return [d.x, d.y]; });
+        .projection(function (d) { return [d.x, d.y]; });
 
       var svg = d3.select(selector).append("svg")
-      .attr("width", width + margin.right + margin.left)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("width", width + margin.right + margin.left)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       var start = function (flare, error) {
         root = flare;
@@ -172,70 +176,70 @@
 
       function update(source) {
         var nodes = tree.nodes(root).reverse(),
-        links = tree.links(nodes);
+          links = tree.links(nodes);
 
         nodes.forEach(function (d) { d.y = d.depth * 50; });
 
         var node = svg.selectAll("g.node")
-        .data(nodes, function (d) { return d.id || (d.id = ++i); });
+          .data(nodes, function (d) { return d.id || (d.id = ++i); });
 
         var nodeEnter = node.enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function (d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
-        .on("click", click);
+          .attr("class", "node")
+          .attr("transform", function (d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
+          .on("click", click);
 
         nodeEnter.append("circle")
-        .attr("r", 1e-6)
-        .style("fill", function (d) { return d._children ? "lightsteelblue" : "#fff"; });
+          .attr("r", 1e-6)
+          .style("fill", function (d) { return d._children ? "lightsteelblue" : "#fff"; });
 
         nodeEnter.append("text")
-        .attr("x", function (d) { return d.children || d._children ? -10 : 10; })
-        .attr("dy", ".35em")
-        .attr("text-anchor", function (d) { return d.children || d._children ? "end" : "start"; })
-        .text(function (d) { return d.data ? d.data : d.name; })
-        .style("fill-opacity", 1e-6);
+          .attr("x", function (d) { return d.children || d._children ? -10 : 10; })
+          .attr("dy", ".35em")
+          .attr("text-anchor", function (d) { return d.children || d._children ? "end" : "start"; })
+          .text(function (d) { return d.data ? d.data : d.name; })
+          .style("fill-opacity", 1e-6);
 
         var nodeUpdate = node.transition().duration(duration)
-        .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+          .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
 
         nodeUpdate.select("circle")
-        .attr("r", 4.5)
-        .style("fill", function (d) { return d._children ? "lightsteelblue" : "#fff"; });
+          .attr("r", 4.5)
+          .style("fill", function (d) { return d._children ? "lightsteelblue" : "#fff"; });
 
         nodeUpdate.select("text")
-        .style("fill-opacity", 1);
+          .style("fill-opacity", 1);
 
         var nodeExit = node.exit().transition()
-        .duration(duration)
-        .attr("transform", function (d) { return "translate(" + source.x + "," + source.y + ")"; })
-        .remove();
+          .duration(duration)
+          .attr("transform", function (d) { return "translate(" + source.x + "," + source.y + ")"; })
+          .remove();
 
         nodeExit.select("circle")
-        .attr("r", 1e-6);
+          .attr("r", 1e-6);
 
         nodeExit.select("text")
-        .style("fill-opacity", 1e-6);
+          .style("fill-opacity", 1e-6);
 
         var link = svg.selectAll("path.link")
-        .data(links, function (d) { return d.target.id; });
+          .data(links, function (d) { return d.target.id; });
 
         link.enter().insert("path", "g")
-        .attr("class", "link")
-        .attr("d", function (d) {
-          var o = { x: source.x0, y: source.y0 };
-          return diagonal({ source: o, target: o });
-        });
+          .attr("class", "link")
+          .attr("d", function (d) {
+            var o = { x: source.x0, y: source.y0 };
+            return diagonal({ source: o, target: o });
+          });
 
         link.transition()
-        .duration(duration)
-        .attr("d", diagonal);
+          .duration(duration)
+          .attr("d", diagonal);
         link.exit().transition()
-        .duration(duration)
-        .attr("d", function (d) {
-          var o = { x: source.x, y: source.y };
-          return diagonal({ source: o, target: o });
-        })
-        .remove();
+          .duration(duration)
+          .attr("d", function (d) {
+            var o = { x: source.x, y: source.y };
+            return diagonal({ source: o, target: o });
+          })
+          .remove();
 
         nodes.forEach(function (d) {
           d.x0 = d.x;
@@ -254,6 +258,8 @@
         update(d);
       }
     }
+  </script>
+  <script>
     @for (int i = 0;i<Model.MatchAttempts.Count();i++)
     {
       var attempt = Model.MatchAttempts[i];
@@ -266,4 +272,9 @@
           }
     }
   </script>
+<script>
+  $(function() {
+    drawFailTree("#pattern-tree", @Html.Raw(JsonConvert.SerializeObject(Model.Pattern.Expr.ToJson())) );
+  });
+</script>
 }
