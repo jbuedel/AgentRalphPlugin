@@ -3,6 +3,69 @@
 @using Visualizer.Controllers
 @model Visualizer.Models.CloneCandidateTestViewModel
 
+<style>
+  /*----- Tabs -----*/
+  .tabs {
+    width: 100%;
+    display: inline-block;
+  }
+
+  /*----- Tab Links -----*/
+  /* Clearfix */
+  .tab-links:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+
+  .tab-links li {
+    margin: 0px 5px;
+    float: left;
+    list-style: none;
+  }
+
+  .tab-links a {
+    padding: 9px 15px;
+    display: inline-block;
+    border-radius: 3px 3px 0px 0px;
+    background: #7FB5DA;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4c4c4c;
+    transition: all linear 0.15s;
+  }
+
+  .tab-links a:hover {
+    background: #a7cce5;
+    text-decoration: none;
+  }
+
+  li.active a, li.active a:hover {
+    background: #fff;
+    color: #4c4c4c;
+  }
+
+  /*----- Content of Tabs -----*/
+  .tab-content {
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: -1px 1px 1px rgba(0,0,0,0.15);
+    background: #fff;
+  }
+
+  .tab {
+    display: none;
+  }
+
+  .tab.active {
+    display: block;
+  }
+</style>
+
+<style>
+  li.match-success a:before {content: "☆ "}
+</style>
+
 
 <h2>@Model.Name</h2>
 
@@ -18,34 +81,52 @@
 @Model.Pattern
 </pre>
 
-
-<h2>Match Attempts</h2>
-@for(int i=0;i<Model.MatchAttempts.Count();i++)
-{
-  var attempt = Model.MatchAttempts[i];
-  <hr />
-  <div>
-    @if (attempt.IsMatch)
+<div class="tabs">
+  <h2>Match Attempts</h2>
+  <ul class="tab-links">
+    @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
     {
-      <h2>Match success (@i)</h2>
-      var match = ((Refaster.MatchAttempt.Match) attempt).Item;
-      <text>@match</text>
+      <li class="tab-links @(Model.MatchAttempts[i].IsMatch ? "match-success" : "match-fail") @(i==0?"active":"")"><a href="#match-attempt-@i">Attempt #@i</a></li>
     }
-    else
-    {
-      <h2>Match failure (@i)</h2>
-    var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-      <div id="tree-@i"></div>
-    }
+  </ul>
+  <div class="tab-content">
+      @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
+      {
+        var attempt = Model.MatchAttempts[i];
+        <div id="match-attempt-@i" class="tab @(i == 0 ? "active" : "")">
+          @if (attempt.IsMatch)
+          {
+            <h2>Match success (@i)</h2>
+            var match = ((Refaster.MatchAttempt.Match) attempt).Item;
+            <text>@match</text>
+          }
+          else
+          {
+            <h2>Match failure (@i)</h2>
+            var nm = ((Refaster.MatchAttempt.NotMatch) attempt).Item;
+            <div id="tree-@i"></div>
+          }
+        </div>
+      }
   </div>
-}
-
-
+</div>
 
 @section scripts
 {
   <script type="text/javascript">
+    jQuery(document).ready(function () {
+      jQuery('.tabs .tab-links a').on('click', function (e) {
+        var currentAttrValue = jQuery(this).attr('href');
 
+        // Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+        e.preventDefault();
+      });
+    });
   </script>
   <script type="text/javascript">
     var drawFailTree = function (selector, json) {
@@ -180,9 +261,9 @@
       if (attempt.IsNotMatch)
       {
         var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
-        @:var json_@i=@Html.Raw(HomeController.MakeTree(nm))
+        @:var json_@i =@Html.Raw(HomeController.MakeTree(nm))
         @:drawFailTree("#tree-@i", json_@i);
-      }
+          }
     }
   </script>
 }
