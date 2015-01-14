@@ -66,13 +66,13 @@ type RefasterTests() =
     let pat = toMethod patText |> toPattern |> getPattern 
     
     printfn "Pattern text %A" patText
-    printfn "\texpr : %A" (print pat.Expr)
+    printfn "\texpr : %A" (print pat.Stmt)
     for (nm,tipe) in pat.CaptureGroups do printfn "\t '%s' : %s" nm tipe
    
     let expr = toExpr targetText
     printfn "Target expr: %s" (print expr)
 
-    printfn "Pattern AST: %A" pat.Expr
+    printfn "Pattern AST: %A" pat.Stmt
     printfn "Expr    AST: %A" expr
     
     pat |> applyPattern <| expr
@@ -215,7 +215,7 @@ type PatternNormalizationTests() =
     // There will be two patterns as there is two methods, but we only care about the one.
     let pat = Refaster.toPatterns patternClass |> Seq.find (fun p -> p.Name = "pat") 
     // now assert that the pattern's expression matches this.IntMethod()
-    Assert.That(print pat.Expr, Is.EqualTo("this.IntMeth()"))
+    Assert.That(print pat.Stmt, Is.EqualTo("this.IntMeth()"))
     // TODO: Create a AddThisToAllMemberReferencesVisitor(), and use it here.  Any further unit tests concerning 
     // different kinds of members ought to be against that directly.
 

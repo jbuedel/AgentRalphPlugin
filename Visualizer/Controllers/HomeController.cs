@@ -180,5 +180,10 @@ namespace Visualizer.Controllers
       return JsonConvert.SerializeObject(build(nm.TargetRootNode.ToJson(), nm.TargetFailNode.ToJson().id,
         nm.FailNodePattern.ToJson()));
     }
+
+    public static string MakeTree(Refaster.MatchT nm)
+    {
+      return JsonConvert.SerializeObject(build(nm.MatchedAst.ToJson(), 0, null));
+    }
   }
 }

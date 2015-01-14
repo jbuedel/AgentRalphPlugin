@@ -82,7 +82,7 @@
 <h2>Pattern</h2>
 Name: @Model.Pattern.Name<br/>
 Capture Groups: not done<br/>
-<div id="pattern-tree"><pre>@Model.Pattern.Expr.Print()</pre></div>
+<div id="pattern-tree"><pre>@Model.Pattern.Stmt.Print()</pre></div>
 
 
 <div class="tabs">
@@ -102,7 +102,8 @@ Capture Groups: not done<br/>
         {
           <h2>Match success (@i)</h2>
           var match = ((Refaster.MatchAttempt.Match)attempt).Item;
-          <text>@match</text>
+          <div>Pattern Name (the method the pattern was created from): @match.Name <br/></div>
+          <div id="tree-@i">Ast of the matching INode.</div>
         }
         else
         {
@@ -266,15 +267,21 @@ Capture Groups: not done<br/>
 
       if (attempt.IsNotMatch)
       {
-        var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
+        var nm = ((Refaster.MatchAttempt.NotMatch) attempt).Item;
         @:var json_@i =@Html.Raw(HomeController.MakeTree(nm))
         @:drawFailTree("#tree-@i", json_@i);
-          }
+        }
+      else
+      {
+        var nm = ((Refaster.MatchAttempt.Match) attempt).Item;
+        @:var json_@i =@Html.Raw(HomeController.MakeTree(nm))
+        @:drawFailTree("#tree-@i", json_@i);
+      }
     }
   </script>
 <script>
   $(function() {
-    drawFailTree("#pattern-tree", @Html.Raw(JsonConvert.SerializeObject(Model.Pattern.Expr.ToJson())) );
+    drawFailTree("#pattern-tree", @Html.Raw(JsonConvert.SerializeObject(Model.Pattern.Stmt.ToJson())) );
   });
 </script>
 }

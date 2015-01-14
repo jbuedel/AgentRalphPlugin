@@ -7,22 +7,23 @@ let print (expr:INode) =
   ICSharpCode.NRefactory.INodeExt.Print(expr)
 
 
-type Pattern(Name, Expr, CaptureGroups) =
+type Pattern(Name, Stmt : INode, CaptureGroups) =
   /// The name of the pattern. Always the pattern function name.
   member this.Name = Name
   /// The ast of the expression to match against. Derived from the body of the pattern function.
-  member this.Expr = Expr
+  member this.Stmt = Stmt
   /// A name and type define a CaptureGroup. Derived from the parameters of the pattern function.
   member this.CaptureGroups = CaptureGroups
-  override this.ToString() = sprintf "Name: %s \nExpr : %s" Name (print Expr)
+  override this.ToString() = sprintf "Name: %s \nExpr : %s" Name (print Stmt)
 
 type Coord(p1, p2) =
   member this.Start = p1
   member this.End = p2
 
-type MatchT(name, captures) =
+type MatchT(name, captures, matchedAst) =
   member this.Name = name
   member this.Captures = captures
+  member this.MatchedAst = matchedAst
 //  member this.RepairCoords = coord
 
 type FailT(expr, failNodePattern, failNodeExpr) =
@@ -51,11 +52,7 @@ type PatternMatchVisitor(parms : (string*string) list) =
                                                       | None -> base.VisitIdentifierExpression(pat,obj)
 
 let toPattern (md:MethodDeclaration) : Pattern option =
-  let expr = md.Body.Children.[0]
-  let expr = match expr with 
-             | :? ExpressionStatement as expr -> expr.Expression
-             | :? ReturnStatement as stmt -> stmt.Expression
-             | _                          -> failwithf "Patterns created from type %A are not supported." (expr.GetType())
+  let expr = md.Body
 
   let capgrps = md.Parameters |> Seq.toList|> List.map (fun p -> p.ParameterName, p.TypeReference.ToString()) // ToString() does a decent job of getting a full type name
   let name = md.Name
@@ -66,12 +63,12 @@ let toPatterns (typeDef:TypeDeclaration) =
   seq { for p in patterns do match p with | Some(q) -> yield q | None -> () }
   
 /// Applies the pattern against this single node. 
-let applyPattern (pat:Pattern) exp : MatchAttempt =
+let applyPattern (pat:Pattern) inode : MatchAttempt =
   let visitor = new PatternMatchVisitor(pat.CaptureGroups)
-  let success = pat.Expr.AcceptVisitor(visitor, exp)
+  let success = pat.Stmt.AcceptVisitor(visitor, inode)
   if visitor.Match then
-    Match(MatchT(pat.Name, visitor.CaptureGroups))
-  else NotMatch(FailT(exp, visitor.FailNodeLeft, visitor.FailNodeRight))
+    Match(MatchT(pat.Name, visitor.CaptureGroups, inode))
+  else NotMatch(FailT(inode, visitor.FailNodeLeft, visitor.FailNodeRight))
 
 let rec allSubNodes (node:INode) =
     seq { 
