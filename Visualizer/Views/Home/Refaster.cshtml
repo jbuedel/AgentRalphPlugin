@@ -88,13 +88,13 @@ Capture Groups: not done<br/>
 <div class="tabs">
   <h2>Match Attempts</h2>
   <ul class="tab-links">
-    @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
+    @for (int i = 0; i < Model.MatchAttempts.Count; i++)
     {
       <li class="tab-links @(Model.MatchAttempts[i].IsMatch ? "match-success" : "match-fail") @(i==0?"active":"")"><a href="#match-attempt-@i">Attempt #@i</a></li>
     }
   </ul>
   <div class="tab-content">
-    @for (int i = 0; i < Model.MatchAttempts.Count(); i++)
+    @for (int i = 0; i < Model.MatchAttempts.Count; i++)
     {
       var attempt = Model.MatchAttempts[i];
       <div id="match-attempt-@i" class="tab @(i == 0 ? "active" : "")">
@@ -109,6 +109,7 @@ Capture Groups: not done<br/>
         {
           <h2>Match failure (@i)</h2>
           var nm = ((Refaster.MatchAttempt.NotMatch)attempt).Item;
+          <code>INode: @nm.TargetRootNode.Print()</code>
           <div id="tree-@i"></div>
         }
       </div>
@@ -261,7 +262,7 @@ Capture Groups: not done<br/>
     }
   </script>
   <script>
-    @for (int i = 0;i<Model.MatchAttempts.Count();i++)
+    @for (int i = 0;i<Model.MatchAttempts.Count;i++)
     {
       var attempt = Model.MatchAttempts[i];
 

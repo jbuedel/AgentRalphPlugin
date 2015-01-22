@@ -77,9 +77,17 @@ let rec allSubNodes (node:INode) =
         for n in allSubNodes node do yield n
     }
 
+let getMethods (node:INode) =
+  let visitor = new AgentRalph.AllMethodsFinderVisitor()
+  node.AcceptVisitor(visitor, null) |> ignore
+  visitor.AllMethods 
+
+let applyPatternToMethod (pat:Pattern) (meth:MethodDeclaration) =
+  allSubNodes meth |> Seq.map (applyPattern pat)
+
 /// Applies the pattern against this node and all subnodes.
-let applyPatternG (pat:Pattern) (clazz:TypeDeclaration) : MatchAttempt seq =
-  allSubNodes clazz |> Seq.map (applyPattern pat) 
+let applyPatternToClass (pat:Pattern) (clazz:TypeDeclaration) : MatchAttempt seq =
+  getMethods clazz |> Seq.collect (applyPatternToMethod pat) 
 
 let toReplacement (mtch:MatchT) =
   // convert Match to a function call.  Like foo()

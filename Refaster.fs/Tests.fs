@@ -16,8 +16,8 @@ let getPattern pat =
 let applyPattern (pat:Pattern) exp : MatchAttempt =
   Refaster.applyPattern pat exp
 
-let applyPatternG (pat:Pattern) exp : MatchAttempt seq =
-  Refaster.applyPatternG pat exp |> Seq.choose (fun m -> match m with | Match(m) -> Some(Match(m)) | NotMatch(f) -> None)
+let applyPatternToClass (pat:Pattern) exp : MatchAttempt seq =
+  Refaster.applyPatternToClass pat exp |> Seq.choose (fun m -> match m with | Match(m) -> Some(Match(m)) | NotMatch(f) -> None)
 
 let toExpr code =
   AgentRalph.AstMatchHelper.ParseToE<Expression>(code) 
@@ -93,7 +93,7 @@ type RefasterTests() =
   // Expects there to be exactly one match
   let doApplyPatternToClass pat classText = 
     let clazz = toTypeDef classText
-    let result = applyPatternG pat clazz
+    let result = applyPatternToClass pat clazz
     if Seq.length result > 0 then result 
     else printfn "pattern %A \nnot found in target class \n%A" pat (print clazz)
          failwith "Fail" 
@@ -241,7 +241,7 @@ type CloneCandidateDetectionTests() =
                   | Some(mtch) -> mtch
                   | None       -> failwith "unable to convert to a pattern" 
 
-    let matches =  applyPatternG pattern firstClass
+    let matches =  applyPatternToClass pattern firstClass
     Assert.That(Seq.length matches, Is.GreaterThan(0))
     matches |> Seq.iter (printf "%A")
 
@@ -253,14 +253,15 @@ let public DoCloneCandidateTest testCodeFile =
   if (Seq.head codelines).Contains("Ignore") then Assert.Ignore((Seq.head codelines).Trim('/').Trim().Substring(6))
 
   let ast = toCompilationUnit (String.concat "\r\n" codelines)
-
+// Josh, ignore the method that created the pattern
   let firstClass = getClasses ast |> Seq.head
   let methods = firstClass |> getMethods
   let pattern = match methods |> Seq.find (fun m -> m.Name = "pattern") |> toPattern with
                 | Some(mtch) -> mtch
                 | None       -> failwith "unable to convert to a pattern" 
 
-  let matches =  Refaster.applyPatternG pattern firstClass
+  let matches =  Refaster.applyPatternToClass pattern firstClass
+  let matches = getMethods firstClass |> Seq.filter (fun m -> m.Name <> pattern.Name) |> Seq.collect (fun m -> Refaster.applyPatternToMethod pattern m)
   Assert.That(Seq.length matches, Is.GreaterThan(0))
   matches |> Seq.iter (printf "%A")
   {Name = System.IO.Path.GetFileNameWithoutExtension(testCodeFile); CodeLines = codelines; Pattern = pattern; MatchAttempts = matches}

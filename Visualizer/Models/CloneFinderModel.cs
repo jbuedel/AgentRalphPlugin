@@ -30,7 +30,7 @@ namespace Visualizer.Models
 
     public Refaster.Pattern Pattern { get; set; }
 
-    public List<Refaster.MatchAttempt> MatchAttempts { get; set; }
+    public IList<Refaster.MatchAttempt> MatchAttempts { get; set; }
 
     public string[] CodeLines { get; set; }
 
